@@ -13,7 +13,7 @@ class Products extends CI_Controller {
   {
     // main page with search and stuff
     $results=$this->Product->getall_products();
-    $this->Product->getmain_photo
+    $this->Product->getmain_photo();
     $this->load->view('mainpage', array('products'=>$results));
   }
 
