@@ -14,6 +14,10 @@
 </head>
 
 <body>
+<?php
+	$this->load->view('usernavbar');
+?>
+
 	<div id='space' class='col-lg-12'></div>
 	<div id="title" class="col-lg-offset-1">
 		<a href="">Go Back</a>
