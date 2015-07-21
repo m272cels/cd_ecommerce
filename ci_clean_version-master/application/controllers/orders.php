@@ -21,6 +21,12 @@ class Orders extends CI_Controller {
     // $this->load->view('orders/inventory');
   }
 
+  public function show()
+  {
+    // for admins to view
+    $this->load->view('orders/order');
+  }
+
   public function create()
   {
     // places all items from cart into order
@@ -29,11 +35,6 @@ class Orders extends CI_Controller {
   public function update_status()
   {
 
-  }
-
-  public function display()
-  {
-    // for admins to view
   }
 }
 

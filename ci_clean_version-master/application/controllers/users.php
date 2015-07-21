@@ -21,7 +21,7 @@ class Users extends CI_Controller {
 
   public function register()
   {
-    // create a cart for new users in the orders controller
+
   }
 
   public function logout()

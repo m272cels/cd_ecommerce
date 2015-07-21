@@ -11,17 +11,15 @@ class Carts extends CI_Controller {
 
   public function index()
   {
-    // $this->load->view('carts/index');
-  }
-
-  public function create()
-  {
-    // invoked at user registration
+    $all['cart_items'] = $this->Order->cart;
+    $this->load->view('carts/cart', $all);
   }
 
   public function add()
   {
-    // adds one item
+    $this->session->userdata('user_id');
+    $this->input->post();
+    $this->Order->insert_into_cart();
   }
 
   public function delete()
@@ -37,11 +35,6 @@ class Carts extends CI_Controller {
   public function clear()
   {
     // removes all items from a cart
-  }
-
-  public function display()
-  {
-
   }
 }
 

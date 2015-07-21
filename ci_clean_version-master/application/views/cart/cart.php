@@ -19,6 +19,18 @@
                         </tr>
                     </thead>
                     <tbody>
+<?php
+    foreach ($cart_items as $item) {
+?>
+                        <tr>
+                            <td><?= $item['name'] ?></td>
+                            <td><?= $item['price'] ?></td>
+                            <td><?= $item['quantity'] ?> | <a href=""></a> | <a href="">delete</a></td>
+                            <td><?= $item['total'] ?></td>
+                        </tr>
+<?php                
+    }
+?>
                     </tbody>
                 </table>
             </div>
