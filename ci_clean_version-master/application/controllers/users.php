@@ -54,10 +54,5 @@ class Users extends CI_Controller {
       redirect('/');
     }
   }
-
-  public function logout()
-  {
-
-  }
 }
 
