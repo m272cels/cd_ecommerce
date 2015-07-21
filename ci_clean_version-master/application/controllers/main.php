@@ -10,7 +10,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('mainpage');
+		$this->load->view('index');
 	}
 	public function register()
 	{
@@ -20,7 +20,22 @@ class Main extends CI_Controller {
 	{
 		$this->load->view('login');
 	}
-
+	public function mainpage()
+	{
+	$this->load->view('mainpage');
+	}
+	public function products()
+	{
+	$this->load->view('products');
+	}
+	public function show()
+	{
+	$this->load->view('show');
+	}	
+	public function add()
+	{
+	$this->load->view('add');
+	}
 }
 
 //end of main controller
