@@ -17,26 +17,6 @@ class Main extends CI_Controller {
 	{
 		$this->load->view('register');
 	}
-	public function login()
-	{
-		$this->load->view('login');
-	}
-	public function mainpage()
-	{
-	$this->load->view('mainpage');
-	}
-	public function products()
-	{
-	$this->load->view('products');
-	}
-	public function show()
-	{
-	$this->load->view('show');
-	}
-	public function add()
-	{
-	$this->load->view('add');
-	}
 }
 
 //end of main controller

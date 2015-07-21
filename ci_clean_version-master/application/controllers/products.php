@@ -13,7 +13,7 @@ class Products extends CI_Controller {
   public function index()
   {
     // main page with search and stuff
-    // $this->load->view('products/index');
+    $this->load->view('mainpage');
   }
 
   public function show($p_id)

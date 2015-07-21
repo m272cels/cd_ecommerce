@@ -13,9 +13,48 @@ class Session extends CI_Model {
     public function getuser_byemail($email) {
         return $this->db->query("SELECT * FROM users WHERE email = ?", array($email))->row_array();
     }
+    public function validate_reg($post)
+    {
+        var_dump($this->input->post());
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Name", "trim|required");
+        $this->form_validation->set_rules("email", "Email", "trim|required|is_unique[users.email]");
+        $this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]|matches[confirm_password]");
+        $this->form_validation->set_rules("alias", "Alias", "trim|required|is_unique[users.alias]");
+        if($this->form_validation->run() === FALSE)
+        {
+            $this->session->set_flashdata('errors' , validation_errors());
+            return 0;
+        }
+        else
+        {
+            return 1;
+        } 
+    }
+    public function register($post)
+    {
 
-    // validate login
-
-    // validate registration
-
+        $salt = bin2hex(openssl_random_pseudo_bytes(22));
+        $encrypted_password = md5($this->input->post('password') . '' . $salt);
+        $query = "INSERT INTO users (name, email, password, salt, alias, created_at) 
+        VALUES (?,?,?,?,?, NOW())";
+        $values=array('name'=>$this->input->post('name'),'email'=>$this->input->post('email'),'password'=>$encrypted_password,'salt'=>$salt,'alias'=>$this->input->post('alias'));
+        $this->db->query($query, $values);
+        $this->session->set_flashdata('success' , "Success! Please log in!");
+    }
+    public function validate_log()
+    {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("email", "Email", "trim|required");
+        $this->form_validation->set_rules("password", "Password", "trim|required");
+        if($this->form_validation->run() === FALSE)
+        {
+            $this->session->set_flashdata('errors' , validation_errors());
+            return 0;
+        }
+        else
+        {
+            return 1;
+        } 
+    }
 }
