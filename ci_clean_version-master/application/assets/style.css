@@ -1,0 +1,30 @@
+.col-centered {
+    margin: 0px auto;
+}
+
+#slash {
+    font-size: 1.8em;
+}
+#order-info {
+    border: 1px solid silver;
+    width: 300px;
+}
+#order-status {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid silver;
+}
+#order-final {
+    display: inline-block;
+    border: 1px solid silver;
+    margin-left: 300px;
+}
+
+#page_links li{
+    display: inline-block;
+}
+
+.categories{
+    width: 100px;
+    display: block;
+}
