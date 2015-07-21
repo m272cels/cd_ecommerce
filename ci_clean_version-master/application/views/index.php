@@ -15,10 +15,20 @@
 </head>
 
 <body>
+<?php
+ if($this->session->flashdata("errors")) 
+ {
+  echo $this->session->flashdata("errors");
+ }
+ if($this->session->flashdata("success")) 
+ {
+  echo $this->session->flashdata("success");
+ }
+?>	
 	<div id='space' class='col-lg-12'></div>
 
 	<div id='login' class='col-lg-4 col-lg-offset-4'>
-		<form action='/registration' method='post'>
+		<form action='/users/login' method='post'>
 			<h3>Log-in</h3>
 			<p>Email</p>
 			<input type='email' name='email'>
@@ -26,7 +36,7 @@
 			<input type='password' name='password'>
 			<button>Log-in</button>
 		</form>
-		<a href="/registration">Not a user? Register here</a>
+		<a href="/register">Not a user? Register here</a>
 	</div>
 </body>
 </html>
