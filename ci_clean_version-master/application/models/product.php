@@ -32,7 +32,7 @@ class Product extends CI_Model {
             GROUP BY p.id
             ORDER BY sold DESC")->result_array();
     }
-
+    // tested
     public function getproduct_byid($id) {
         return $this->db->query("SELECT * FROM products as p where p.id = ?", array($id))->row_array();
     }
@@ -81,17 +81,20 @@ class Product extends CI_Model {
     }
 
     // --------------images queries
+    // tested
     public function getmain_image($id) {
         return $this->db->query("SELECT i.source, i.alt
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             WHERE p.id = ?", array($id))->row_array();
     }
+
+    // tested
     public function getother_images($id) {
-        return $this->db->query("SELECT i.source, i.alt
-            FROM photos as i
-            WHERE p.id = ?
-            AND i.id NOT IN (SELECT pr.main_photo_id from products pr
+        return $this->db->query("SELECT p.source, p.alt
+            FROM photos as p
+            WHERE p.product_id = ?
+            AND p.id NOT IN (SELECT pr.main_photo_id from products pr
             WHERE pr.id = ?)", array($id['product'], $id['main_photo_id']))->row_array();
     }
 
