@@ -97,6 +97,10 @@ class Product extends CI_Model {
             AND p.id NOT IN (SELECT pr.main_photo_id from products pr
             WHERE pr.id = ?)", array($id['product'], $id['main_photo_id']))->row_array();
     }
+    public function get_carosel_images()
+    {
+
+    }
 
     public function updatemain($id) {
         return $this->db->query("UPDATE products SET main_photo_id = ? WHERE id = ?", array($id['main_photo_id'], $id['p_id']));
