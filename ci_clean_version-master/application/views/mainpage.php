@@ -22,6 +22,7 @@
 <body>
 <?php
 $this->load->view('usernavbar');
+var_dump($products);
 ?>
 
 

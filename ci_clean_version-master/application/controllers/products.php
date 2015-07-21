@@ -6,14 +6,17 @@ class Products extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Product');
-    $this->load->model("Order");
-    // $this->output->enable_profiler();
+
+    $this->output->enable_profiler();
+
   }
 
   public function index()
   {
     // main page with search and stuff
-    $this->load->view('mainpage');
+    $results=$this->Product->getall_products();
+    $this->Product->getmain_photo
+    $this->load->view('mainpage', array('products'=>$results));
   }
 
   public function show($p_id)
