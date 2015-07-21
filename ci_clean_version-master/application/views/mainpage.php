@@ -25,7 +25,7 @@ $this->load->view('usernavbar');
 ?>
 
 
-	<div class='col-lg-3 col-lg-offset-1'>
+	<div class='col-sm-3 col-sm-offset-1'>
     		<button type="button" class="list-group-item"><span class="badge">25</span>Cras justo odio</button>
 			<button type="button" class="list-group-item"><span class="badge">22</span>Dapibus ac facilisis in</button>
 			<button type="button" class="list-group-item"><span class="badge">17</span>Morbi leo risus</button>
@@ -41,7 +41,7 @@ $this->load->view('usernavbar');
 
 
 
-	<div class='col-lg-6 col-lg-offset-1'>
+	<div class='col-sm-6 col-sm-offset-1'>
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
 			<ol class="carousel-indicators">
