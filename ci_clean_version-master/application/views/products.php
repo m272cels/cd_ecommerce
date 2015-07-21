@@ -42,7 +42,7 @@
 	<div class='container'>
 		<div class='row'>
 	<div class='col s12'>
-		<form class='col s5' action='' method='post'> 
+		<form class='col s5' action='' method='post'>
 			<div class='input-field'>
 				<i class='material-icons prefix'>search</i>
 				<input id='search' type='text' name='search'>
@@ -92,7 +92,7 @@
 	      <label for='icon_prefix'>Product Name</label>
 	      <input id='icon_prefix' type='text' name='name'>
  	</div>
-      
+
     <div class='input-field'>
     	<i class='material-icons prefix'>description</i>
     	<textarea class='materialize-textarea' id='description'></textarea>

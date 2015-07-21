@@ -8,4 +8,6 @@ $route['mainpage'] = "/main/mainpage";
 $route['products'] = "/main/products";
 $route['show'] = "/main/show";
 $route['add'] = "/main/add";
+$route['showproduct/(:any)'] = "products/show/$1";
+$route['addproduct/(:any)'] = "products/add/$1";
 //end of routes.php

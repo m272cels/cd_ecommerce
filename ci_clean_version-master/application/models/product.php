@@ -83,7 +83,7 @@ class Product extends CI_Model {
     // --------------images queries
     // tested
     public function getmain_image($id) {
-        return $this->db->query("SELECT i.source, i.alt
+        return $this->db->query("SELECT i.source, i.alt, i.id
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             WHERE p.id = ?", array($id))->row_array();
@@ -95,7 +95,7 @@ class Product extends CI_Model {
             FROM photos as p
             WHERE p.product_id = ?
             AND p.id NOT IN (SELECT pr.main_photo_id from products pr
-            WHERE pr.id = ?)", array($id['product'], $id['main_photo_id']))->row_array();
+            WHERE pr.id = ?)", array($id['product'], $id['main_photo_id']))->result_array();
     }
 
     public function updatemain($id) {

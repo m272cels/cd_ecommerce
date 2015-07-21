@@ -1,0 +1,27 @@
+#main_pic {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+#main_pic img {
+    width: auto;
+    height: 200px;
+}
+
+.other_images {
+    width: 70px;
+    height: 70px;
+    margin: 10px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid black;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.other_images img {
+
+    max-width: 100%;
+    height: 70px;
+}

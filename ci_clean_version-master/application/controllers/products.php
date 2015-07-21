@@ -6,6 +6,7 @@ class Products extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Product');
+    $this->load->model("Order");
     // $this->output->enable_profiler();
   }
 
@@ -17,6 +18,14 @@ class Products extends CI_Controller {
 
   public function show($p_id)
   {
+    $product = $this->Product->getproduct_byid($p_id);
+    $main_pic = $this->Product->getmain_image($p_id);
+    $other_pics = array('product' => $p_id, 'main_photo_id' => $main_pic['id']);
+    $pics = $this->Product->getother_images($other_pics);
+    var_dump($main_pic);
+    var_dump($pics);
+    $this->load->view("show", array("product" => $product, "main_img" => $main_pic, "images" => $pics));
+    //$this->load->view("");
     // details page for an individual product
     // $info = $this->Product->show($id);
     // $this->load->view('products/show', $info);
@@ -24,9 +33,14 @@ class Products extends CI_Controller {
 
 
 
-  public function add()
+  public function add($id)
   {
-    // adds a new product
+    $cart = array("user_id" => $this->session->userdata("user_data"),
+        "product_id" => $id, "quantity" => $this->input->post("quantity"));
+    $this->Order->insert_into_cart($cart);
+    // var_dump($id);
+    // var_dump($this->input->post("quantity"));
+    // die();
   }
 
   public function delete($p_id)

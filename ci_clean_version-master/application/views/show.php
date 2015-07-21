@@ -5,6 +5,7 @@
 	<title>Login and Registration</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../assets/style.css">
 	<style type="text/css">
 	#space{
 		height: 75px;
@@ -16,25 +17,32 @@
 	<div id='space' class='col-lg-12'></div>
 	<div id="title" class="col-lg-offset-1">
 		<a href="">Go Back</a>
-		<h2>Black Belt for Staff (product name)</h2>
+		<h2><?=$product['name']?></h2>
 	</div>
 	<div id="pictures" class="col-lg-3 col-lg-offset-1">
-		<img src="" alt="main picture">
+		<div id="main_pic">
+			<img src="<?="/assets/".$main_img['source']?>" alt="main picture">
+		</div>
+
 		<div id="small-pics">
-			<img src="" alt="smallpics">
-			<img src="" alt="smallpics">
-			<img src="" alt="smallpics">
-			<img src="" alt="smallpics">
-			<img src="" alt="smallpics">
-			<img src="" alt="smallpics">
+<?php
+			foreach ($images as $img)
+			{ ?>
+			<div class="other_images">
+				<img src="<?="/assets/".$img['source']?>" alt="<?=$img['alt']?>">
+
+			</div>
+<?php			}
+
+?>
 		</div>
 	</div>
 	<div id="description" class="col-lg-7">
-		<p>Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...Description about the product...</p>
-		<p>Quantity in stock: 9001</p>
-		<form action="" method="post">
+		<p><?=$product['description']?></p>
+		<p>Quantity in stock: <?=$product['count_in_stock']?></p>
+		<form action="/addproduct/<?=$product['id']?>" method="post">
 			<input type="number" name="quantity">
-			<button>Buy</button>
+			<input type="submit" value="Buy">
 		</form>
 	</div>
 	<div id="similar" class="col-lg-10 col-lg-offset-1">

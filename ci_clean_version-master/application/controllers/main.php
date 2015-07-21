@@ -10,7 +10,8 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('index');
+		redirect('/showproduct/1');
+		//$this->load->view('show');
 	}
 	public function register()
 	{
@@ -31,7 +32,7 @@ class Main extends CI_Controller {
 	public function show()
 	{
 	$this->load->view('show');
-	}	
+	}
 	public function add()
 	{
 	$this->load->view('add');
