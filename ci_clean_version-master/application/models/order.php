@@ -10,7 +10,7 @@ class Order extends CI_Model {
 	}
 
 	public function show_order_items($id) {
-		return $this->db->query("SELECT p.id, p.name, p.price, oi.quantity, p.price*ci.quantity as total
+		return $this->db->query("SELECT p.id, p.name, p.price, oi.quantity, p.price*oi.quantity as total
 			FROM orders as o
 			LEFT JOIN order_items as oi on o.id = oi.order_id
 			LEFT JOIN products as p on p.id = oi.product_id
@@ -19,7 +19,7 @@ class Order extends CI_Model {
 
 	public function show_order_info($id)
 	{
-		return $this->db->query("SELECT o.status, o.total
+		return $this->db->query("SELECT o.id, o.status, o.total
 			FROM orders as o
 			WHERE o.id = ?", array($id))->row_array();
 	}
@@ -51,17 +51,17 @@ class Order extends CI_Model {
 			WHERE id = ? ", array($id['status'], $id['order_id']))->row_array();
 	}
 
-	public function getshipping($shipping) {
+	public function getshipping($id) {
 		return $this->db->query("SELECT mo.first_name, CONCAT(mo.address, ' ', mo.address2) as address,
 			mo.city, mo.state, mo.zipcode FROM orders as o
-			LEFT JOIN mailing_info as mo on o.shipping_id = mo.id WHERE o.id = ?", array())->row_array();
+			LEFT JOIN mailing_info as mo on o.shipping_id = mo.id WHERE o.id = ?", array($id))->row_array();
 	}
 
-	public function getbilling($billing) {
+	public function getbilling($id) {
 
 		return $this->db->query("SELECT mo.first_name, CONCAT(mo.address, ' ', mo.address2) as address,
 			mo.city, mo.state, mo.zipcode FROM orders as o
-			LEFT JOIN mailing_info as mo on o.shipping_id = mo.id WHERE o.id = ?", array())->row_array();
+			LEFT JOIN mailing_info as mo on o.billing_id = mo.id WHERE o.id = ?", array($id))->row_array();
 	}
 
 	public function addshipping($shipping) {

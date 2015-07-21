@@ -6,7 +6,7 @@ class Orders extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Order');
-    // $this->output->enable_profiler();
+    $this->output->enable_profiler();
   }
 
   public function index()
@@ -21,10 +21,14 @@ class Orders extends CI_Controller {
     // $this->load->view('orders/inventory');
   }
 
-  public function show()
+  public function show($id)
   {
-    // for admins to view
-    $this->load->view('orders/order');
+    // for admins to view one specific order
+    $all['order_info'] = $this->Order->show_order_info($id);
+    $all['order_items'] = $this->Order->show_order_items($id);
+    $all['shipping_info'] = $this->Order->getshipping($id);
+    $all['billing_info'] = $this->Order->getbilling($id);
+    $this->load->view('orders/order', $all);
   }
 
   public function create()
