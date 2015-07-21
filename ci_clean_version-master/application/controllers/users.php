@@ -29,7 +29,7 @@ class Users extends CI_Controller {
         $encrypted_password=md5($password. '' .$user['salt']);
         if($encrypted_password==$user['password'])
         {
-          $this->session->set_userdata('user' , array('id'=>$user['id'],'email'=>$user['email'], 'name'=>$user['name']));
+          $this->session->set_userdata('user' , array('id'=>$user['id'],'email'=>$user['email']));
          redirect('/products'); 
         }
         else
