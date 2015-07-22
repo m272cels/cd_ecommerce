@@ -11,8 +11,9 @@ class Carts extends CI_Controller {
 
   public function index()
   {
-    $all['cart_items'] = $this->Order->cart;
-    $this->load->view('carts/cart', $all);
+    $cart = $this->Order->show_cart('1');
+    $cartCount = $this->session->userdata('cart');
+    $this->load->view('cart/cart', array("cart_items" => $cart, 'cart' => $cartCount));
   }
 
   public function add()
@@ -22,9 +23,13 @@ class Carts extends CI_Controller {
     $this->Order->insert_into_cart();
   }
 
-  public function delete()
+  public function delete($id)
   {
-    // removes one item
+    $product_delete = array("user_id" => '1', "product_id" => $id);
+    $currentCart = $this->session->userdata('cart');
+    $this->session->set_userdata('cart', $currentCart - 1);
+    $this->Order->delete_from_cart($product_delete);
+    redirect("/cart");
   }
 
   public function update()

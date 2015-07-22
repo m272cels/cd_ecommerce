@@ -6,7 +6,7 @@ class Products extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Product');
-
+    $this->load->model('Order');
     $this->output->enable_profiler();
 
   }
@@ -15,7 +15,7 @@ class Products extends CI_Controller {
   {
     // main page with search and stuff
     $results=$this->Product->getall_products();
-    $this->Product->getmain_photo
+    //$this->Product->getmain_photo
     $this->load->view('mainpage', array('products'=>$results));
   }
 
@@ -25,9 +25,8 @@ class Products extends CI_Controller {
     $main_pic = $this->Product->getmain_image($p_id);
     $other_pics = array('product' => $p_id, 'main_photo_id' => $main_pic['id']);
     $pics = $this->Product->getother_images($other_pics);
-    var_dump($main_pic);
-    var_dump($pics);
-    $this->load->view("show", array("product" => $product, "main_img" => $main_pic, "images" => $pics));
+    $cartcount = $this->session->userdata('cart');
+    $this->load->view("show", array("product" => $product, "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount));
     //$this->load->view("");
     // details page for an individual product
     // $info = $this->Product->show($id);
@@ -38,10 +37,13 @@ class Products extends CI_Controller {
 
   public function add($id)
   {
-    $cart = array("user_id" => $this->session->userdata("user_data"),
+    $cart = array("user_id" => '1',
         "product_id" => $id, "quantity" => $this->input->post("quantity"));
     $this->Order->insert_into_cart($cart);
-    // var_dump($id);
+    $currentcart = $this->session->userdata('cart');
+    $this->session->set_userdata('cart', $currentcart + 1);
+    $this->show($id);
+    //redirect('/showproduct/'.$id);
     // var_dump($this->input->post("quantity"));
     // die();
   }

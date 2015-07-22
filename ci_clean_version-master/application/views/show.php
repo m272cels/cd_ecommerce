@@ -15,7 +15,7 @@
 
 <body>
 <?php
-	$this->load->view('usernavbar');
+	$this->load->view('usernavbar', array('cart' => $cart));
 ?>
 
 	<div id='space' class='col-lg-12'></div>

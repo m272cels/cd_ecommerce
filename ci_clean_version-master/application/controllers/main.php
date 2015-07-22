@@ -10,7 +10,12 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		redirect('/showproduct/1');
+		if(!$this->session->userdata('cart'))
+		{
+			$this->session->set_userdata('cart', 0);
+		}
+
+		redirect('/showproduct/2');
 		//$this->load->view('show');
 	}
 	public function register()
