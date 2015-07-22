@@ -11,7 +11,13 @@
         $(document).ready(function() {
             $('#myModal').on('shown.bs.modal', function () {
               $('#myInput').focus();
-            })
+            });
+            $('button[data-target="#myModal"]').on('click', function () {
+                var qty = $(this).siblings('.qty').text();
+                $('#myInput').val(qty);
+                var p_id = $(this).siblings('input[type="hidden"]').val();
+                $('#p_id').val(p_id);
+            });
             $('#checkbox').change(function() {
                 if (this.checked) {
                     $("#first_name_bill").val($("#first_name").val());
@@ -30,14 +36,16 @@
                     $("#state_bill").val('');
                     $("#zip_bill").val('');
                 }
-            })
+            });
+
+
         })
 
     </script>
 </head>
 <body>
 <?php
-    $this->load->view('usernavbar', array('cart' => $cart));
+    $this->load->view('partials/usernavbar', array('cart' => $cart));
 ?>
     <div class="container">
         <div class="row">
@@ -61,8 +69,8 @@ var_dump($cart_items);
                         <tr>
                             <td><?= $item['name'] ?></td>
                             <td>$<?= $item['price'] ?></td>
-                            <td><?= $item['quantity'] ?> | <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Update</button> |
-
+                            <td><span class="qty"><?= $item['quantity'] ?></span> | <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Update</button> |
+                            <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
                                     <a href="/delete/<?=$item['id']?>">delete</a></td>
                             <td>$<?= $item['total'] ?></td>
                         </tr>
@@ -82,7 +90,7 @@ var_dump($cart_items);
         </div>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
-                <form method="post" action="">
+                <form method="post" action="products">
                     <input type="submit" value="Continue Shopping">
                 </form>
             </div>
@@ -233,7 +241,7 @@ var_dump($cart_items);
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -242,12 +250,13 @@ var_dump($cart_items);
       </div>
       <div class="modal-body">
         <form id="update" action="/updatecart/" method="post">
-            <input type="number" name="quantity">
+            <input id="p_id" type="hidden" name="product_id">
+            <input id="myInput" type="number" name="quantity">
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" form="update" class="btn btn-primary">Save changes</button>
+        <button form="update" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
