@@ -16,7 +16,7 @@
 
 <body>
 <?php
- if($this->session->flashdata("errors")) 
+ if($this->session->flashdata("errors"))
  {
   echo $this->session->flashdata("errors");
  }
@@ -28,7 +28,7 @@
 		<form action='/users/register' method='post'>
 			<h3>Registration</h3>
 			<p>Name</p>
-			<input type='text' name='name'>			
+			<input type='text' name='name'>
 			<p>Email</p>
 			<input type='email' name='email'>
 			<p>Alias</p>
