@@ -17,24 +17,38 @@
 		border-radius: 5px;
 		height: 360px;
 	}
+	.active{
+  width: auto;
+  height: 350px;
+  max-height: 350px;
+
+	}
+	.list{
+  height: 300px;
+  max-height: 300px;
+
+	}
 	</style>
 </head>
 <body>
 <?php
 $this->load->view('usernavbar');
-var_dump($products);
 ?>
 
 
 	<div class='col-sm-3 col-sm-offset-1'>
-    		<button type="button" class="list-group-item"><span class="badge">25</span>Cras justo odio</button>
-			<button type="button" class="list-group-item"><span class="badge">22</span>Dapibus ac facilisis in</button>
-			<button type="button" class="list-group-item"><span class="badge">17</span>Morbi leo risus</button>
-			<button type="button" class="list-group-item"><span class="badge">12</span>Porta ac consectetur ac</button>
-			<button type="button" class="list-group-item"><span class="badge">8</span>Vestibulum at eros</button>
-			<button type="button" class="list-group-item"><span class="badge">8</span>Vestibulum at eros</button>
-			<button type="button" class="list-group-item"><span class="badge">8</span>Vestibulum at eros</button>
-			<button type="button" class="list-group-item"><span class="badge">8</span>Vestibulum at eros</button>
+<?php
+	$lamps=array();
+	foreach($products as $product)
+	{
+		if($product['category']=='Lamps')
+		{
+			$lamps[]=$product['category'];
+		}
+	}
+	$count=count($lamps);
+	echo "<button type='button' class='list-group-item'><span class='badge'>$count</span>Lamps</button>";
+?>
 			<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 			<a href="">Show More</a>
 		</div>
@@ -54,21 +68,21 @@ var_dump($products);
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner" role="listbox">
 		    <div class="item active">
-		      <img height='300' width='605' src="http://41.media.tumblr.com/f2bc71b199760a69cfb138e28e5e254d/tumblr_my7g0wvn0I1r6w81vo1_500.png" alt="...">
+		      <img height='300' width='605' src="../assets/<?=$carosel[0]['source']?>" alt="...">
 		      <div class="carousel-caption">
-		        This is hobbit swag 1
+		        Twin lamps fsho
 		      </div>
 		    </div>
 		    <div class="item">
-		      <img height='300' width='605'  src="https://babbleon5.files.wordpress.com/2012/07/hobbit.jpg" alt="...">
+		      <img height='300' width='605'  src="../assets/<?=$carosel[1]['source']?>" alt="...">
 		      <div class="carousel-caption">
-		        This is hobbit swag 2
+		        Leaves and flowers all up in this swag
 		      </div>
 		    </div>
 		    <div class="item">
-		      <img height='300' width='605' src="http://33.media.tumblr.com/1b1d510db32585cec31ec3bad9f91553/tumblr_mz5acetFVi1togp1no1_500.gif" alt="...">
+		      <img height='300' width='605' src="../assets/<?=$carosel[2]['source']?>" alt="...">
 		      <div class="carousel-caption">
-		        This is hobbit swag 3
+		        One awesome lamp
 		      </div>
 		    </div>
 		  </div>
@@ -83,6 +97,15 @@ var_dump($products);
 		    <span class="sr-only">Next</span>
 		  </a>
 		</div>
+	</div>
+	<div class='col-sm-10 col-sm-offset-1'>
+<?php
+	foreach($images as $image)
+	{
+		echo "<img class='col-sm-4 list' src='../assets/{$image['source']}'>";
+	}
+?>
+
 	</div>
 
 

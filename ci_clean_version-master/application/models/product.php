@@ -7,7 +7,7 @@ class Product extends CI_Model {
     }
 
     public function getall_products() {
-        return $this->db->query("SELECT * FROM products")->result_array();
+        return $this->db->query("SELECT * FROM products left join categories on products.category_id = categories.id")->result_array();
     }
 
     public function getproducts_byprice() {
@@ -88,7 +88,12 @@ class Product extends CI_Model {
             LEFT JOIN photos as i on p.main_photo_id = i.id
             WHERE p.id = ?", array($id))->row_array();
     }
-
+    public function get_all_main_images() {
+        return $this->db->query("SELECT i.source, i.alt
+            FROM products as p
+            LEFT JOIN photos as i on p.main_photo_id = i.id
+            ", array())->result_array();
+    }
     // tested
     public function getother_images($id) {
         return $this->db->query("SELECT p.source, p.alt
@@ -99,7 +104,7 @@ class Product extends CI_Model {
     }
     public function get_carosel_images()
     {
-
+        return $this->db->query("Select p.source, p.alt from photos as p where p.product_id = 2")->result_array();
     }
 
     public function updatemain($id) {
