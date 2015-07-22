@@ -17,11 +17,16 @@ class Order extends CI_Model {
 			WHERE o.id = ?", array($id))->result_array();
 	}
 
-	public function show_order_info($id)
-	{
+	public function show_order_info($id) {
 		return $this->db->query("SELECT o.id, o.status, o.total
 			FROM orders as o
 			WHERE o.id = ?", array($id))->row_array();
+	}
+
+	public function get_cart_by_id($id) {
+		return $this->db->query("SELECT product_id, quantity
+			FROM cart_items
+			WHERE user_id = ?", array($id))->result_array();
 	}
 
 	public function show_cart($id) {
@@ -46,6 +51,21 @@ class Order extends CI_Model {
 		return $this->db->query("DELETE FROM cart_items WHERE product_id = ?
 			AND user_id = ?", array($product['product_id'], $product['user_id']));
 	}
+
+	public function clear_cart($id) {
+		return $this->db->query("DELETE FROM cart_items WHERE user_id = ?", array($id));
+	}
+
+	public function create_order($info) {
+		return $this->db->insert_id($this->db->query("INSERT INTO orders (status, created_at, updated_at, shipping_id, billing_id, user_id)
+			VALUES ('Order in process',NOW(),NOW(),?,?,?,?)", array($info['shipping_id'], $info['billing_id'], $info['user_id'])));
+	}
+
+	public function insert_into_order($item) {
+		return $this->db->query("INSERT INTO order_items (product_id, order_id, quantity, created_at, updated_at)
+			VALUES (?,?,?,NOW(), NOW())", array($item['product_id'], $item['order_id'], $item['quantity']));
+	}
+
 	public function update_order_status($id) {
 		return $this->db->query("UPDATE order SET status = ?
 			WHERE id = ? ", array($id['status'], $id['order_id']))->row_array();
