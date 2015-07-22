@@ -23,6 +23,16 @@ class Order extends CI_Model {
 			WHERE o.id = ?", array($id))->row_array();
 	}
 
+    public function show_order_with_user_info() {
+        return $this->db->query("SELECT o.id, u.first_name, o.created_at, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ' ', mo.state, ' ', mo.zipcode)
+            o.total, o.status
+            FROM orders as o
+            LEFT JOIN mailing_info as mo
+            ON o.billing_id = mo.id
+            LEFT JOIN users as u
+            ON o.user_id = 1")->results_array();
+    }
+
 	public function get_cart_by_id($id) {
 		return $this->db->query("SELECT product_id, quantity
 			FROM cart_items

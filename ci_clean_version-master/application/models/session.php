@@ -15,7 +15,7 @@ class Session extends CI_Model {
     }
     public function validate_reg($post)
     {
-        var_dump($this->input->post());
+        //var_dump($this->input->post());
         $this->load->library("form_validation");
         $this->form_validation->set_rules("email", "Email", "trim|required|is_unique[users.email]");
         $this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]|matches[confirm_password]");
@@ -27,14 +27,14 @@ class Session extends CI_Model {
         else
         {
             return 1;
-        } 
+        }
     }
     public function register($post)
     {
 
         $salt = bin2hex(openssl_random_pseudo_bytes(22));
         $encrypted_password = md5($this->input->post('password') . '' . $salt);
-        $query = "INSERT INTO users (email, password, salt, created_at) 
+        $query = "INSERT INTO users (email, password, salt, created_at)
         VALUES (?,?,?, NOW())";
         $values=array('email'=>$this->input->post('email'),'password'=>$encrypted_password,'salt'=>$salt);
         $this->db->query($query, $values);
@@ -53,6 +53,6 @@ class Session extends CI_Model {
         else
         {
             return 1;
-        } 
+        }
     }
 }

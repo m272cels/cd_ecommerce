@@ -12,7 +12,7 @@ class Orders extends CI_Controller {
   public function index()
   {
     // for admins to view all orders
-    // $this->load->view('orders/index');
+    $this->load->view('orders/dashboard');
   }
 
   public function inventory()
@@ -57,8 +57,6 @@ class Orders extends CI_Controller {
     // place all items from cart into order
     $cart = $this->Order->get_cart_by_id($user_id);
     foreach ($cart as $item) {
-      var_dump($item);
-      die();
       $item['order_id'] = $order_id;
       //$this->Order->insert_into_order()
     }
