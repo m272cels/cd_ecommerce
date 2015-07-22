@@ -34,8 +34,6 @@
 <?php
 $this->load->view('usernavbar');
 ?>
-
-
 	<div class='col-sm-3 col-sm-offset-1'>
 <?php
 	$lamps=array();

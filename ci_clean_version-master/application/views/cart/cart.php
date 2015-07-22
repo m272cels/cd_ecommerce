@@ -75,7 +75,9 @@ var_dump($cart_items);
         </div>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
-                <p>Total: $<?=$total?></p>
+                <p>Subtotal: $<?=$total?></p>
+                <p>Shipping: $1</p>
+                <p id="total">Total: $<?=$total+1?></p>
             </div>
         </div>
         <div class="row">
@@ -88,7 +90,7 @@ var_dump($cart_items);
         <div class="row">
             <div class="col-sm-6 col-sm-offset-1">
                 <h2>Shipping Information</h2>
-                <form class="form-horizontal" role="form" action="" method="post">
+                <form class="form-horizontal" role="form" action="/addorder/<?=$total+1?>" method="post">
                     <div class="form-group">
                         <label class="control-label col-sm-3">First Name:</label>
                         <div class="col-sm-9">

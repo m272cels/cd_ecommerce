@@ -39,26 +39,32 @@ class Orders extends CI_Controller {
       'add2' => $this->input->post('address2_bill'), 'city' =>$this->input->post('city_bill'), 'state' => $this->input->post('state_bill'),
       'zip' => $this->input->post('zip_bill'));
     $ship_id = $this->Order->add_address($shipping_info);
-    $bill_id = $this->Order->add_address($bill_info);
+    $bill_id = $this->Order->add_address($billing_info);
+    return array('shipping_id' => $ship_id, 'billing_id' => $bill_id);
   }
 
-  public function create()
+  public function create($total)
   {
     // places all items from cart into order
     $user_id = $this->session->userdata('user_id');
     // create shipping/billing
-    $info = $this->Order->insertAddresses();
-    $info['user_id'] = $user_id;
+    $info = $this->insertAddresses();
+    //$info['user_id'] = $user_id;
+    $info['user_id'] = '1';
+    $info['total'] = $total;
     // create new order
     $order_id = $this->Order->create_order($info);
     // place all items from cart into order
     $cart = $this->Order->get_cart_by_id($user_id);
     foreach ($cart as $item) {
+      var_dump($item);
+      die();
       $item['order_id'] = $order_id;
-      $this->Order->insert_into_order()
+      //$this->Order->insert_into_order()
     }
     // clear the user's cart
-    $this->Order->clear_cart($user_id);
+    $this->Order->clear_cart('1');
+    $this->session->set_userdata('cart', 0);
     redirect('/');
 
   }
