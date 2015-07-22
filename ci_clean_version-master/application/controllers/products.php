@@ -19,7 +19,7 @@ class Products extends CI_Controller {
     $carosel=$this->Product->get_carosel_images();
     $cartCount = $this->session->userdata('cart');
     $products=$this->Product->getall_products();
-    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'cart' => $cartCount));
+    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'categories' => $categories, 'cart' => $cartCount));
   }
   public function show($p_id)
   {

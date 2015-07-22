@@ -10,7 +10,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
       </button>
-      <a class="navbar-brand" href="#">Jimmy Co.</a>
+      <a class="navbar-brand" href="/products">Jimmy Co.</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <form action='/users/search' method='post' class="navbar-form navbar-left" role="search">

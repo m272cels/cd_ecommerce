@@ -93,7 +93,7 @@ class Product extends CI_Model {
             WHERE p.id = ?", array($id))->row_array();
     }
     public function get_all_main_images() {
-        return $this->db->query("SELECT i.source, i.alt
+        return $this->db->query("SELECT i.source, i.alt, i.product_id
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             ", array())->result_array();

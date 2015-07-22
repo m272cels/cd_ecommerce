@@ -41,7 +41,7 @@
 		width: 100%;
 	}
 	p span{
-	   color: white; 
+	   color: white;
 	   font: bold 12px/25px Helvetica, Sans-Serif; 
 	   letter-spacing: -1px;  
 	   background: rgb(0, 0, 0);
@@ -70,7 +70,7 @@
 </head>
 <body>
 <?php
-$this->load->view('usernavbar');
+$this->load->view('partials/usernavbar');
 ?>
 
 
@@ -147,7 +147,7 @@ $this->load->view('usernavbar');
 	{
 		echo "<div class='col-sm-2 list'>
 
-      <img class='image' src='../assets/{$image['source']}' alt='' />
+      <a href='/showproduct/{$image['product_id']}''><img class='image' src='../assets/{$image['source']}' alt=''></a>
       
       <p class='overlay'><span>Price: {$product['price']}</span></p>
 
