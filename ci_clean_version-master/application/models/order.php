@@ -57,8 +57,8 @@ class Order extends CI_Model {
 	}
 
 	public function create_order($info) {
-		return $this->db->insert_id($this->db->query("INSERT INTO orders (status, created_at, updated_at, shipping_id, billing_id, user_id)
-			VALUES ('Order in process',NOW(),NOW(),?,?,?,?)", array($info['shipping_id'], $info['billing_id'], $info['user_id'])));
+		return $this->db->insert_id($this->db->query("INSERT INTO orders (status, created_at, updated_at, shipping_id, billing_id, user_id, total)
+			VALUES ('Order in process',NOW(),NOW(),?,?,?,?)", array($info['shipping_id'], $info['billing_id'], $info['user_id'], $info['total'])));
 	}
 
 	public function insert_into_order($item) {
@@ -85,8 +85,8 @@ class Order extends CI_Model {
 	}
 
 	public function add_address($info) {
-		$this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at, user_id)
-			VALUES (?,?,?,?,?,?,?,NOW(), NOW(),?)", array($info['fn'], $info['ln'], $info['add'], $info['add2'], $info['city'], $info['state'], $info['zip'],'1'));
+		$this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at)
+			VALUES (?,?,?,?,?,?,?,NOW(), NOW())", array($info['fn'], $info['ln'], $info['add'], $info['add2'], $info['city'], $info['state'], $info['zip']));
         return $this->db->insert_id();
 	}
 

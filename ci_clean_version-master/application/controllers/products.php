@@ -17,8 +17,9 @@ class Products extends CI_Controller {
     $categories=$this->Product->get_categories();
     $images=$this->Product->get_all_main_images();
     $carosel=$this->Product->get_carosel_images();
+    $cartCount = $this->session->userdata('cart');
     $products=$this->Product->getall_products();
-    $this->load->view('mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'categories'=>$categories));
+    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'cart' => $cartCount));
   }
   public function show($p_id)
   {
@@ -27,7 +28,7 @@ class Products extends CI_Controller {
     $other_pics = array('product' => $p_id, 'main_photo_id' => $main_pic['id']);
     $pics = $this->Product->getother_images($other_pics);
     $cartcount = $this->session->userdata('cart');
-    $this->load->view("show", array("product" => $product, "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount));
+    $this->load->view("products/show", array("product" => $product, "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount));
     //$this->load->view("");
     // details page for an individual product
     // $info = $this->Product->show($id);
