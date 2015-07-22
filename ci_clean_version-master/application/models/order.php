@@ -64,14 +64,11 @@ class Order extends CI_Model {
 			LEFT JOIN mailing_info as mo on o.billing_id = mo.id WHERE o.id = ?", array($id))->row_array();
 	}
 
-	public function addshipping($shipping) {
-		return $this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at, user_id)
-			VALUES (?,?,?,?,?,?,?,NOW(), NOW(),?)", array());
+	public function add_address($info) {
+		$this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at, user_id)
+			VALUES (?,?,?,?,?,?,?,NOW(), NOW(),?)", array($info['fn'], $info['ln'], $info['add'], $info['add2'], $info['city'], $info['state'], $info['zip'],'1'));
+        return $this->db->insert_id();
 	}
 
-	public function addbilling($billing) {
-		return $this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at, user_id)
-			VALUES (?,?,?,?,?,?,?,NOW(), NOW(),?)", array());
-	}
 
 }

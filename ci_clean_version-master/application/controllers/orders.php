@@ -31,8 +31,20 @@ class Orders extends CI_Controller {
     $this->load->view('orders/order', $all);
   }
 
+  public function insertAddresses() {
+    $shipping_info = array('fn' => $this->input->post('first_name'), 'ln' => $this->input->post('last_name'), 'add' => $this->input->post('address'),
+      'add2' => $this->input->post('address2'), 'city' => $this->input->post('city'), 'state' => $this->input->post('state'),
+      'zip' => $this->input->post('zip'));
+    $billing_info = array('fn' => $this->input->post('first_name_bill'), 'ln' => $this->input->post('last_name_bill'), 'add' => $this->input->post('address_bill'),
+      'add2' => $this->input->post('address2_bill'), 'city' =>$this->input->post('city_bill'), 'state' => $this->input->post('state_bill'),
+      'zip' => $this->input->post('zip_bill'));
+    $ship_id = $this->Order->add_address($shipping_info);
+    $bill_id = $this->Order->add_address($bill_info);
+  }
+
   public function create()
   {
+
     // places all items from cart into order
   }
 
