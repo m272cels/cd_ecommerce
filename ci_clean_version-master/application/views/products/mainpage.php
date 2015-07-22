@@ -34,7 +34,8 @@
 </head>
 <body>
 <?php
-	$this->load->view('usernavbar');
+
+$this->load->view('partials/usernavbar');
 ?>
 	<div class="row">
 	<div class='col-sm-3 col-sm-offset-1'>
