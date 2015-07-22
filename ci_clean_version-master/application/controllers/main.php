@@ -16,7 +16,7 @@ class Main extends CI_Controller {
 		}
 
 		//redirect('/showproduct/2');
-		$this->load->view('index');
+		$this->load->view('users/index');
 
 	}
 	public function register()

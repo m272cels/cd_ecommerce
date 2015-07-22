@@ -33,6 +33,14 @@ class Products extends CI_Controller {
     // $this->load->view('products/show', $info);
   }
 
+  public function show_partial_products() {
+    $products = $this->Order->sold_products();
+    $this->load->view("partials/admin_products", array("product_info" => $products));
+  }
+
+  public function show_admin_products() {
+    $this->load->view("products/products");
+  }
 
 
   public function add($id)

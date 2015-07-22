@@ -34,8 +34,8 @@ class Users extends CI_Controller {
           {
             redirect('/admin');
           }
-          var_dump($user);
-          die();
+          //var_dump($user);
+
          redirect('/products');
         }
         else

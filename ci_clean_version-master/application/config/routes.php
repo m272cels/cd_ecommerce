@@ -13,5 +13,5 @@ $route['addproduct/(:any)'] = "products/add/$1";
 $route['cart'] = "carts";
 $route['delete/(:any)'] = "carts/delete/$1";
 $route['addorder/(:any)'] = "orders/create/$1";
-$route['admin'] = "admin/index";
+$route['admin'] = "products/show_admin_products";
 //end of routes.php
