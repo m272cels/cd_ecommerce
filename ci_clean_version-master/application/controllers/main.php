@@ -14,9 +14,8 @@ class Main extends CI_Controller {
 		{
 			$this->session->set_userdata('cart', 0);
 		}
-
-		redirect('/products');
-		//$this->load->view('show');
+		$this->load->view('index');
+		// redirect('/products');
 	}
 	public function register()
 	{

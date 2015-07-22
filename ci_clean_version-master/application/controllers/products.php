@@ -14,11 +14,12 @@ class Products extends CI_Controller {
   public function index()
   {
     // main page with search and stuff
+    $categories=$this->Product->get_categories();
     $images=$this->Product->get_all_main_images();
     $carosel=$this->Product->get_carosel_images();
     $cartCount = $this->session->userdata('cart');
     $products=$this->Product->getall_products();
-    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'cart' => $cartCount));
+    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'categories' => $categories, 'cart' => $cartCount));
   }
   public function show($p_id)
   {

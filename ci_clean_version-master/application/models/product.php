@@ -2,6 +2,10 @@
 
 class Product extends CI_Model {
 
+    public function get_categories()
+    {
+        return $this->db->query("select category from categories", array())->result_array();
+    }
     public function getproduct_bycategory($category) {
         return $this->db->query("SELECT * FROM products as p WHERE p.category_id = ?", array($category))->result_array();
     }
@@ -89,7 +93,7 @@ class Product extends CI_Model {
             WHERE p.id = ?", array($id))->row_array();
     }
     public function get_all_main_images() {
-        return $this->db->query("SELECT i.source, i.alt
+        return $this->db->query("SELECT i.source, i.alt, i.product_id
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             ", array())->result_array();
