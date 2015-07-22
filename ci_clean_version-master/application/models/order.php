@@ -1,4 +1,4 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Order extends CI_Model {
 	public function sold_products() {
@@ -25,7 +25,7 @@ class Order extends CI_Model {
 	}
 
 	public function show_cart($id) {
-		return $this->db->query("SELECT p.name, p.price, ci.quantity, p.price*ci.quantity as total 
+		return $this->db->query("SELECT p.name, p.price, p.id, ci.quantity, p.price*ci.quantity as total
 			FROM products as p
 			LEFT JOIN cart_items as ci on p.id = ci.product_id
 			LEFT JOIN users as u on u.id = ci.user_id
@@ -42,9 +42,9 @@ class Order extends CI_Model {
 			WHERE id = ? AND product_id = ? AND used_id = ?", array());
 	}
 
-	public function delete_from_cart($cart) {
-		return $this->db->query("DELETE FROM cart_items WHERE id = ? AND product_id = ?
-			AND user_id = ?", array());
+	public function delete_from_cart($product) {
+		return $this->db->query("DELETE FROM cart_items WHERE product_id = ?
+			AND user_id = ?", array($product['product_id'], $product['user_id']));
 	}
 	public function update_order_status($id) {
 		return $this->db->query("UPDATE order SET status = ?

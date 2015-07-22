@@ -6,20 +6,30 @@ class Products extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Product');
+    $this->load->model('Order');
     $this->output->enable_profiler();
+
   }
 
   public function index()
   {
     // main page with search and stuff
-    $images=$this->Product->get_all_main_images();
-    $carosel=$this->Product->get_carosel_images();
-    $products=$this->Product->getall_products();
-    $this->load->view('mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products));
+
+    $results=$this->Product->getall_products();
+    //$this->Product->getmain_photo
+    $this->load->view('mainpage', array('products'=>$results));
+
   }
 
   public function show($p_id)
   {
+    $product = $this->Product->getproduct_byid($p_id);
+    $main_pic = $this->Product->getmain_image($p_id);
+    $other_pics = array('product' => $p_id, 'main_photo_id' => $main_pic['id']);
+    $pics = $this->Product->getother_images($other_pics);
+    $cartcount = $this->session->userdata('cart');
+    $this->load->view("show", array("product" => $product, "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount));
+    //$this->load->view("");
     // details page for an individual product
     // $info = $this->Product->show($id);
     // $this->load->view('products/show', $info);
@@ -27,9 +37,17 @@ class Products extends CI_Controller {
 
 
 
-  public function add()
+  public function add($id)
   {
-    // adds a new product
+    $cart = array("user_id" => '1',
+        "product_id" => $id, "quantity" => $this->input->post("quantity"));
+    $this->Order->insert_into_cart($cart);
+    $currentcart = $this->session->userdata('cart');
+    $this->session->set_userdata('cart', $currentcart + 1);
+    $this->show($id);
+    //redirect('/showproduct/'.$id);
+    // var_dump($this->input->post("quantity"));
+    // die();
   }
 
   public function delete($p_id)
