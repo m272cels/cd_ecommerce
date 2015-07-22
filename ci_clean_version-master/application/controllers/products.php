@@ -14,11 +14,9 @@ class Products extends CI_Controller {
   public function index()
   {
     // main page with search and stuff
-
     $results=$this->Product->getall_products();
     //$this->Product->getmain_photo
     $this->load->view('mainpage', array('products'=>$results));
-
   }
 
   public function show($p_id)
@@ -44,8 +42,8 @@ class Products extends CI_Controller {
     $this->Order->insert_into_cart($cart);
     $currentcart = $this->session->userdata('cart');
     $this->session->set_userdata('cart', $currentcart + 1);
-    $this->show($id);
-    //redirect('/showproduct/'.$id);
+    //$this->show($id);
+    redirect('/showproduct/'.$id);
     // var_dump($this->input->post("quantity"));
     // die();
   }
