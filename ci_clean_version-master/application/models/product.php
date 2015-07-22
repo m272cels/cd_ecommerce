@@ -2,6 +2,10 @@
 
 class Product extends CI_Model {
 
+    public function get_categories()
+    {
+        return $this->db->query("select category from categories", array())->result_array();
+    }
     public function getproduct_bycategory($category) {
         return $this->db->query("SELECT * FROM products as p WHERE p.category_id = ?", array($category))->result_array();
     }

@@ -24,9 +24,47 @@
 
 	}
 	.list{
-  height: 300px;
-  max-height: 300px;
-
+  		height: 170px;
+  		position: relative;
+  		padding: 5px 5px 5px 5px;
+  		border: 1px solid black;
+  		margin: 5px 0 5px 5px;
+	}
+	.image{
+		width:100%;
+		height: 100%;
+	}
+	.overlay{
+		position: absolute;
+		top: 130px;
+		left:50px;
+		width: 100%;
+	}
+	p span{
+	   color: white; 
+	   font: bold 12px/25px Helvetica, Sans-Serif; 
+	   letter-spacing: -1px;  
+	   background: rgb(0, 0, 0);
+	   background: rgba(0, 0, 0, 0.7);
+	   padding: 10px;		
+	}
+	#categories{
+		border-bottom: 2px solid lightgrey;
+		margin-bottom: 20px;
+	}
+	.category{
+		background: lightgrey;
+		border: grey 1px solid;
+	}
+	.carousel_div{
+		padding: 5px 5px 5px 5px; 
+		border: 1px solid black;
+		margin-bottom: 30px;
+	}
+	h3{
+		border-bottom: 2px solid lightgrey;
+		padding-bottom: 2px;
+		margin-bottom: 20px;
 	}
 	</style>
 </head>
@@ -37,17 +75,21 @@ $this->load->view('usernavbar');
 
 
 	<div class='col-sm-3 col-sm-offset-1'>
+		<h5 id='categories'>Categories</h5>
 <?php
-	$lamps=array();
-	foreach($products as $product)
+	foreach($categories as $category)
 	{
-		if($product['category']=='Lamps')
+		$count=0;		
+		foreach($products as $product)
 		{
-			$lamps[]=$product['category'];
+
+			if($product['category']==$category['category'])
+			{
+				$count++;
+			}
 		}
+	echo "<button type='button' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
 	}
-	$count=count($lamps);
-	echo "<button type='button' class='list-group-item'><span class='badge'>$count</span>Lamps</button>";
 ?>
 			<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 			<a href="">Show More</a>
@@ -56,7 +98,7 @@ $this->load->view('usernavbar');
 
 
 
-	<div class='col-sm-6 col-sm-offset-1'>
+	<div class='col-sm-6 col-sm-offset-1 carousel_div'>
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
 			<ol class="carousel-indicators">
@@ -99,10 +141,22 @@ $this->load->view('usernavbar');
 		</div>
 	</div>
 	<div class='col-sm-10 col-sm-offset-1'>
+		<h3>Product listing</h3>
 <?php
 	foreach($images as $image)
 	{
-		echo "<img class='col-sm-4 list' src='../assets/{$image['source']}'>";
+		echo "<div class='col-sm-2 list'>
+
+      <img class='image' src='../assets/{$image['source']}' alt='' />
+      
+      <p class='overlay'><span>Price: {$product['price']}</span></p>
+
+</div>";
+
+
+
+
+		// "<img class='col-sm-4 list' src='../assets/{$image['source']}'>";
 	}
 ?>
 

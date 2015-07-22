@@ -16,7 +16,7 @@
 
 <body>
 	<div>
-		<form actoin='' mehtod='post'>
+		<form action='' method='post'>
 	        <h4>Add Product</h4>
 	        <div class='input-field'>
 			    <label for='icon_prefix'>Product Name</label>
