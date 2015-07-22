@@ -16,8 +16,9 @@ class Products extends CI_Controller {
     // main page with search and stuff
     $images=$this->Product->get_all_main_images();
     $carosel=$this->Product->get_carosel_images();
+    $cartCount = $this->session->userdata('cart');
     $products=$this->Product->getall_products();
-    $this->load->view('mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products));
+    $this->load->view('mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'cart' => $cartCount));
   }
   public function show($p_id)
   {

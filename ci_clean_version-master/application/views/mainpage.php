@@ -1,10 +1,12 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Main</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script>
+	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.carousel').carousel();
 		$('.dropdown-toggle').dropdown()
@@ -32,8 +34,9 @@
 </head>
 <body>
 <?php
-$this->load->view('usernavbar');
+	$this->load->view('usernavbar');
 ?>
+	<div class="row">
 	<div class='col-sm-3 col-sm-offset-1'>
 <?php
 	$lamps=array();
@@ -49,7 +52,9 @@ $this->load->view('usernavbar');
 ?>
 			<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 			<a href="">Show More</a>
-		</div>
+	</div>
+
+</div>
 
 
 
