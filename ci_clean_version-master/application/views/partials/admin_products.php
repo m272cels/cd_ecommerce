@@ -15,7 +15,7 @@
             <td class="product"><?=$product['id']?></td>
             <td class="product_name" class="product"><?=$product['name']?></td>
             <input class="product_description" type="hidden" name="description" value="<?=$product['description']?>">
-            <td class="product"><?=$product['count_in_stock']?></td>
+            <td class="product_count"><?=$product['count_in_stock']?></td>
             <td class="product"><?=$product['sold']?></td>
             <td class="product">
                     <a class="edit" value="<?=$product['id']?>" href="#" data-toggle="modal" data-target="#editModal">Edit</a>

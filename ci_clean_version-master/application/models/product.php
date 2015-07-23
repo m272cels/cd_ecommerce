@@ -66,9 +66,9 @@ class Product extends CI_Model {
         $values = array();
         return $this->db->query($query, $values);
     }
-
+    //MUST ADD MAIN PHOTO ID
     public function update_product($product) {
-        return $this->db->query("UPDATE products SET name = ?, description = ?, count_in_stock = ?, main_photo_id = ?, category_id = ?, updated_at = NOW()
+        return $this->db->query("UPDATE products SET name = ?, description = ?, count_in_stock = ?, category_id = ?, updated_at = NOW()
             WHERE id = ?",array());
     }
 

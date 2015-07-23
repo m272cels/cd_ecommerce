@@ -72,9 +72,11 @@ public function mainpage_products_json_popularity()
     $this->show_admin_products();
   }
 
-  public function edit_product($p_id)
+  public function update_product($p_id)
   {
-
+    $updated_product_info = $this->input->post();
+    var_dump(($updated_product_info));
+    $this->Product->update_product($updated_product_info);
   }
 
   public function add_review($p_id)

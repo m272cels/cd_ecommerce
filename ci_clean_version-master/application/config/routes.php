@@ -19,7 +19,7 @@ $route['updatecart'] = "carts/update";
 $route['admin'] = "products/show_admin_products";
 
 $route['dashboard'] = "orders/dashboard_orders";
-$route['edit_product/(:any)'] = "products/edit_product/$1";
+$route['edit_product/(:any)'] = "products/update_product/$1";
 $route['delete_product/(:any)'] = "products/delete_product/$1";
 
 //$route['updateorder/(:any)/(:any)'] = "orders/updatestatus/$1/$2";
