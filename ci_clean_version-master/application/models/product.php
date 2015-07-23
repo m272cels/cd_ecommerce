@@ -47,10 +47,13 @@ class Product extends CI_Model {
     public function add_category($category) {
         $query = ("INSERT INTO categories (created_at, updated_at, category)
             VALUES (NOW(), NOW(), ?)");
-        $values = array();
+        $values = array($category);
         return $this->db->query($query, $values);
     }
 
+    public function get_category_id_by_title($category) {
+        return $this->db->query("SELECT id FROM categories where category = ?", array($category))->row_array();
+    }
     public function delete_category($id) {
         return $this->db->query("DELETE FROM categories
             WHERE id = ?");
@@ -68,8 +71,10 @@ class Product extends CI_Model {
     }
     //MUST ADD MAIN PHOTO ID
     public function update_product($product) {
-        return $this->db->query("UPDATE products SET name = ?, description = ?, count_in_stock = ?, category_id = ?, updated_at = NOW()
-            WHERE id = ?",array());
+        return $this->db->query("UPDATE products SET name = ?, description = ?,
+            count_in_stock = ?, category_id = ?, updated_at = NOW()
+            WHERE id = ?", array($product['product_name'], $product['description'], $product['stock'],
+                $product['category']['id'], $product['product_id']));
     }
 
     public function updateproduct_inventory($id) {

@@ -107,8 +107,8 @@
 ?>
                     </select>
                   </p>
-                  <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>or add a new category: <input type="text" name="new_category"></p>
+                  <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>Images: <button>Upload</button></p>
                   <input type="submit" value="Update">
               </form>
