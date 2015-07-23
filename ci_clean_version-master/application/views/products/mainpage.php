@@ -17,20 +17,35 @@
             }
             $('#listings').html(html);
         }, "json");
-        $('form').submit(function(){
-        	$.post('/products/mainpage_products_json_popularity',function(products){
-        		$.get("/products/mainpage_products_json_popularity", function(products) {
-            console.log(products);
-            html='';
-            for(var i=0;i<products.length;i++)
-            {
-            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+products[i]['product_id']+"'><img class='image' src='../assets/"+products[i]['source']+"' alt=''></a><p class='overlay'><span>Price: "+products[i]['price']+"</span></p></div>";
-            }
-            $('#listings').html(html);
-        }, "json");
-        	})
-        })
-
+        $('#select').change(function(){
+        	if($('#select').val()==='popular'){
+	        	$.post('/products/mainpage_products_json_popularity',function(popular){
+	        		$.get("/products/mainpage_products_json_popularity", function(popular) {
+	            console.log(popular);
+	            html='';
+	            for(var j=0;j<popular.length;j++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+popular[j]['id']+"'><img class='image' src='../assets/"+popular[j]['source']+"' alt=''></a><p class='overlay'><span>Price: "+popular[j]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+	        	})
+	        }
+        	else
+        	{
+        		$.post('/products/mainpage_products_json_price',function(price){
+	        		$.get("/products/mainpage_products_json_price", function(price) {
+	            console.log(price);
+	            html='';
+	            for(var k=0;k<price.length;k++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+price[k]['product_id']+"'><img class='image' src='../assets/"+price[k]['source']+"' alt=''></a><p class='overlay'><span>Price: "+price[k]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+	        	})
+        	}
+				})
 		$.get('/main/user_nav', function(res){
 	        $('#nav').html(res);
 	        })
@@ -110,7 +125,7 @@
 	<div class='col-sm-10 col-sm-offset-1'>
 		<h3>Product listing</h3>
 		<p class='col-sm-1 col-sm-offset-8'>Sort:</p>
-		<form class='col-sm-2' action='#'><select><option>Price</option><option>Popularity</option></a></select><input type='submit'></form>
+		<form class='col-sm-2' action='#'><select id='select' name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select></form>
 		<div id='listings'>
 	</div>
 	</div>
