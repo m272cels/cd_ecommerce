@@ -23,15 +23,39 @@ class Order extends CI_Model {
 			WHERE o.id = ?", array($id))->row_array();
 	}
 
-    public function show_order_with_user_info() {
-        return $this->db->query("SELECT o.id, u.first_name, o.created_at, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ' ', mo.state, ' ', mo.zipcode)
-            o.total, o.status
-            FROM orders as o
-            LEFT JOIN mailing_info as mo
-            ON o.billing_id = mo.id
-            LEFT JOIN users as u
-            ON o.user_id = 1")->results_array();
-    }
+
+	public function get_orders($status) {
+		if($status == '1') {
+			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
+						FROM orders as o
+						LEFT JOIN mailing_info mo on o.billing_id = mo.id
+						ORDER BY o.id DESC
+						")->result_array();
+		}
+		else {
+			$statustxt = '';
+			switch($status){
+				case '2':
+					$statustxt = "Order in Process";
+					break;
+				case '3':
+					$statustxt = 'Need to ship';
+					break;
+				case '4':
+					$statustxt = "Shipped";
+					break;
+				case '5':
+					$statustxt = "Cancelled";
+					break;
+			}
+			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
+						FROM orders as o
+						LEFT JOIN mailing_info mo on o.billing_id = mo.id
+						WHERE o.status = ?
+						ORDER BY o.id DESC
+						", array($statustxt))->result_array();
+		}
+	}
 
 	public function get_cart_by_id($id) {
 		return $this->db->query("SELECT product_id, quantity
@@ -76,9 +100,9 @@ class Order extends CI_Model {
 			VALUES (?,?,?,NOW(), NOW())", array($item['product_id'], $item['order_id'], $item['quantity']));
 	}
 
-	public function update_order_status($id) {
-		return $this->db->query("UPDATE order SET status = ?
-			WHERE id = ? ", array($id['status'], $id['order_id']))->row_array();
+	public function update_order_status($info) {
+		return $this->db->query("UPDATE orders SET status = ?
+			WHERE id = ? ", array($info['status'], $info['order_id']));
 	}
 
 	public function getshipping($id) {

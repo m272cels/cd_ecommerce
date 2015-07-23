@@ -3,20 +3,32 @@
 <head>
     <title>Customer Order</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.get('/main/admin_nav', function(res){
+                $('#nav').html(res);
+            })
+        })
+    </script>
 </head>
 <body>
     <div class="container">
+        <div id="nav" class="row">
+
+        </div>
         <div class="row">
             <div id="order-info" class="col-sm-4 col-sm-offset-1">
-                <p>Order ID: <?= $order_info['id'] ?></p><br>
-                <p>Customer shipping info: </p>
+                <p><h4>Order ID: <?= $order_info['id'] ?></h4></p><br>
+                <p><h5>Customer shipping info: </h5></p>
                 <p>Name: <?= $shipping_info['first_name'] ?></p>
                 <p>Address: <?= $shipping_info['address'] ?></p>
                 <p>City: <?= $shipping_info['city'] ?></p>
                 <p>State: <?= $shipping_info['state'] ?></p>
                 <p>Zip Code: <?= $shipping_info['zipcode'] ?></p><br>
-                <p>Customer billing info: </p>
+                <p><h5>Customer billing info: </h5></p>
                 <p>Name: <?= $billing_info['first_name'] ?></p>
                 <p>Address: <?= $billing_info['address'] ?></p>
                 <p>City: <?= $billing_info['city'] ?></p>
@@ -55,8 +67,8 @@
                 </div>
                 <div id="order-final">
                     <p>Sub Total: $<?= $order_info['total'] ?></p>
-                    <p>Shipping: $10.00</p>
-                    <p>Total Price: $<?= $order_info['total'] + 10 ?></p>
+                    <p>Shipping: $1.00</p>
+                    <p>Total Price: $<?= $order_info['total'] + 1 ?></p>
                 </div>
             </div>
         </div>
