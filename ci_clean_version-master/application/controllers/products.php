@@ -41,8 +41,9 @@ class Products extends CI_Controller {
   }
 
   public function show_admin_products() {
+    $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
-    $this->load->view("products/products", array("cart" => $cart));
+    $this->load->view("products/products", array("cart" => $cart, 'categories'=>$categories));
   }
 
 
