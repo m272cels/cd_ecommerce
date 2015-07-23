@@ -20,7 +20,8 @@ class Product extends CI_Model {
             LEFT JOIN photos as ph on p.main_photo_id = ph.id
             LEFT JOIN order_items as o on p.id = o.product_id
             GROUP BY p.id
-            ORDER BY sold DESC")->result_array();
+            ORDER BY sold DESC
+            LIMIT 0,5")->result_array();
     }
 
     public function getproducts_bypopularity_category($category) {
@@ -96,12 +97,6 @@ class Product extends CI_Model {
             ", array())->result_array();
     }
     public function get_all_main_images_with_price() {
-        return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
-            FROM products as p
-            LEFT JOIN photos as i on p.main_photo_id = i.id
-            order by price desc", array())->result_array();
-    }
-    public function get_all_main_images_with_popularity() {
         return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
