@@ -37,10 +37,11 @@ class Product extends CI_Model {
         return $this->db->query("SELECT * FROM products as p where p.id = ?", array($id))->row_array();
     }
 
-    public function getsimilar_products($id) {
-        return $this->db->query("SELECT * FROM products as p
+    public function getsimilar_products($product) {
+        return $this->db->query("SELECT p.id, p.name, p.price, ph.source, ph.alt FROM products as p
+            LEFT JOIN photos as ph on p.main_photo_id = ph.id
             WHERE p.category_id = ?
-            AND p.id NOT IN (SELECT pr.id FROM products as pr where pr.id = ?) LIMIT 6", array($id['category_id'], $id['product_id']))->row_array();
+            AND p.id NOT IN (SELECT pr.id FROM products as pr where pr.id = ?) LIMIT 6", array($product['category_id'], $product['id']))->result_array();
     }
     public function add_category($category) {
         $query = ("INSERT INTO categories (created_at, updated_at, category)
@@ -75,9 +76,9 @@ class Product extends CI_Model {
             WHERE id = ?", array($id['stock'], $id['product_id']));
     }
 
-    public function delete_product($id) {
-        return $this->db->query("DELETE FROM products
-            WHERE id = ? ", array($id));
+    public function remove_product($id) {
+        return $this->db->query("UPDATE products SET count_in_stock = 0
+            WHERE id = ?", $id);
     }
 
     // --------------images queries
@@ -99,13 +100,13 @@ class Product extends CI_Model {
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             order by price desc", array())->result_array();
-    } 
+    }
     public function get_all_main_images_with_popularity() {
         return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
             order by price desc", array())->result_array();
-    }        
+    }
     // tested
     public function getother_images($id) {
         return $this->db->query("SELECT p.source, p.alt

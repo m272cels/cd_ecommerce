@@ -46,7 +46,7 @@
 <?php
 	foreach($categories as $category)
 	{
-		$count=0;		
+		$count=0;
 		foreach($products as $product)
 		{
 
@@ -115,7 +115,7 @@
 	</div>
 	</div>
 	</div>
-	
+
 
 
 </body>

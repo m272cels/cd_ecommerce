@@ -23,12 +23,15 @@ class Products extends CI_Controller {
   }
   public function show($p_id)
   {
+    //gets similar items to show
     $product = $this->Product->getproduct_byid($p_id);
+    $similar_products = $this->Product->getsimilar_products($product);
     $main_pic = $this->Product->getmain_image($p_id);
     $other_pics = array('product' => $p_id, 'main_photo_id' => $main_pic['id']);
     $pics = $this->Product->getother_images($other_pics);
     $cartcount = $this->session->userdata('cart');
-    $this->load->view("products/show", array("product" => $product, "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount));
+    $this->load->view("products/show", array("product" => $product,
+      "main_img" => $main_pic, "images" => $pics, 'cart' => $cartcount, "similar_products" => $similar_products));
     //$this->load->view("");
     // details page for an individual product
     // $info = $this->Product->show($id);
@@ -65,7 +68,7 @@ public function mainpage_products_json_popularity()
 
   public function delete_product($p_id)
   {
-
+    $this->Product->remove_product($p_id);
     $this->show_admin_products();
   }
 
