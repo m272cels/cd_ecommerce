@@ -61,7 +61,7 @@
                     </thead>
                     <tbody>
 <?php
-var_dump($cart_items);
+//var_dump($cart_items);
     $total = 0;
     foreach ($cart_items as $item) {
         $total += $item['total'];
@@ -84,7 +84,7 @@ var_dump($cart_items);
         <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
                 <p>Subtotal: $<?=$total?></p>
-                <p>Shipping: $1</p>
+                <p>Shipping: $1.00</p>
                 <p id="total">Total: $<?=$total+1?></p>
             </div>
         </div>

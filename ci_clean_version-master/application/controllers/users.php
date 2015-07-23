@@ -6,7 +6,7 @@ class Users extends CI_Controller {
 	{
 		parent::__construct();
     $this->load->model('Session');
-		// $this->output->enable_profiler();
+		 $this->output->enable_profiler();
 	}
   public function login()
   {
@@ -34,6 +34,7 @@ class Users extends CI_Controller {
           {
             redirect('/dashboard');
           }
+
          redirect('/products'); 
         }
         else

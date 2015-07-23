@@ -58,22 +58,22 @@ class Orders extends CI_Controller {
   public function create($total)
   {
     // places all items from cart into order
-    $user_id = $this->session->userdata('user_id');
+    $user = $this->session->userdata('user');
     // create shipping/billing
     $info = $this->insertAddresses();
     //$info['user_id'] = $user_id;
-    $info['user_id'] = '1';
+    $info['user_id'] = $user['id'];
     $info['total'] = $total;
     // create new order
     $order_id = $this->Order->create_order($info);
     // place all items from cart into order
-    $cart = $this->Order->get_cart_by_id('1');
+    $cart = $this->Order->get_cart_by_id($user['id']);
     foreach ($cart as $item) {
       $item['order_id'] = $order_id;
       $this->Order->insert_into_order($item);
     }
     // clear the user's cart
-    $this->Order->clear_cart('1');
+    $this->Order->clear_cart($user['id']);
     $this->session->set_userdata('cart', 0);
     redirect('/products');
 
