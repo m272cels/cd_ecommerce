@@ -12,6 +12,11 @@
         $.get("/products/show_partial_products", function(res) {
             $("#table").html(res);
         });
+
+        $.get('/main/admin_nav', function(res){
+        $('#nav').html(res);
+        })
+
         $('#myModal').on('shown.bs.modal', function () {
               $('#myInput').focus();
         });
@@ -25,29 +30,31 @@
     </script>
 </head>
 <body>
-<?php
-    $this->load->view('/partials/usernavbar', array('cart' => $cart));
-?>
-    <div id="table"></div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Update Quantity</h4>
-          </div>
-          <div class="modal-body">
-            <form id="update" action="/updatecart/" method="post">
-                <input id="p_id" type="hidden" name="product_id">
-                <input id="myInput" type="number" name="quantity">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button form="update" class="btn btn-primary">Save changes</button>
+  <div class="container">
+
+    <div id="nav" class="row">
+    </div>
+      <div id="table"></div>
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Update Quantity</h4>
+            </div>
+            <div class="modal-body">
+              <form id="update" action="/updatecart/" method="post">
+                  <input id="p_id" type="hidden" name="product_id">
+                  <input id="myInput" type="number" name="quantity">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button form="update" class="btn btn-primary">Save changes</button>
+            </div>
           </div>
         </div>
-      </div>
     </div>
+  </div>
 </body>
 </html>

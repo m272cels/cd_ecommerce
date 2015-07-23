@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
       	<li><a href="/dashboard"><span>Orders</span></a></li>
-        <li><a  href="/cart"><span>Products</span></a></li>
+        <li><a  href="/admin"><span>Products</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span>log off</span></a></li>
