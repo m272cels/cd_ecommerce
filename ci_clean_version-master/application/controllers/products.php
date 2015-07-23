@@ -52,7 +52,9 @@ public function mainpage_products_json_popularity()
   public function show_admin_products() {
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
-    $this->load->view("products/products", array("cart" => $cart, 'categories'=>$categories));
+
+    $this->load->view("products/products", array("cart" => $cart, "categories" => $categories));
+
   }
 
 
@@ -66,9 +68,9 @@ public function mainpage_products_json_popularity()
     // removes a product
   }
 
-  public function update($p_id)
+  public function edit_product($p_id)
   {
-    // updates a product
+
   }
 
   public function add_review($p_id)

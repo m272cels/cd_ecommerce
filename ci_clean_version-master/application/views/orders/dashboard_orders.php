@@ -43,6 +43,10 @@
     </script>
 </head>
 <body>
+<?php
+	setlocale(LC_MONETARY, 'en_US');
+	echo money_format()
+?>
 	<div class="container">
 		<div id="nav" class="row">
 
