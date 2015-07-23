@@ -54,9 +54,10 @@ class Products extends CI_Controller {
 
   }
 
-  public function delete($p_id)
+  public function delete_product($p_id)
   {
-    // removes a product
+
+    $this->show_admin_products();
   }
 
   public function edit_product($p_id)
