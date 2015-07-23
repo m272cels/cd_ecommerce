@@ -76,8 +76,8 @@ class Product extends CI_Model {
     }
 
     public function delete_product($id) {
-        return $this->db-query("DELETE FROM products
-            WHERE id = ? ");
+        return $this->db->query("DELETE FROM products
+            WHERE id = ? ", array($id));
     }
 
     // --------------images queries

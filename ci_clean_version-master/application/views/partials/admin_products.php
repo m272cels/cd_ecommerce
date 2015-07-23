@@ -19,7 +19,7 @@
             <td class="product"><?=$product['sold']?></td>
             <td class="product">
                     <a class="edit" value="<?=$product['id']?>" href="#" data-toggle="modal" data-target="#editModal">Edit</a>
-                    <a href="#">Delete</a>
+                    <a href="/delete_product/<?=$product['id']?>">Delete</a>
             </td></tr>
 <?php
         }

@@ -26,6 +26,12 @@
             var p_id = $(this).siblings('input[type="hidden"]').val();
             $('#p_id').val(p_id);
         });
+        $(document).on("click", ".delete-product", function() {
+            var product_id = $(this).attr("value");
+            $.post("/products/delete/"+product_id, $(this).serialize(), function(res) {
+                $("#table").html(res);
+            });
+        });
         $(document).on("click", ".edit", function() {
             var p_id = $(this).attr("value");
             $("#p_id").val(p_id);
