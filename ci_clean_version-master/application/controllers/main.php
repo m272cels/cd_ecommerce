@@ -26,6 +26,11 @@ class Main extends CI_Controller {
 	public function admin_nav() {
 		$this->load->view('partials/adminnavbar');
 	}
+
+	public function user_nav(){
+		$cartcount = $this->session->userdata('cart');
+		$this->load->view('partials/usernavbar', array('cart' => $cartcount));
+	}
 }
 
 //end of main controller
