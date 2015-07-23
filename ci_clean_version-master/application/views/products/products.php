@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Admin products dashboard</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../assets/partials.css">
@@ -15,6 +15,24 @@
 
         $.get('/main/admin_nav', function(res){
         $('#nav').html(res);
+        })
+
+        $(function() {
+        $( 'input').focusin(function() {
+          $('.has-feedback').addClass("showClass");
+        });
+        $('input').focusout(function() {
+          $('.has-feedback').removeClass("showClass");
+        });
+
+      });
+
+        $(document).on('change', '#search', function(){
+        var status = $('#status_drop').val();
+        var search = $('#search').val();
+        $.get('/products/search_products/'+search, function(res){
+          $('#table').html(res);
+          })
         })
 
         $('#editModal').on('shown.bs.modal', function () {
@@ -50,11 +68,20 @@
     <div id="nav" class="row">
     </div>
     <div class="row">
-       <button type="button" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-10" data-toggle="modal" data-target="#addModal">Add Product</button>
+      <div class="col-sm-3 ">
+              <form method="post" class="search-form">
+                  <div class="form-group has-feedback">
+                  <label for="search" class="sr-only">Search</label>
+                  <input type="text" class="form-control" name="search" id="search" placeholder="Search">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+              </form>
+      </div>
+       <button type="button" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-7" data-toggle="modal" data-target="#addModal">Add Product</button>
     
     </div>
        <div class="row">
-      <div id="table"></div>
+        <div id="table" class="col-sm-10 col-sm-offset-1"></div>
       <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

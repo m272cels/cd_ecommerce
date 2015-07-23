@@ -9,6 +9,15 @@ class Order extends CI_Model {
 			GROUP BY p.id")->result_array();
 	}
 
+	public function search_sold_products($search){
+		return $this->db->query("SELECT p.description, p.id, ph.source, ph.alt, p.name, p.count_in_stock, SUM(o.quantity) as sold
+			FROM products as p
+			LEFT JOIN photos as ph on p.main_photo_id = ph.id
+			LEFT JOIN order_items as o on p.id = o.product_id
+			WHERE p.id LIKE '%".$search['search']."%' OR p.name LIKE '%".$search['search']."%'
+			GROUP BY p.id")->result_array();
+	}
+
 	public function show_order_items($id) {
 		return $this->db->query("SELECT p.id, p.name, p.price, oi.quantity, p.price*oi.quantity as total
 			FROM orders as o

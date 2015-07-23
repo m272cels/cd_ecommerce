@@ -3,7 +3,7 @@
 <head>
 	<title>(Dashboard Orders)</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -19,18 +19,10 @@
 
 			$(function() {
 				$( 'input').focusin(function() {
-
-				$('.has-feedback').addClass("showClass");
-
-				//console.log("this has focus");
-
+					$('.has-feedback').addClass("showClass");
 				});
 				$('input').focusout(function() {
-
-				$('.has-feedback').removeClass("showClass");
-
-				//console.log("search form no longer has focus");
-
+					$('.has-feedback').removeClass("showClass");
 				});
 
 			});

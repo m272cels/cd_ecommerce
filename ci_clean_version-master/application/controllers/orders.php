@@ -7,7 +7,7 @@ class Orders extends CI_Controller {
     parent::__construct();
     $this->load->model('Order');
     $this->load->model('Product');
-    $this->output->enable_profiler();
+    //$this->output->enable_profiler();
   }
 
   public function index()
@@ -49,6 +49,8 @@ class Orders extends CI_Controller {
     $orders = $this->Order->search_orders($info);
     $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
+
+
 
   public function insertAddresses() {
     $shipping_info = array('fn' => $this->input->post('first_name'), 'ln' => $this->input->post('last_name'), 'add' => $this->input->post('address'),

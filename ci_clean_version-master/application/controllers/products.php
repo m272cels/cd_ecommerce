@@ -60,6 +60,12 @@ public function mainpage_products_json_popularity()
 
   }
 
+  public function search_products($search)
+  {
+    $info = array('search' => $search);
+    $products = $this->Order->search_sold_products($info);
+    $this->load->view('partials/admin_products', array('product_info' => $products));
+  }
 
   public function add($id)
   {

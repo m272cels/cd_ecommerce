@@ -3,7 +3,7 @@
 <head>
 	 <meta charset="utf-8">
 	<title>Login and Registration</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css">
 	<script type="text/javascript">
@@ -20,7 +20,7 @@
 		<div id="nav" class="row">
 		</div>
 	<div id="title" class="col-lg-offset-1">
-		<a href="">Go Back</a>
+		<a href="/products">Go Back</a>
 		<h2><?=$product['name']?></h2>
 	</div>
 	<div id="pictures" class="col-lg-3 col-lg-offset-1">
