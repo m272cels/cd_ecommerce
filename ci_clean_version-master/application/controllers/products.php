@@ -15,11 +15,11 @@ class Products extends CI_Controller {
   {
     // main page with search and stuff
     $categories=$this->Product->get_categories();
-    $images=$this->Product->get_all_main_images();
+    // $images=$this->Product->get_all_main_images();
     $carosel=$this->Product->get_carosel_images();
     $cartCount = $this->session->userdata('cart');
     $products=$this->Product->getall_products();
-    $this->load->view('products/mainpage', array('images'=>$images, 'carosel'=>$carosel, 'products'=>$products, 'categories' => $categories, 'cart' => $cartCount));
+    $this->load->view('products/mainpage', array(/*'images'=>$images,*/ 'carosel'=>$carosel, 'products'=>$products, 'categories' => $categories, 'cart' => $cartCount));
   }
   public function show($p_id)
   {
@@ -39,7 +39,16 @@ class Products extends CI_Controller {
     $products = $this->Order->sold_products();
     $this->load->view("partials/admin_products", array("product_info" => $products));
   }
-
+  public function mainpage_products_json_price()
+  {
+    $products=$this->Product->get_all_main_images_with_price();
+    echo json_encode($products);
+  }
+public function mainpage_products_json_popularity()
+  {
+    $products=$this->Product->getproducts_bypopularity();
+    echo json_encode($products);
+  }
   public function show_admin_products() {
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");

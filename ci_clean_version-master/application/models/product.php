@@ -14,10 +14,6 @@ class Product extends CI_Model {
         return $this->db->query("SELECT * FROM products left join categories on products.category_id = categories.id")->result_array();
     }
 
-    public function getproducts_byprice() {
-        return $this->db->query("SELECT * FROM products ORDER BY price ASC")->result_array();
-    }
-
     public function getproducts_bypopularity() {
         return $this->db->query("SELECT p.id, ph.source, ph.alt, p.name, p.price, SUM(o.quantity) as sold
             FROM products as p
@@ -98,6 +94,18 @@ class Product extends CI_Model {
             LEFT JOIN photos as i on p.main_photo_id = i.id
             ", array())->result_array();
     }
+    public function get_all_main_images_with_price() {
+        return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
+            FROM products as p
+            LEFT JOIN photos as i on p.main_photo_id = i.id
+            order by price desc", array())->result_array();
+    } 
+    public function get_all_main_images_with_popularity() {
+        return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
+            FROM products as p
+            LEFT JOIN photos as i on p.main_photo_id = i.id
+            order by price desc", array())->result_array();
+    }        
     // tested
     public function getother_images($id) {
         return $this->db->query("SELECT p.source, p.alt
