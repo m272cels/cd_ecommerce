@@ -5,7 +5,7 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->output->enable_profiler();
+		//$this->output->enable_profiler();
 	}
 
 	public function index()
@@ -15,12 +15,16 @@ class Main extends CI_Controller {
 			$this->session->set_userdata('cart', 0);
 		}
 
-		redirect('/products');
-		//$this->load->view('show');
+		//redirect('/products');
+		$this->load->view('users/index');
 	}
 	public function register()
 	{
-		$this->load->view('register');
+		$this->load->view('users/register');
+	}
+
+	public function admin_nav() {
+		$this->load->view('partials/adminnavbar');
 	}
 }
 

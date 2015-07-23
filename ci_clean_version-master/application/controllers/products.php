@@ -7,7 +7,7 @@ class Products extends CI_Controller {
     parent::__construct();
     $this->load->model('Product');
     $this->load->model('Order');
-    $this->output->enable_profiler();
+    //$this->output->enable_profiler();
 
   }
 

@@ -37,7 +37,7 @@
 </head>
 <body>
 <?php
-    $this->load->view('usernavbar', array('cart' => $cart));
+    $this->load->view('partials/usernavbar', array('cart' => $cart));
 ?>
     <div class="container">
         <div class="row">

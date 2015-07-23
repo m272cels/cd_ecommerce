@@ -30,6 +30,10 @@ class Users extends CI_Controller {
         if($encrypted_password==$user['password'])
         {
           $this->session->set_userdata('user' , array('id'=>$user['id'],'email'=>$user['email']));
+          if($user['admin'] == '1')
+          {
+            redirect('/dashboard');
+          }
          redirect('/products'); 
         }
         else
