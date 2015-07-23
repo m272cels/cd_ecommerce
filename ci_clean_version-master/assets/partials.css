@@ -3,8 +3,8 @@ div.img-div {
 }
 
 img.product-img {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
     text-align: center;
     display: inline-block;
     border: 1px solid silver;
@@ -12,10 +12,6 @@ img.product-img {
     overflow: hidden;
 }
 
-td.product {
-    border: 1px solid silver;
-    padding: 5px;
-}
 #product-table {
     border: 1px solid silver;
     border-collapse: collapse;

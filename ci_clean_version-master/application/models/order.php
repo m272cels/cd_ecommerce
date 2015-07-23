@@ -57,6 +57,40 @@ class Order extends CI_Model {
 		}
 	}
 
+	public function search_orders($search) {
+		if($search['status'] == '1') {
+	
+			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
+						FROM orders as o
+						LEFT JOIN mailing_info mo on o.billing_id = mo.id
+                        WHERE mo.first_name LIKE '%".$search['search']."%' OR o.id like '%".$search['search']."%'
+						ORDER BY o.id DESC")->result_array();
+		}
+		else {
+			$statustxt = '';
+			switch($search['status']){
+				case '2':
+					$statustxt = "Order in Process";
+					break;
+				case '3':
+					$statustxt = 'Need to ship';
+					break;
+				case '4':
+					$statustxt = "shipped";
+					break;
+				case '5':
+					$statustxt = "Cancelled";
+					break;
+			}
+			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
+						FROM orders as o
+						LEFT JOIN mailing_info mo on o.billing_id = mo.id
+                        WHERE o.status = ? AND (mo.first_name LIKE '%".$search['search']."%' OR o.id LIKE '%".$search['search']."%')
+						ORDER BY o.id DESC", array($statustxt))->result_array();
+
+		}
+	}
+
 	public function get_cart_by_id($id) {
 		return $this->db->query("SELECT product_id, quantity
 			FROM cart_items

@@ -34,7 +34,11 @@
 
     <div id="nav" class="row">
     </div>
-        <button type="button" class="btn btn-primary btn-lg col-sm-2 col-sm-offset-8" data-toggle="modal" data-target="#addModal">Add Product</button>
+    <div class="row">
+       <button type="button" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-10" data-toggle="modal" data-target="#addModal">Add Product</button>
+    
+    </div>
+       <div class="row">
       <div id="table"></div>
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -56,6 +60,8 @@
           </div>
         </div>
     </div>
+    </div>
+      
   </div>
 </body>
 </html>

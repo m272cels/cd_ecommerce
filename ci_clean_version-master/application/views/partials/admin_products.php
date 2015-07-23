@@ -1,4 +1,4 @@
-<table id="product-table">
+<table  class="table table-striped">
     <thead>
         <td class="product">Picture</td>
         <td class="product">Product ID</td>

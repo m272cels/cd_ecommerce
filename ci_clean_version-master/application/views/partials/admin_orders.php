@@ -32,7 +32,7 @@
             <td>
                 <form method="post" id="TEST">
                     <input type="hidden" name="id" value="<?=$order['id']?>">
-                    <select class="status_change"> 
+                    <select class="status_change form-control"> 
 <?php
                 if($order['status'] == 'Order in process')
                     echo '<option selected="true" value="1">Order in process</option>';

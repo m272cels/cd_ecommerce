@@ -79,6 +79,10 @@ class Product extends CI_Model {
             WHERE id = ?", array($id['stock'], $id['product_id']));
     }
 
+    public function getproduct_inventory($id) {
+        return $this->db->query("SELECT count_in_stock FROM products WHERE id = ?", array($id))->row_array();
+    }
+
     public function delete_product($id) {
         return $this->db-query("DELETE FROM products
             WHERE id = ? ");
