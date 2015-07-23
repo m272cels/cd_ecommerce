@@ -9,6 +9,7 @@
 	<script>
 	$(document).ready(function(){
 		$('.carousel').carousel();
+		///Original get by price
 		$.get("/products/mainpage_products_json_price", function(products) {
             console.log(products);
             html='';
@@ -18,25 +19,62 @@
             }
             $('#listings').html(html);
         }, "json");
-        $('form').submit(function(){
-        	$.post('/products/mainpage_products_json_popularity',function(products){
-        		$.get("/products/mainpage_products_json_popularity", function(products) {
-            console.log(products);
-            html='';
-            for(var i=0;i<products.length;i++)
-            {
-            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+products[i]['product_id']+"'><img class='image' src='../assets/"+products[i]['source']+"' alt=''></a><p class='overlay'><span>Price: "+products[i]['price']+"</span></p></div>";
-            }
-            $('#listings').html(html);
-        }, "json");
-        	})
-        })
+        ///If select option is changed, get depending on choice
+        $('#select').change(function(){
+        	if($('#select').val()==='popular'){
+	        	$.post('/products/mainpage_products_json_popularity',function(popular){
+	        		$.get("/products/mainpage_products_json_popularity", function(popular) {
+	            console.log(popular);
+	            html='';
+	            for(var j=0;j<popular.length;j++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+popular[j]['id']+"'><img class='image' src='../assets/"+popular[j]['source']+"' alt=''></a><p class='overlay'><span>Price: "+popular[j]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+	        	})
+	        }
+        	else
+        	{
+        		$.post('/products/mainpage_products_json_price',function(price){
+	        		$.get("/products/mainpage_products_json_price", function(price) {
+	            console.log(price);
+	            html='';
+	            for(var k=0;k<price.length;k++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+price[k]['product_id']+"'><img class='image' src='../assets/"+price[k]['source']+"' alt=''></a><p class='overlay'><span>Price: "+price[k]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+	        	})
+        	}
+				})
+		///Select get by category
+		$('button').click(function(){
+			$.get('/products/category_json/'+$(this).attr('id'), function(category){
+				console.log(category);
+				html='';
+	            for(var l=0;l<category.length;l++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+category[l]['product_id']+"'><img class='image' src='../assets/"+category[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+category[l]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+			},'json');
+
+		})
+
 
 		$.get('/main/user_nav', function(res){
 	        $('#nav').html(res);
 	        })
 	})
 	</script>
+	<style type="text/css">
+	form{
+		margin-top: 0px:;
+		margin-bottom: 0px;
+}
+		</style>
 </head>
 <body>
 	<div class="container">
@@ -56,16 +94,12 @@
 				$count++;
 			}
 		}
-	echo "<button type='button' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
+	echo "<button type='submit' id='{$category['id']}' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
 	}
 ?>
 			<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 			<a href="">Show More</a>
 		</div>
-
-
-
-
 	<div class='col-sm-6 col-sm-offset-1 carousel_div'>
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
@@ -110,10 +144,11 @@
 	</div>
 	<div class='col-sm-10 col-sm-offset-1'>
 		<h3>Product listing</h3>
-		<p class='col-sm-1 col-sm-offset-8'>Sort:</p>
-		<form class='col-sm-2' action='#'><select><option>Price</option><option>Popularity</option></a></select><input type='submit'></form>
+		<p class='col-sm-1 col-sm-offset-9'>Sort:</p>
+		<select id='select' name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
 		<div id='listings'>
 	</div>
+
 	</div>
 	</div>
 

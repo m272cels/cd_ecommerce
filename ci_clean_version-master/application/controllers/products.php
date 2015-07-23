@@ -52,6 +52,11 @@ public function mainpage_products_json_popularity()
     $products=$this->Product->getproducts_bypopularity();
     echo json_encode($products);
   }
+  public function category_json($category)
+  {
+    $products=$this->Product->getproduct_bycategory($category);
+    echo json_encode($products);
+  }
   public function show_admin_products() {
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
@@ -78,9 +83,11 @@ public function mainpage_products_json_popularity()
     $this->show_admin_products();
   }
 
-  public function edit_product($p_id)
+  public function update_product($p_id)
   {
-
+    $updated_product_info = $this->input->post();
+    var_dump(($updated_product_info));
+    $this->Product->update_product($updated_product_info);
   }
 
   public function add_review($p_id)

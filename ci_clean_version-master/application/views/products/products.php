@@ -52,11 +52,15 @@
         });
         $(document).on("click", ".edit", function() {
             var p_id = $(this).attr("value");
+            console.log(p_id);
             $("#p_id").val(p_id);
+            $("#edit").attr("action", "edit_product/"+p_id);
             var name = $(this).parent().siblings('.product_name').text();
             $("#input_name").val(name);
             var description = $(this).parent().siblings('.product_description').val();
             $("#input_description").val(description);
+            var stock_count = $(this).parent().siblings('.product_count').text();
+            $("#input_inventoryCount").val(stock_count);
         })
 
     })
@@ -78,7 +82,6 @@
               </form>
       </div>
        <button type="button" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-7" data-toggle="modal" data-target="#addModal">Add Product</button>
-    
     </div>
        <div class="row">
         <div id="table" class="col-sm-10 col-sm-offset-1"></div>
@@ -90,7 +93,7 @@
               <h4 class="modal-title" id="myModalLabel">Edit Product </h4>
             </div>
             <div class="modal-body">
-              <form id="edit" action="/updatecart/" method="post">
+              <form id="edit" action="edit_product/(:any)" method="post">
                   <input id="p_id" type="hidden" name="product_id">
                   <p>Name: <input id="input_name" type="text" name="name"></p>
                   <p>Description: <input id="input_description" type="text" name="description"></p>
@@ -104,6 +107,7 @@
 ?>
                     </select>
                   </p>
+                  <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>or add a new category: <input type="text" name="new_category"></p>
                   <p>Images: <button>Upload</button></p>
                   <input type="submit" value="Update">
@@ -117,7 +121,7 @@
         </div>
     </div>
     </div>
-      
+
   </div>
 </body>
 </html>

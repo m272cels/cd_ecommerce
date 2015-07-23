@@ -41,7 +41,7 @@
 ?>
 		</div>
 	</div>
-	<div id="description" class="col-lg-7">
+	<div id="description" class="col-lg-7 col-lg-offset-1">
 		<p><?=$product['description']?></p>
 <?php
 		if ($product['count_in_stock'] == 0) { ?>
