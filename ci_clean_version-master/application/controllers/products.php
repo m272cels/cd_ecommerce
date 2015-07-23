@@ -41,13 +41,14 @@ class Products extends CI_Controller {
   }
 
   public function show_admin_products() {
-    $this->load->view("products/products");
+    $cart = $this->session->userdata("cart");
+    $this->load->view("products/products", array("cart" => $cart));
   }
 
 
   public function add($id)
   {
-    
+
   }
 
   public function delete($p_id)
