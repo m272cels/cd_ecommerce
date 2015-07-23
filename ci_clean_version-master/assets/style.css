@@ -32,4 +32,30 @@
     padding-top: 5px;
 }
 
+#order-info {
+    border: 1px solid silver;
+    padding: 20px;
+    margin-right: 40px;
+}
+
+#order-status, #order-final {
+    display:  inline-block;
+    vertical-align: top;
+    border: 1px solid silver;
+    padding-left: 5px;
+    padding-right: 40px;
+}
+
+#order-final p{
+    margin-top: 5px;
+}
+
+#order-status p{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#order-status {
+    margin-right: 70px;
+}
 

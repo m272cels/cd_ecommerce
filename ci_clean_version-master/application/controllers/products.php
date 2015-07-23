@@ -7,7 +7,7 @@ class Products extends CI_Controller {
     parent::__construct();
     $this->load->model('Product');
     $this->load->model('Order');
-    $this->output->enable_profiler();
+    //$this->output->enable_profiler();
 
   }
 
@@ -35,11 +35,23 @@ class Products extends CI_Controller {
     // $this->load->view('products/show', $info);
   }
 
+  public function show_partial_products() {
+    $products = $this->Order->sold_products();
+    $this->load->view("partials/admin_products", array("product_info" => $products));
+  }
+
+  public function show_admin_products() {
+    $categories=$this->Product->get_categories();
+    $cart = $this->session->userdata("cart");
+
+    $this->load->view("products/products", array("cart" => $cart, "categories" => $categories));
+
+  }
 
 
   public function add($id)
   {
-    
+
   }
 
   public function delete($p_id)
@@ -47,9 +59,9 @@ class Products extends CI_Controller {
     // removes a product
   }
 
-  public function update($p_id)
+  public function edit_product($p_id)
   {
-    // updates a product
+
   }
 
   public function add_review($p_id)

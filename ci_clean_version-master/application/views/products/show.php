@@ -6,19 +6,19 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css">
-	<style type="text/css">
-	#space{
-		height: 75px;
-	}
-	</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	        $.get('/main/user_nav', function(res){
+	        $('#nav').html(res);
+	        })
+	    })
+	</script>
 </head>
 
 <body>
-<?php
-	$this->load->view('partials/usernavbar', array('cart' => $cart));
-?>
-
-	<div id='space' class='col-lg-12'></div>
+	<div class="container">
+		<div id="nav" class="row">
+		</div>
 	<div id="title" class="col-lg-offset-1">
 		<a href="">Go Back</a>
 		<h2><?=$product['name']?></h2>
@@ -63,5 +63,10 @@
 	}
 ?>
 	</div>
+
+
+	</div>
+
+	
 </body>
 </html>

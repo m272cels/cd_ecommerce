@@ -1,80 +1,26 @@
 <html>
 <head>
-	<title></title>
+	<title>Main</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/assets/mainpage.css">
 	<script>
 	$(document).ready(function(){
 		$('.carousel').carousel();
-		$('.dropdown-toggle').dropdown()
+
+		$.get('/main/user_nav', function(res){
+	        $('#nav').html(res);
+	        })
 
 	})
 	</script>
-	<style type="text/css">
-	#helper{
-		border: solid black 1px;
-		border-radius: 5px;
-		height: 360px;
-	}
-	.active{
-  width: auto;
-  height: 350px;
-  max-height: 350px;
-
-	}
-	.list{
-  		height: 170px;
-  		position: relative;
-  		padding: 5px 5px 5px 5px;
-  		border: 1px solid black;
-  		margin: 5px 0 5px 5px;
-	}
-	.image{
-		width:100%;
-		height: 100%;
-	}
-	.overlay{
-		position: absolute;
-		top: 130px;
-		left:50px;
-		width: 100%;
-	}
-	p span{
-	   color: white;
-	   font: bold 12px/25px Helvetica, Sans-Serif; 
-	   letter-spacing: -1px;  
-	   background: rgb(0, 0, 0);
-	   background: rgba(0, 0, 0, 0.7);
-	   padding: 10px;		
-	}
-	#categories{
-		border-bottom: 2px solid lightgrey;
-		margin-bottom: 20px;
-	}
-	.category{
-		background: lightgrey;
-		border: grey 1px solid;
-	}
-	.carousel_div{
-		padding: 5px 5px 5px 5px; 
-		border: 1px solid black;
-		margin-bottom: 30px;
-	}
-	h3{
-		border-bottom: 2px solid lightgrey;
-		padding-bottom: 2px;
-		margin-bottom: 20px;
-	}
-	</style>
 </head>
 <body>
-<?php
-$this->load->view('partials/usernavbar');
-?>
-
-
-	<div class='col-sm-3 col-sm-offset-1'>
+	<div class="container">
+		<div id="nav" class="row">
+		</div>
+		<div class='col-sm-3 col-sm-offset-1'>
 		<h5 id='categories'>Categories</h5>
 <?php
 	foreach($categories as $category)
@@ -161,6 +107,8 @@ $this->load->view('partials/usernavbar');
 ?>
 
 	</div>
+	</div>
+	
 
 
 </body>

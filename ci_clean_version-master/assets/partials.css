@@ -1,0 +1,24 @@
+div.img-div {
+    width: auto;
+}
+
+img.product-img {
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid silver;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+td.product {
+    border: 1px solid silver;
+    padding: 5px;
+}
+#product-table {
+    border: 1px solid silver;
+    border-collapse: collapse;
+    text-align: center;
+}
+

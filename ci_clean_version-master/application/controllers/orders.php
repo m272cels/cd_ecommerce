@@ -6,13 +6,13 @@ class Orders extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Order');
-    $this->output->enable_profiler();
+    //$this->output->enable_profiler();
   }
 
   public function index()
   {
     // for admins to view all orders
-    // $this->load->view('orders/index');
+    $this->load->view('orders/dashboard');
   }
 
   public function inventory()
@@ -26,9 +26,21 @@ class Orders extends CI_Controller {
     // for admins to view one specific order
     $all['order_info'] = $this->Order->show_order_info($id);
     $all['order_items'] = $this->Order->show_order_items($id);
+    //var_dump($this->Order->show_order_items($id));
     $all['shipping_info'] = $this->Order->getshipping($id);
     $all['billing_info'] = $this->Order->getbilling($id);
     $this->load->view('orders/order', $all);
+  }
+
+  public function dashboard_orders()
+  {
+    $this->load->view('orders/dashboard_orders');
+  }
+
+  public function orderspartial($status) {
+    $orders = $this->Order->get_orders($status);
+    //var_dump($orders);
+    $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
 
   public function insertAddresses() {
@@ -46,32 +58,51 @@ class Orders extends CI_Controller {
   public function create($total)
   {
     // places all items from cart into order
-    $user_id = $this->session->userdata('user_id');
+    $user = $this->session->userdata('user');
     // create shipping/billing
     $info = $this->insertAddresses();
     //$info['user_id'] = $user_id;
-    $info['user_id'] = '1';
+    $info['user_id'] = $user['id'];
     $info['total'] = $total;
     // create new order
     $order_id = $this->Order->create_order($info);
     // place all items from cart into order
-    $cart = $this->Order->get_cart_by_id($user_id);
+    $cart = $this->Order->get_cart_by_id($user['id']);
     foreach ($cart as $item) {
-      var_dump($item);
-      die();
       $item['order_id'] = $order_id;
-      //$this->Order->insert_into_order()
+      $this->Order->insert_into_order($item);
     }
     // clear the user's cart
-    $this->Order->clear_cart('1');
+    $this->Order->clear_cart($user['id']);
     $this->session->set_userdata('cart', 0);
-    redirect('/');
+    redirect('/products');
 
   }
 
-  public function update_status()
+  public function updatestatus($status_id, $id)
   {
-
+    //var_dump($this->input->post());
+    //$status_id = $this->input->post('status');
+    //$id = $this->input->post('id');
+    $status = '';
+    switch($status_id){
+      case '1':
+        $status = "Order in process";
+        break;
+      case '2':
+        $status = "Need to ship";
+        break;
+      case '3':
+        $status = "shipped";
+        break;
+      case '4':
+        $status = "Cancelled";
+        break;
+    }
+    $info = array('status' => $status, 'order_id' => $id);
+    $this->Order->update_order_status($info);
+    $orders = $this->Order->get_orders('1');
+    $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
 }
 
