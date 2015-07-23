@@ -20,7 +20,7 @@
 		<div id="nav" class="row">
 		</div>
 	<div id="title" class="col-lg-offset-1">
-		<a href="">Go Back</a>
+		<a href="/products">Go Back</a>
 		<h2><?=$product['name']?></h2>
 	</div>
 	<div id="pictures" class="col-lg-3 col-lg-offset-1">
@@ -41,7 +41,7 @@
 ?>
 		</div>
 	</div>
-	<div id="description" class="col-lg-7">
+	<div id="description" class="col-lg-7 col-lg-offset-1">
 		<p><?=$product['description']?></p>
 <?php
 		if ($product['count_in_stock'] == 0) { ?>
