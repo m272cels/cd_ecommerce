@@ -17,15 +17,30 @@
         $('#nav').html(res);
         })
 
-        $('#myModal').on('shown.bs.modal', function () {
+        $('#editModal').on('shown.bs.modal', function () {
               $('#myInput').focus();
         });
-        $('button[data-target="#myModal"]').on('click', function () {
+        $('button[data-target="#editModal"]').on('click', function () {
             var qty = $(this).siblings('.qty').text();
-            $('#myInput').val(qty);
+            $('#editInput').val(qty);
             var p_id = $(this).siblings('input[type="hidden"]').val();
             $('#p_id').val(p_id);
         });
+        $(document).on("click", ".delete-product", function() {
+            var product_id = $(this).attr("value");
+            $.post("/products/delete/"+product_id, $(this).serialize(), function(res) {
+                $("#table").html(res);
+            });
+        });
+        $(document).on("click", ".edit", function() {
+            var p_id = $(this).attr("value");
+            $("#p_id").val(p_id);
+            var name = $(this).parent().siblings('.product_name').text();
+            $("#input_name").val(name);
+            var description = $(this).parent().siblings('.product_description').val();
+            $("#input_description").val(description);
+        })
+
     })
     </script>
 </head>
@@ -40,17 +55,31 @@
     </div>
        <div class="row">
       <div id="table"></div>
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Update Quantity</h4>
+              <h4 class="modal-title" id="myModalLabel">Edit Product </h4>
             </div>
             <div class="modal-body">
-              <form id="update" action="/updatecart/" method="post">
+              <form id="edit" action="/updatecart/" method="post">
                   <input id="p_id" type="hidden" name="product_id">
-                  <input id="myInput" type="number" name="quantity">
+                  <p>Name: <input id="input_name" type="text" name="name"></p>
+                  <p>Description: <input id="input_description" type="text" name="description"></p>
+                  <p>Categories:
+                    <select name="existing_category">
+<?php
+                       foreach ($categories as $category) { ?>
+                           <option><?=$category['category']?></option>
+<?php
+                       }
+?>
+                    </select>
+                  </p>
+                  <p>or add a new category: <input type="text" name="new_category"></p>
+                  <p>Images: <button>Upload</button></p>
+                  <input type="submit" value="Update">
               </form>
             </div>
             <div class="modal-footer">

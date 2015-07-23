@@ -8,11 +8,32 @@
 	<script>
 	$(document).ready(function(){
 		$('.carousel').carousel();
+		$.get("/products/mainpage_products_json_price", function(products) {
+            console.log(products);
+            html='';
+            for(var i=0;i<products.length;i++)
+            {
+            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+products[i]['product_id']+"'><img class='image' src='../assets/"+products[i]['source']+"' alt=''></a><p class='overlay'><span>Price: "+products[i]['price']+"</span></p></div>";
+            }
+            $('#listings').html(html);
+        }, "json");
+        $('form').submit(function(){
+        	$.post('/products/mainpage_products_json_popularity',function(products){
+        		$.get("/products/mainpage_products_json_popularity", function(products) {
+            console.log(products);
+            html='';
+            for(var i=0;i<products.length;i++)
+            {
+            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+products[i]['product_id']+"'><img class='image' src='../assets/"+products[i]['source']+"' alt=''></a><p class='overlay'><span>Price: "+products[i]['price']+"</span></p></div>";
+            }
+            $('#listings').html(html);
+        }, "json");
+        	})
+        })
 
 		$.get('/main/user_nav', function(res){
 	        $('#nav').html(res);
 	        })
-
 	})
 	</script>
 </head>
@@ -25,7 +46,7 @@
 <?php
 	foreach($categories as $category)
 	{
-		$count=0;		
+		$count=0;
 		foreach($products as $product)
 		{
 
@@ -88,27 +109,13 @@
 	</div>
 	<div class='col-sm-10 col-sm-offset-1'>
 		<h3>Product listing</h3>
-<?php
-	foreach($images as $image)
-	{
-		echo "<div class='col-sm-2 list'>
-
-      <a href='/showproduct/{$image['product_id']}''><img class='image' src='../assets/{$image['source']}' alt=''></a>
-      
-      <p class='overlay'><span>Price: {$product['price']}</span></p>
-
-</div>";
-
-
-
-
-		// "<img class='col-sm-4 list' src='../assets/{$image['source']}'>";
-	}
-?>
-
+		<p class='col-sm-1 col-sm-offset-8'>Sort:</p>
+		<form class='col-sm-2' action='#'><select><option>Price</option><option>Popularity</option></a></select><input type='submit'></form>
+		<div id='listings'>
 	</div>
 	</div>
-	
+	</div>
+
 
 
 </body>

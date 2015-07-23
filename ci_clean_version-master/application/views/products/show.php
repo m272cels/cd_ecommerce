@@ -43,6 +43,12 @@
 	</div>
 	<div id="description" class="col-lg-7">
 		<p><?=$product['description']?></p>
+<?php
+		if ($product['count_in_stock'] == 0) { ?>
+			<p>Product Unavailable</p>
+<?php
+		} else {
+?>
 		<p>Quantity in stock: <?=$product['count_in_stock']?></p>
 		<form action="/addproduct/<?=$product['id']?>" method="post">
 			<input type="number" name="quantity">
@@ -51,13 +57,15 @@
 	</div>
 	<div id="similar" class="col-lg-10 col-lg-offset-1">
 		<h2>Similar Items</h2>
+<?php  }
+?>
 <?php
-	for ($i = 0; $i < 3; $i++) {
+	foreach ($similar_products as $index => $product) {
 ?>
 		<div class="col-lg-1">
-			<a href="/products/show/1"><img src="" alt="similar"></a>
-			<p>$19.99</p>
-			<p>Black belt</p>
+			<a href="/showproduct/<?=$product['id']?>"><img class="similar-products" src="/assets/<?=$product['source']?>" alt="/assets/<?=$product['alt']?>"></a>
+			<p><?=$product['price']?></p>
+			<p><?=$product['name']?></p>
 		</div>
 <?php
 	}
@@ -67,6 +75,6 @@
 
 	</div>
 
-	
+
 </body>
 </html>

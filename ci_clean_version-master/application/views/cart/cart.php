@@ -9,15 +9,43 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $.get('/carts/index_html', function (res) {
+                $('#cart-table').html(res);
+                var total = $('#total-amt').text();
+                $('#pay').attr('action', "/addorder/"+total);
+            });
             $('#myModal').on('shown.bs.modal', function () {
               $('#myInput').focus();
             });
-            $('button[data-target="#myModal"]').on('click', function () {
-                var qty = $(this).siblings('.qty').text();
-                $('#myInput').val(qty);
-                var p_id = $(this).siblings('input[type="hidden"]').val();
-                $('#p_id').val(p_id);
+
+            $(document).on('click', '.delete', function () {
+                var p_id = $(this).attr('value');
+                $.post('/carts/delete/'+p_id, function (res) {
+                    $('#cart-table').html(res);
+                    var total = $('#total-amt').text();
+                    $('#pay').attr('action', "/addorder/"+total);
+                });
+                var cartCount = Number($('#cart-counter').text());
+                $('#cart-counter').text(cartCount - 1);
+                return false;
             });
+            $(document).on('click', '.update', function () {
+                
+                $(this).parent().hide();
+                $(this).parent().siblings('.disappear').show();
+            });
+            $(document).on('change', '.disappear', function () {
+                $.post('/carts/update', $(this).serialize(), function (res) {
+                    $('#cart-table').html(res);
+                    var total = $('#total-amt').text();
+                    $('#pay').attr('action', "/addorder/"+total);
+                });
+                return false;
+            });
+            $(document).on('blur', '.disappear', function () {
+                $(this).siblings('.shown').show();
+                $(this).hide();
+            })
             $('#checkbox').change(function() {
                 if (this.checked) {
                     $("#first_name_bill").val($("#first_name").val());
@@ -44,50 +72,12 @@
     </script>
 </head>
 <body>
+    <div id="nav"></div>
 <?php
     $this->load->view('partials/usernavbar', array('cart' => $cart));
 ?>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-<?php
-//var_dump($cart_items);
-    $total = 0;
-    foreach ($cart_items as $item) {
-        $total += $item['total'];
-?>
-                        <tr>
-                            <td><?= $item['name'] ?></td>
-                            <td>$<?= $item['price'] ?></td>
-                            <td><span class="qty"><?= $item['quantity'] ?></span> | <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Update</button> |
-                            <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
-                                    <a href="/delete/<?=$item['id']?>">delete</a></td>
-                            <td>$<?= $item['total'] ?></td>
-                        </tr>
-<?php
-    }
-?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3 col-sm-offset-9">
-                <p>Subtotal: $<?=$total?></p>
-                <p>Shipping: $1.00</p>
-                <p id="total">Total: $<?=$total+1?></p>
-            </div>
-        </div>
+        <div class="row" id="cart-table"></div>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
                 <form method="post" action="products">
@@ -98,7 +88,7 @@
         <div class="row">
             <div class="col-sm-6 col-sm-offset-1">
                 <h2>Shipping Information</h2>
-                <form class="form-horizontal" role="form" action="/addorder/<?=$total+1?>" method="post">
+                <form id="pay" class="form-horizontal" role="form" action="/addorder/0" method="post">
                     <div class="form-group">
                         <label class="control-label col-sm-3">First Name:</label>
                         <div class="col-sm-9">
@@ -241,25 +231,5 @@
             </div>
         </div>
     </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Quantity</h4>
-      </div>
-      <div class="modal-body">
-        <form id="update" action="/updatecart/" method="post">
-            <input id="p_id" type="hidden" name="product_id">
-            <input id="myInput" type="number" name="quantity">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button form="update" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
