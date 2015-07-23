@@ -32,11 +32,9 @@ class Users extends CI_Controller {
           $this->session->set_userdata('user' , array('id'=>$user['id'],'email'=>$user['email']));
           if($user['admin'] == '1')
           {
-            redirect('/admin');
+            redirect('/dashboard');
           }
-          //var_dump($user);
-
-         redirect('/products');
+         redirect('/products'); 
         }
         else
         {
