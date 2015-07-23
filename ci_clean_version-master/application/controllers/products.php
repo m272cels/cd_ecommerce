@@ -52,6 +52,11 @@ public function mainpage_products_json_popularity()
     $products=$this->Product->getproducts_bypopularity();
     echo json_encode($products);
   }
+  public function category_json($category)
+  {
+    $products=$this->Product->getproduct_bycategory($category);
+    echo json_encode($products);
+  }
   public function show_admin_products() {
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
