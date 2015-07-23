@@ -16,11 +16,17 @@ class Carts extends CI_Controller {
     $this->load->view('cart/cart', array("cart_items" => $cart, 'cart' => $cartCount));
   }
 
-  public function add()
+  public function add($id)
   {
-    $this->session->userdata('user_id');
-    $this->input->post();
-    $this->Order->insert_into_cart();
+    $cart = array("user_id" => '1',
+        "product_id" => $id, "quantity" => $this->input->post("quantity"));
+    $this->Order->insert_into_cart($cart);
+    $currentcart = $this->session->userdata('cart');
+    $this->session->set_userdata('cart', $currentcart + 1);
+    //$this->show($id);
+    redirect('/showproduct/'.$id);
+    // var_dump($this->input->post("quantity"));
+    // die();
   }
 
   public function delete($id)
@@ -35,6 +41,10 @@ class Carts extends CI_Controller {
   public function update()
   {
     // updates one item
+    $post = $this->input->post();
+    $post['user_id'] = '1';//$this->session->userdata('user_id');
+    $this->Order->update_cart($post);
+    redirect('/cart');
   }
 
   public function clear()

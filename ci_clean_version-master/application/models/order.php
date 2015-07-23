@@ -23,6 +23,16 @@ class Order extends CI_Model {
 			WHERE o.id = ?", array($id))->row_array();
 	}
 
+    public function show_order_with_user_info() {
+        return $this->db->query("SELECT o.id, u.first_name, o.created_at, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ' ', mo.state, ' ', mo.zipcode)
+            o.total, o.status
+            FROM orders as o
+            LEFT JOIN mailing_info as mo
+            ON o.billing_id = mo.id
+            LEFT JOIN users as u
+            ON o.user_id = 1")->results_array();
+    }
+
 	public function get_cart_by_id($id) {
 		return $this->db->query("SELECT product_id, quantity
 			FROM cart_items
@@ -30,7 +40,7 @@ class Order extends CI_Model {
 	}
 
 	public function show_cart($id) {
-		return $this->db->query("SELECT p.name, p.price, p.id, ci.quantity, p.price*ci.quantity as total
+		return $this->db->query("SELECT p.id, p.name, p.price, p.id, ci.quantity, p.price*ci.quantity as total
 			FROM products as p
 			LEFT JOIN cart_items as ci on p.id = ci.product_id
 			LEFT JOIN users as u on u.id = ci.user_id
@@ -44,7 +54,7 @@ class Order extends CI_Model {
 
 	public function update_cart($cart) {
 		return $this->db->query("UPDATE cart_items SET quantity = ?
-			WHERE id = ? AND product_id = ? AND used_id = ?", array());
+			WHERE product_id = ? AND user_id = ?", array($cart['quantity'], $cart['product_id'], $cart['user_id']));
 	}
 
 	public function delete_from_cart($product) {

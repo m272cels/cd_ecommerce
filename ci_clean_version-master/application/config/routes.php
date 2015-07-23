@@ -9,8 +9,13 @@ $route['products'] = "/products";
 $route['show'] = "/main/show";
 $route['add'] = "/main/add";
 $route['showproduct/(:any)'] = "products/show/$1";
-$route['addproduct/(:any)'] = "products/add/$1";
+$route['addproduct/(:any)'] = "carts/add/$1";
 $route['cart'] = "carts";
 $route['delete/(:any)'] = "carts/delete/$1";
 $route['addorder/(:any)'] = "orders/create/$1";
+
+$route['updatecart'] = "carts/update";
+
+$route['admin'] = "products/show_admin_products";
+
 //end of routes.php
