@@ -3,7 +3,9 @@
         display: none;
     }
 </style>
-
+<?php
+    if (!empty($cart_items)) {
+?>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <table class="table table-striped">
@@ -16,11 +18,11 @@
                         </tr>
                     </thead>
                     <tbody>
+    
 <?php
-var_dump($cart_items);
     $total = 0;
-    foreach ($cart_items as $item) {
-        $total += $item['total'];
+        foreach ($cart_items as $item) {
+            $total += $item['total'];
 ?>
                         <tr>
                             <td><?= $item['name'] ?></td>
@@ -39,7 +41,7 @@ var_dump($cart_items);
                             <td>$<?= $item['total'] ?></td>
                         </tr>
 <?php
-    }
+        }
 ?>
                     </tbody>
                 </table>
@@ -52,3 +54,11 @@ var_dump($cart_items);
                 <p id="total">Total: $<span id="total-amt"><?=$total+1?></span></p>
             </div>
         </div>
+<?php
+    }
+    else {
+?>
+        <h3>Your cart is empty!</h3>
+<?php
+    }
+?>

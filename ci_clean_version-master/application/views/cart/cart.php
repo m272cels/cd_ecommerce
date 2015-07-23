@@ -6,16 +6,19 @@
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
+        Stripe.setPublishableKey('pk_test_f5QqpTBmdEsgySvGBAbyHKhT');
+
         $(document).ready(function() {
+            if ($('#cart-counter').text() == '0') {
+                $('#pay-info').hide();
+            }
+
             $.get('/carts/index_html', function (res) {
                 $('#cart-table').html(res);
                 var total = $('#total-amt').text();
                 $('#pay').attr('action', "/addorder/"+total);
-            });
-            $('#myModal').on('shown.bs.modal', function () {
-              $('#myInput').focus();
             });
 
             $(document).on('click', '.delete', function () {
@@ -27,6 +30,9 @@
                 });
                 var cartCount = Number($('#cart-counter').text());
                 $('#cart-counter').text(cartCount - 1);
+                if ($('#cart-counter').text() == '0') {
+                    $('#pay-info').hide();
+                }
                 return false;
             });
             $(document).on('click', '.update', function () {
@@ -85,7 +91,7 @@
                 </form>
             </div>
         </div>
-        <div class="row">
+        <div id="pay-info" class="row">
             <div class="col-sm-6 col-sm-offset-1">
                 <h2>Shipping Information</h2>
                 <form id="pay" class="form-horizontal" role="form" action="/addorder/0" method="post">
@@ -179,7 +185,7 @@
                             <input id="zip_bill" type="text" class="form-control" name="zip_bill">
                         </div>
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-sm-3">Card:</label>
                         <div class="col-sm-9">
                             <input id="zip_bill" type="text" class="form-control" name="card_bill">
@@ -208,8 +214,8 @@
                                 <option>11</option>
                                 <option>12</option>
                             </select>
-                        </div> -->
-                        <!-- <div class="col-sm-1"><p id="slash">/</p></div>
+                        </div>
+                        <div class="col-sm-1"><p id="slash">/</p></div>
                         <div class="col-sm-4">
                             <select class="form-control" name="year">
                                 <option>2015</option>
@@ -221,7 +227,7 @@
                                 <option>2021</option>
                             </select>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-2 col-sm-offset-10">
                             <button type="submit" class="btn btn-default">Pay</button>
