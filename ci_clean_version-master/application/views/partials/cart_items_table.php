@@ -20,7 +20,7 @@
                     <tbody>
     
 <?php
-    $total = 0;
+        $total = 0;
         foreach ($cart_items as $item) {
             $total += $item['total'];
 ?>
@@ -30,13 +30,13 @@
                             <td>
                                 <span class="shown">
                                     <span class="qty"><?= $item['quantity'] ?></span> |
-                                    <a href="" class="update">Update</a>
+                                    <a class="update">Update</a>
                                 </span>
                                 <form class="disappear" method="post">
                                     <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
                                     <input type="number" name="quantity" value="<?= $item['quantity'] ?>">
                                 </form> |
-                                <a href="" class="delete" value="<?=$item['id']?>">Delete</a>
+                                <a class="delete" value="<?=$item['id']?>">Delete</a>
                             </td>
                             <td>$<?= $item['total'] ?></td>
                         </tr>

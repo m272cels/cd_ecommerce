@@ -75,7 +75,7 @@ class Orders extends CI_Controller {
     // clear the user's cart
     $this->Order->clear_cart($user['id']);
     $this->session->set_userdata('cart', 0);
-    redirect('/products');
+    redirect('/payment');
 
   }
 
