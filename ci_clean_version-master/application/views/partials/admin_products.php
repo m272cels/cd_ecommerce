@@ -16,7 +16,7 @@
             <td class="product"><?=$product['count_in_stock']?></td>
             <td class="product"><?=$product['sold']?></td>
             <td class="product">
-                <a href="">Edit</a>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Edit</button>
                 <a href="">Delete</a>
             </td></tr>
 <?php
