@@ -6,7 +6,8 @@ class Orders extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('Order');
-    //$this->output->enable_profiler();
+    $this->load->model('Product');
+    $this->output->enable_profiler();
   }
 
   public function index()
@@ -43,6 +44,12 @@ class Orders extends CI_Controller {
     $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
 
+  public function searchorders($status,$search) {
+    $info = array('search' => $search, 'status' => $status);
+    $orders = $this->Order->search_orders($info);
+    $this->load->view('partials/admin_orders', array('orders' => $orders));
+  }
+
   public function insertAddresses() {
     $shipping_info = array('fn' => $this->input->post('first_name'), 'ln' => $this->input->post('last_name'), 'add' => $this->input->post('address'),
       'add2' => $this->input->post('address2'), 'city' => $this->input->post('city'), 'state' => $this->input->post('state'),
@@ -70,6 +77,9 @@ class Orders extends CI_Controller {
     $cart = $this->Order->get_cart_by_id($user['id']);
     foreach ($cart as $item) {
       $item['order_id'] = $order_id;
+      $currinventory = $this->Product->getproduct_inventory($item['product_id']);
+      $currinventory -= $item['quantity'];
+      $this->Product->updateproduct_inventory(array('stock' => $currinventory, 'product_id' => $item['product_id']));
       $this->Order->insert_into_order($item);
     }
     // clear the user's cart
