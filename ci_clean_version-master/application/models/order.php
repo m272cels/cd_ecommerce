@@ -125,4 +125,19 @@ class Order extends CI_Model {
 	}
 
 
+    // public function validate_addresses($post)
+    // {
+    //     $this->load->library("form_validation");
+    //     $this->form_validation->set_rules("email", "Email", "trim|required");
+    //     $this->form_validation->set_rules("password", "Password", "trim|required");
+    //     if($this->form_validation->run() === FALSE)
+    //     {
+    //         $this->session->set_flashdata('errors' , validation_errors());
+    //         return 0;
+    //     }
+    //     else
+    //     {
+    //         return 1;
+    //     }
+    // }
 }

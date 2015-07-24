@@ -40,7 +40,7 @@ class Session extends CI_Model {
         $this->db->query($query, $values);
         $this->session->set_flashdata('success' , "Success! Please log in!");
     }
-    public function validate_log()
+    public function validate_log($post)
     {
         $this->load->library("form_validation");
         $this->form_validation->set_rules("email", "Email", "trim|required");

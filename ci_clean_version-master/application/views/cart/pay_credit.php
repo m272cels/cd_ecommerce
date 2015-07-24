@@ -10,12 +10,11 @@
     <script type="text/javascript">
         Stripe.setPublishableKey('pk_test_f5QqpTBmdEsgySvGBAbyHKhT');
         $(document).ready(function() {                        
-            $('#pay').submit(function(event) {
-                var $form = $('#card-info');
+            $('#card-info').submit(function(event) {
+                var $form = $(this);
 
                 // Disable the submit button to prevent repeated clicks
                 $form.find('button').prop('disabled', true);
-                console.log('submitted');
                 // console.log($form);
                 Stripe.card.createToken($form, stripeResponseHandler);
 
@@ -26,7 +25,6 @@
         });
         function stripeResponseHandler(status, response) {
           var $form = $('#card-info');
-          console.log('responding');
           console.log(response);
           if (response.error) {
             // Show the errors on the form
@@ -53,22 +51,23 @@
         <h3>Enter your credit card info below:</h3>
         <form id="card-info" class="form-horizontal" role="form" action="/chargecard" method="post">
             <span class="payment-errors"></span>
+            <input type="hidden" name="total" value="<?= $total ?>">
             <div class="form-group">
                 <label class="control-label col-sm-3">Card:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" data-stripe="card-number">
+                    <input type="text" class="form-control" data-stripe="number">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3">CVC:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" data-stripe="card-cvc">
+                    <input type="text" class="form-control" data-stripe="cvc">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3">Expiration:</label>
                 <div class="col-sm-4">
-                    <select class="form-control" data-stripe="card-month">
+                    <select class="form-control" data-stripe="exp-month">
                         <option>01</option>
                         <option>02</option>
                         <option>03</option>
@@ -85,7 +84,7 @@
                 </div>
                 <div class="col-sm-1"><p id="slash">/</p></div>
                 <div class="col-sm-4">
-                    <select class="form-control" data-stripe="card-year">
+                    <select class="form-control" data-stripe="exp-year">
                         <option>2015</option>
                         <option>2016</option>
                         <option>2017</option>
@@ -94,6 +93,11 @@
                         <option>2020</option>
                         <option>2021</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 col-sm-offset-10">
+                    <button type="submit" class="btn btn-default">Submit Payment</button>
                 </div>
             </div>
         </form>

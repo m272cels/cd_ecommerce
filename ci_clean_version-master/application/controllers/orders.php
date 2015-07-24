@@ -43,25 +43,11 @@ class Orders extends CI_Controller {
     $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
 
-  public function insertAddresses() {
-    $shipping_info = array('fn' => $this->input->post('first_name'), 'ln' => $this->input->post('last_name'), 'add' => $this->input->post('address'),
-      'add2' => $this->input->post('address2'), 'city' => $this->input->post('city'), 'state' => $this->input->post('state'),
-      'zip' => $this->input->post('zip'));
-    $billing_info = array('fn' => $this->input->post('first_name_bill'), 'ln' => $this->input->post('last_name_bill'), 'add' => $this->input->post('address_bill'),
-      'add2' => $this->input->post('address2_bill'), 'city' =>$this->input->post('city_bill'), 'state' => $this->input->post('state_bill'),
-      'zip' => $this->input->post('zip_bill'));
-    $ship_id = $this->Order->add_address($shipping_info);
-    $bill_id = $this->Order->add_address($billing_info);
-    return array('shipping_id' => $ship_id, 'billing_id' => $bill_id);
-  }
-
   public function create($total)
   {
     // places all items from cart into order
     $user = $this->session->userdata('user');
-    // create shipping/billing
-    $info = $this->insertAddresses();
-    //$info['user_id'] = $user_id;
+    $info = $this->session->userdata('mail_info');
     $info['user_id'] = $user['id'];
     $info['total'] = $total;
     // create new order
@@ -75,7 +61,8 @@ class Orders extends CI_Controller {
     // clear the user's cart
     $this->Order->clear_cart($user['id']);
     $this->session->set_userdata('cart', 0);
-    redirect('/payment');
+    $this->session->unset_userdata('mail_info');
+    redirect('/products');
 
   }
 

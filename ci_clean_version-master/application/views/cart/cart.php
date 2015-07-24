@@ -15,7 +15,7 @@
             $.get('/carts/index_html', function (res) {
                 $('#cart-table').html(res);
                 var total = $('#total-amt').text();
-                $('#pay').attr('action', "/addorder/"+total);
+                $('#hidden-total').val(total);
             });
 
             $(document).on('click', '.delete', function () {
@@ -23,7 +23,7 @@
                 $.post('/carts/delete/'+p_id, function (res) {
                     $('#cart-table').html(res);
                     var total = $('#total-amt').text();
-                    $('#pay').attr('action', "/addorder/"+total);
+                    $('#hidden-total').val(total);
                 });
                 var cartCount = Number($('#cart-counter').text());
                 $('#cart-counter').text(cartCount - 1);
@@ -40,13 +40,13 @@
                 $.post('/carts/update', $(this).serialize(), function (res) {
                     $('#cart-table').html(res);
                     var total = $('#total-amt').text();
-                    $('#pay').attr('action', "/addorder/"+total);
+                    $('#hidden-total').val(total);
                 });
             });
-            // $(document).on('blur', '.disappear', function () {
-            //     $(this).siblings('.shown').show();
-            //     $(this).hide();
-            // });
+            $(document).on('blur', '.disappear', function () {
+                $(this).siblings('.shown').show();
+                $(this).hide();
+            });
             $('#checkbox').change(function() {
                 if (this.checked) {
                     $("#first_name_bill").val($("#first_name").val());
@@ -67,37 +67,37 @@
                 }
             });
 
-            $('#pay').submit(function(event) {
-                var $form = $('#card-info');
+            // $('#pay').submit(function(event) {
+            //     var $form = $('#card-info');
 
-                // Disable the submit button to prevent repeated clicks
-                $form.find('button').prop('disabled', true);
-                console.log('submitted');
-                // console.log($form);
-                Stripe.card.createToken($form, stripeResponseHandler);
+            //     // Disable the submit button to prevent repeated clicks
+            //     $form.find('button').prop('disabled', true);
+            //     console.log('submitted');
+            //     // console.log($form);
+            //     Stripe.card.createToken($form, stripeResponseHandler);
 
-                // Prevent the form from submitting with the default action
-                return false;
-            });
+            //     // Prevent the form from submitting with the default action
+            //     return false;
+            // });
 
         });
-        function stripeResponseHandler(status, response) {
-          var $form = $('#card-info');
-          console.log('responding');
-          console.log(response);
-          if (response.error) {
-            // Show the errors on the form
-            $form.find('.payment-errors').text(response.error.message);
-            $form.find('button').prop('disabled', false);
-          } else {
-            // response contains id and card, which contains additional card details
-            var token = response.id;
-            // Insert the token into the form so it gets submitted to the server
-            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-            // and submit
-            $form.get(0).submit();
-          }
-        };
+        // function stripeResponseHandler(status, response) {
+        //   var $form = $('#card-info');
+        //   console.log('responding');
+        //   console.log(response);
+        //   if (response.error) {
+        //     // Show the errors on the form
+        //     $form.find('.payment-errors').text(response.error.message);
+        //     $form.find('button').prop('disabled', false);
+        //   } else {
+        //     // response contains id and card, which contains additional card details
+        //     var token = response.id;
+        //     // Insert the token into the form so it gets submitted to the server
+        //     $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        //     // and submit
+        //     $form.get(0).submit();
+        //   }
+        // };
 
     </script>
 </head>
@@ -118,7 +118,8 @@
         <div id="pay-form" class="row">
             <div class="col-sm-6 col-sm-offset-1">
                 <h2>Shipping Information</h2>
-                <form id="pay" class="form-horizontal" role="form" action="/addorder/0" method="post">
+                <form id="pay" class="form-horizontal" role="form" action="/payment" method="post">
+                    <input id="hidden-total" type="hidden" name="total" value="0">
                     <div class="form-group">
                         <label class="control-label col-sm-3">First Name:</label>
                         <div class="col-sm-9">
@@ -203,16 +204,15 @@
                             <input id="state_bill" type="text" class="form-control" name="state_bill">
                         </div>
                     </div>
-                    <div class="form-group">
                         <label class="control-label col-sm-3">Zipcode:</label>
                         <div class="col-sm-9">
                             <input id="zip_bill" type="text" class="form-control" name="zip_bill">
                         </div>
                     </div>
+                    <div class="col-sm-2 col-sm-offset-10">
+                        <button form="pay" type="submit" class="btn btn-default">Go to Payment</button>
+                    </div>
                 </form>
-                <div class="col-sm-2 col-sm-offset-10">
-                    <button form="pay" type="submit" class="btn btn-default">Pay</button>
-                </div>
             </div>
         </div>
     </div>

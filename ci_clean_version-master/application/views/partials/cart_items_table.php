@@ -49,9 +49,9 @@
         </div>
         <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
-                <p>Subtotal: $<?=$total?></p>
+                <p>Subtotal: $<?= sprintf("%.2f", $total) ?></p>
                 <p>Shipping: $1.00</p>
-                <p id="total">Total: $<span id="total-amt"><?=$total+1?></span></p>
+                <p id="total">Total: $<span id="total-amt"><?= sprintf("%.2f", $total+1) ?></span></p>
             </div>
         </div>
 <?php
