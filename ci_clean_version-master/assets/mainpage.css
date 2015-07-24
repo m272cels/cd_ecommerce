@@ -43,9 +43,10 @@
         border-bottom: 2px solid lightgrey;
         margin-bottom: 20px;
     }
-    .category{
+    button.category{
         background: lightgrey;
         border: grey 1px solid;
+        color: black;
     }
     .carousel_div{
         padding: 5px 5px 5px 5px; 
