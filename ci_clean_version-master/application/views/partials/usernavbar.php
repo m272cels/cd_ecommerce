@@ -20,11 +20,11 @@
         <button type="submit" class="btn btn-default">Search</button>
       </form> -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a  href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="cart-counter"><?=$cart?></span>)</a></li>
+        <li><a  href="/logout"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="cart-counter"><?=$cart?></span>)</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/login">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>

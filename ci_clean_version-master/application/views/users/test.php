@@ -64,7 +64,7 @@
 											</div>
 										</div>
 									</div>
-					
+
 								</form>
 								<form id="register-form" action="/users/register" method="post" role="form" style="display: none;">
 									<div class="form-group">
