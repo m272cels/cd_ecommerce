@@ -10,10 +10,14 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->session->sess_destroy();
+		//$this->session->sess_destroy();
 		if(!$this->session->userdata('cart'))
 		{
 			$this->session->set_userdata('cart', 0);
+		}
+		if(!$this->session->userdata('failreg'))
+		{
+			$this->session->set_userdata('failreg', 0);
 		}
 
 		//redirect('/products');

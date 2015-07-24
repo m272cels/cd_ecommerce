@@ -27,12 +27,28 @@
 
       });
 
-        $(document).on('change', '#search', function(){
+        $(document).on('click', '#delete', function(){
+          var id = $(this).attr('value');
+          //console.log(id);
+          $.get("/products/delete_product/"+id, function(res){
+              $('#table').html(res);
+          })
+        })
+
+        $(document).on('keyup', '#search', function(){
         var status = $('#status_drop').val();
         var search = $('#search').val();
-        $.get('/products/search_products/'+search, function(res){
+        if(search.length != 0){
+          $.get('/products/search_products/'+search, function(res){
           $('#table').html(res);
           })
+        }
+        else{
+          $.get("/products/show_partial_products", function(res) {
+            $("#table").html(res);
+        });
+        }
+        
         })
 
         $('#editModal').on('shown.bs.modal', function () {

@@ -85,3 +85,7 @@ border-radius: 4px 25px 25px 4px;
 #input_inventoryCount {
   width: 60px;
 }
+
+#delete {
+  margin-left: 10px;
+}
