@@ -13,7 +13,15 @@ class Orders extends CI_Controller {
   public function index()
   {
     // for admins to view all orders
-    $this->load->view('orders/dashboard');
+    if($user['admin'] == '1')
+    {
+      $this->load->view('orders/dashboard');
+    }
+    else
+    {
+      redirect('/products');
+    }
+
   }
 
   public function inventory()
@@ -35,8 +43,15 @@ class Orders extends CI_Controller {
 
   public function dashboard_orders()
   {
-
-    $this->load->view('orders/dashboard_orders');
+    if($user['admin'] == '1')
+    {
+      $this->load->view('orders/dashboard_orders');
+    }
+    else
+    {
+      redirect('/products');
+    }
+    
   }
 
   public function orderspartial($status,$pg) {
