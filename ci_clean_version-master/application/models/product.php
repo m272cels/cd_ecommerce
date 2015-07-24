@@ -43,7 +43,7 @@ class Product extends CI_Model {
             GROUP BY p.id
             ORDER BY price DESC
             LIMIT 0,8", array($category))->result_array();
-    }    
+    }
     // tested
     public function getproduct_byid($id) {
         return $this->db->query("SELECT * FROM products as p where p.id = ?", array($id))->row_array();
@@ -147,20 +147,22 @@ class Product extends CI_Model {
     }
 
     public function addpic($image_info) {
-        return $this->db->query("INSERT INTO photos (source, alt, created_at, updated_at, product_id VALUES(?,?, NOW(), NOW(), ?)", array($image_info['source'], $image_info['alt'], $image_info['p_id']));
+        $this->db->query("INSERT INTO photos (source, alt, created_at, updated_at, product_id
+            VALUES(?,?, NOW(), NOW(), ?)", array($image_info['source'], $image_info['alt'], $image_info['p_id']));
+        return $this->db->insert_id();
     }
     public function search_products($search)
-    {   
+    {
         return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
     }
     public function search_products_sort_popularity($search)
-    {   
+    {
         return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id LEFT JOIN order_items as o on p.id = o.product_id where p.name like ? or p.description like ? order by quantity desc LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
-    }    
+    }
     public function search_products_sort_price($search)
-    {   
+    {
         return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? order by price desc LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
-    }   
+    }
     //=======-------========---------REVIEWS--------==========--------=========
     public function addreview($review) {
         return $this->db->query("INSERT INTO reviews (review, rating, helpful, created_at, updated_at, user_id, products_id)
@@ -178,7 +180,7 @@ class Product extends CI_Model {
             helpful DESC", array($pid))->result_array();
     }
 
-    public function getreview_byid($ids) 
+    public function getreview_byid($ids)
     {
         return $this->db->query("SELECT * FROM reviews WHERE products_id = ? AND user_id = ?", array($ids['p_id'], $ids['u_id'] ))->row_array();
     }
