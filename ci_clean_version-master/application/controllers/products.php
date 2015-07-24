@@ -47,9 +47,14 @@ class Products extends CI_Controller {
     $products=$this->Product->get_all_main_images_with_price();
     echo json_encode($products);
   }
-public function mainpage_products_json_popularity()
+  public function mainpage_products_json_price_default($category)
   {
-    $products=$this->Product->getproducts_bypopularity();
+    $products=$this->Product->getproducts_byprice_category($category);
+    echo json_encode($products);
+  }  
+public function mainpage_products_json_popularity($category)
+  {
+    $products=$this->Product->getproducts_bypopularity_category($category);
     echo json_encode($products);
   }
   public function category_json($category)
@@ -103,6 +108,13 @@ public function mainpage_products_json_popularity()
        "category" => $category, "stock" => $inventory_count);
     $this->Product->update_product($product_info);
     redirect('/admin');
+  }
+  public function search_json()
+  {
+    $products= $this->Product->search_products($this->input->post('search'));
+    // var_dump($products);
+    // die();
+    echo json_encode($products);
   }
 
   public function add_review($p_id)

@@ -15,7 +15,8 @@ $route['delete/(:any)'] = "carts/delete/$1";
 $route['addorder/(:any)'] = "orders/create/$1";
 
 $route['updatecart'] = "carts/update";
-
+$route['/products/mainpage_products_json_popularity/(:any)']='mainpage_products_json_popularity/$1';
+$route['/products/mainpage_products_json_price/(:any)']='mainpage_products_json_price/$1';
 $route['admin'] = "products/show_admin_products";
 $route['products/category_json/(:any)'] ='products/category_json/$1';
 $route['dashboard'] = "orders/dashboard_orders";

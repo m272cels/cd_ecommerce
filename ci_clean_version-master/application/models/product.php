@@ -31,11 +31,23 @@ class Product extends CI_Model {
             LEFT JOIN order_items as o on p.id = o.product_id
             WHERE p.category_id = ?
             GROUP BY p.id
-            ORDER BY sold DESC")->result_array();
+            ORDER BY sold DESC", array($category))->result_array();
     }
+    public function getproducts_byprice_category($category) {
+        return $this->db->query("SELECT p.id, ph.source, ph.alt, p.name, p.price, SUM(o.quantity) as sold
+            FROM products as p
+            LEFT JOIN photos as ph on p.main_photo_id = ph.id
+            LEFT JOIN order_items as o on p.id = o.product_id
+            WHERE p.category_id = ?
+            GROUP BY p.id
+            ORDER BY price DESC", array($category))->result_array();
+    }    
     // tested
     public function getproduct_byid($id) {
         return $this->db->query("SELECT * FROM products as p where p.id = ?", array($id))->row_array();
+    }
+    public function getproduct_byname($name) {
+        return $this->db->query("SELECT * FROM products as p where p.name or p.description like '%?%'", array($name))->row_array();
     }
 
     public function getsimilar_products($product) {
@@ -133,7 +145,10 @@ class Product extends CI_Model {
     public function addpic($image_info) {
         return $this->db->query("INSERT INTO photos (source, alt, created_at, updated_at, product_id VALUES(?,?, NOW(), NOW(), ?)", array($image_info['source'], $image_info['alt'], $image_info['p_id']));
     }
-
+    public function search_products($search)
+    {   
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ?", array("%" .$search."%","%" .$search."%"))->result_array();
+    }
 
     //=======-------========---------REVIEWS--------==========--------=========
     public function addreview($review) {

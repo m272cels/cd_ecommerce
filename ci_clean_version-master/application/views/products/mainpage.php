@@ -21,11 +21,10 @@
             $('#listings').html(html);
         }, "json");
         ///If select option is changed, get depending on choice
-        $('#select').change(function(){
-        	if($('#select').val()==='popular'){
-	        	$.post('/products/mainpage_products_json_popularity',function(popular){
-	        		$.get("/products/mainpage_products_json_popularity", function(popular) {
-	            console.log(popular);
+        $(document).on("change",'#select', function() {
+        	if($('#select').val()=='popular'){
+	        	$.get("/products/mainpage_products_json_popularity/"+$('#sort_category').val(), function(popular) {
+	        		console.log(popular);
 	            html='';
 	            for(var j=0;j<popular.length;j++)
 	            {
@@ -33,12 +32,10 @@
 	            }
 	            $('#listings').html(html);
 	        	}, "json");
-	        	})
 	        }
         	else
         	{
-        		$.post('/products/mainpage_products_json_price',function(price){
-	        		$.get("/products/mainpage_products_json_price", function(price) {
+	        		$.get("/products/mainpage_products_json_price_default/"+$('#sort_category').val(), function(price) {
 	            console.log(price);
 	            html='';
 	            for(var k=0;k<price.length;k++)
@@ -47,7 +44,6 @@
 	            }
 	            $('#listings').html(html);
 	        	}, "json");
-	        	})
         	}
 				})
 		///Select get by category
@@ -55,15 +51,28 @@
 			$.get('/products/category_json/'+$(this).attr('id'), function(category){
 				console.log(category);
 				html='';
+				var tag = "<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4><div class='col-sm-2'><form><input type='hidden' name='sort_category' value='"+category[0]['category_id']+"' id='sort_category'><select id='select' class='form-control col-sm-1'><option value='price'>Price</option><option value='popular'>Popularity</option></select></form></div>";
 	            for(var l=0;l<category.length;l++)
 	            {
 	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+category[l]['product_id']+"'><img class='image' src='../assets/"+category[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+category[l]['price']+"</span></p></div>";
 	            }
 	            $('#listings').html(html);
+	            $('#the_form').html(tag);
 			},'json');
 
 		})
-
+		///Search bar Ajax
+		$('#search').keyup(function(){
+			$.post('/products/search_json', $(this).serialize(), function(search){
+					console.log(search);
+					html='';
+	            for(var l=0;l<search.length;l++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+search[l]['product_id']+"'><img class='image' src='../assets/"+search[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+search[l]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+				}, "json")
+			})
 		$(function() {
 				$( 'input').focusin(function() {
 					$('.has-feedback').addClass("showClass");
@@ -71,10 +80,7 @@
 				$('input').focusout(function() {
 					$('.has-feedback').removeClass("showClass");
 				});
-
 			});
-
-
 		$.get('/main/user_nav', function(res){
 	        $('#nav').html(res);
 	        })
@@ -167,11 +173,13 @@
 		            	</div>
 		            </form>
 		        </div>
-				<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4>
-				<div class="col-sm-2">
-					<form>
-						<select id='select' class="form-control col-sm-1" name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
-					</form>
+		        <div id='the_form'>
+<!-- 					<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4>
+					<div class="col-sm-2">
+						<form>
+							<select id='select' class="form-control col-sm-1" name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
+						</form>
+					</div> -->
 				</div>
 			</div>
 			
