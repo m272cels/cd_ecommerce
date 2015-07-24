@@ -96,7 +96,7 @@
              "description": p_description, "stock": p_stock};
              console.log(info);
           if ( $("#modal").attr("action") == "/add_new_product") {
-              $.post("/products/add_product/", info, function(res) {
+              $.post("/Products/add_product", info, function(res) {
                   $("#table").html(res);
               })
               return false;
