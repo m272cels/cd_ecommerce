@@ -43,8 +43,8 @@ class Session extends CI_Model {
     public function validate_log()
     {
         $this->load->library("form_validation");
-        $this->form_validation->set_rules("email", "Email", "trim|required");
-        $this->form_validation->set_rules("password", "Password", "trim|required");
+        $this->form_validation->set_rules("email_login", "Email", "trim|required");
+        $this->form_validation->set_rules("password_login", "Password", "trim|required");
         if($this->form_validation->run() === FALSE)
         {
             $this->session->set_flashdata('errors' , validation_errors());

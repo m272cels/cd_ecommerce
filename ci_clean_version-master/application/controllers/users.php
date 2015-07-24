@@ -17,7 +17,7 @@ class Users extends CI_Controller {
     }
     else
     {
-      $user=$this->Session->getuser_byemail($this->input->post('email'));
+      $user=$this->Session->getuser_byemail($this->input->post('email_login'));
       if(empty($user))
       {
         $this->session->set_flashdata('errors', 'Email does not exist');
@@ -25,7 +25,7 @@ class Users extends CI_Controller {
       }
       else
       {
-        $password=$this->input->post('password');
+        $password=$this->input->post('password_login');
         $encrypted_password=md5($password. '' .$user['salt']);
         if($encrypted_password==$user['password'])
         {
