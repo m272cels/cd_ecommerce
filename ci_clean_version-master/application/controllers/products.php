@@ -85,9 +85,24 @@ public function mainpage_products_json_popularity()
 
   public function update_product($p_id)
   {
-    $updated_product_info = $this->input->post();
-    var_dump(($updated_product_info));
-    $this->Product->update_product($updated_product_info);
+    $existing_category = $this->input->post("existing_category");
+    $new_category = $this->input->post("new_category");
+    if (!empty($new_category)) {
+      $category = $new_category;
+      $this->Product->add_category($category);
+    } else {
+      $category = $existing_category;
+    }
+    $category_id = $this->Product->get_category_id_by_title($category);
+    $product_id = $this->input->post("product_id");
+    $name = $this->input->post("name");
+    $description = $this->input->post("description");
+    $category = $category_id;
+    $inventory_count = $this->input->post("stock");
+    $product_info = array("product_id" => $product_id, "product_name" => $name, "description" => $description,
+       "category" => $category, "stock" => $inventory_count);
+    $this->Product->update_product($product_info);
+    redirect('/admin');
   }
 
   public function add_review($p_id)
