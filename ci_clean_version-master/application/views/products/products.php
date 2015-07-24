@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<title>Admin products dashboard</title>
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="/assets/jquery-1.11.3.min.js"></script>
+  <script src="/assets/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../assets/partials.css">
     <script type="text/javascript">
     $(document).ready(function() {

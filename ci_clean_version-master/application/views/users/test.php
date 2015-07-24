@@ -5,7 +5,8 @@
 	<title>Login and Registration</title>
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
 	<link rel="stylesheet" type="text/css" href="/assets/login.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="/assets/jquery-1.11.3.min.js"></script>
+	<script src="/assets/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css">
 	<script type="text/javascript">
 		$(document).ready(function(){

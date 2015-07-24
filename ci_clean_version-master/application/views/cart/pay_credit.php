@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>(Carts Page) Shopping Cart | Dojo eCommerce</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/superhero.css">
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/assets/jquery-1.11.3.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
         Stripe.setPublishableKey('pk_test_f5QqpTBmdEsgySvGBAbyHKhT');
