@@ -82,6 +82,38 @@ class Products extends CI_Controller {
 
   public function add_product()
   {
+
+      // //load library
+      // $this->load->library('upload');
+
+      // //Set the config
+      // $config['upload_path'] = './uploads/'; //Use relative or absolute path
+      // $config['allowed_types'] = 'gif|jpg|png';
+      // // $config['max_size'] = '100';
+      // // $config['max_width'] = '1024';
+      // // $config['max_height'] = '768';
+      // $config['overwrite'] = FALSE; //If the file exists it will be saved with a progressive number appended
+
+      // //Initialize
+      // $this->upload->initialize($config);
+
+      // //Upload file
+      // if( ! $this->upload->do_upload("fileToUpload")){
+
+      //     //echo the errors
+      //     echo $this->upload->display_errors();
+      // }
+      // //If the upload success
+      // $file_name = $this->upload->file_name;
+
+      // //Save the file name into the db
+      // //$main_photo_id = $this->Product->addpic($file_name)
+
+
+
+
+
+
     $existing_category = $this->input->post("existing_category");
     $new_category = $this->input->post("new_category");
     if (!empty($new_category)) {
@@ -111,7 +143,6 @@ class Products extends CI_Controller {
 
   public function update_product($p_id)
   {
-
     $existing_category = $this->input->post("existing_category");
     $new_category = $this->input->post("new_category");
     if (!empty($new_category)) {
