@@ -136,7 +136,8 @@ class Product extends CI_Model {
     }
     public function get_carosel_images()
     {
-        return $this->db->query("Select p.source, p.alt from photos as p where p.product_id = 2")->result_array();
+        $random=rand(1,9);
+        return $this->db->query("Select p.source, p.alt, products.name, products.description, products.price from photos as p left join products on p.product_id=products.id where p.product_id = ?", array($random))->result_array();
     }
 
     public function updatemain($id) {

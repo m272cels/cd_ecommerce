@@ -69,17 +69,32 @@
 				})		
 		///Select get by category
 		$('button').click(function(){
-			$.get('/products/category_json/'+$(this).attr('id'), function(category){
-				html='';
-				var tag = "<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4><div class='col-sm-2'><form><input type='hidden' name='sort_category' value='"+category[0]['category_id']+"' id='sort_category'><select id='select' class='form-control col-sm-1'><option value='price'>Price</option><option value='popular'>Popularity</option></select></form></div>";
-	            for(var l=0;l<category.length;l++)
+			if($(this).attr('name')=='0')
+			{
+				$(this).attr('name','1');
+				$.get('/products/category_json/'+$(this).attr('id'), function(category){
+					html='';
+					var tag = "<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4><div class='col-sm-2'><form><input type='hidden' name='sort_category' value='"+category[0]['category_id']+"' id='sort_category'><select id='select' class='form-control col-sm-1'><option value='price'>Price</option><option value='popular'>Popularity</option></select></form></div>";
+		            for(var l=0;l<category.length;l++)
+		            {
+		            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+category[l]['product_id']+"'><img class='image' src='../assets/"+category[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+category[l]['price']+"</span></p></div>";
+		            }
+		            $('#listings').html(html);
+		            $('#the_form').html(tag);
+					},'json');
+				}
+			else
+			{
+				$(this).attr('name','0');
+				$.get("/products/mainpage_products_json_price", function(products) {
+            	html='';
+	            for(var i=0;i<products.length;i++)
 	            {
-	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+category[l]['product_id']+"'><img class='image' src='../assets/"+category[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+category[l]['price']+"</span></p></div>";
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+products[i]['product_id']+"'><img class='image' src='../assets/"+products[i]['source']+"' alt=''></a><p class='overlay'><span>Price: "+products[i]['price']+"</span></p></div>";
 	            }
 	            $('#listings').html(html);
-	            $('#the_form').html(tag);
-			},'json');
-
+	        	}, "json");
+			}
 		})
 		///Search bar Ajax
 		$('#search').keyup(function(){
@@ -123,7 +138,6 @@
 	<div class="container">
 		<div id="nav" class="row">
 		</div>
-		
 	<div class='col-sm-8 col-sm-offset-2 carousel_div'>
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
@@ -137,20 +151,20 @@
 		  <div class="carousel-inner" role="listbox">
 		    <div class="item active">
 		      <img src="../assets/<?=$carosel[0]['source']?>" alt="...">
-		      <div class="carousel-caption">
-		        Twin lamps fsho
+		      <div class="carousel-caption font_border">
+		       <?= $carosel[0]['name']?>
 		      </div>
 		    </div>
 		    <div class="item">
 		      <img   src="../assets/<?=$carosel[1]['source']?>" alt="...">
-		      <div class="carousel-caption">
-		        Leaves and flowers all up in this swag
+		      <div class="carousel-caption font_border">
+		        <?= $carosel[0]['description']?>
 		      </div>
 		    </div>
 		    <div class="item">
 		      <img src="../assets/<?=$carosel[2]['source']?>" alt="...">
-		      <div class="carousel-caption">
-		        One awesome lamp
+		      <div class="carousel-caption font_border">
+		        <?= $carosel[0]['price']?>
 		      </div>
 		    </div>
 		  </div>
@@ -181,7 +195,7 @@
 					$count++;
 				}
 			}
-		echo "<button type='submit' id='{$category['id']}' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
+		echo "<button type='submit' id='{$category['id']}' name='0' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
 		}
 	?>
 				<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
@@ -200,12 +214,6 @@
 		            </form>
 		        </div>
 		        <div id='the_form'>
-<!-- 					<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4>
-					<div class="col-sm-2">
-						<form>
-							<select id='select' class="form-control col-sm-1" name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
-						</form>
-					</div> -->
 				</div>
 			</div>
 			

@@ -9,6 +9,10 @@
   max-height: 350px;
 
     }
+    .font_border{
+        color:white;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
     .list{
         height: 170px;
         width: 160px;
