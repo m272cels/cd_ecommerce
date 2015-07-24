@@ -64,7 +64,7 @@
 
 		</div>
 		<div class="row">
-	        <div class="col-sm-2 ">
+	        <div class="col-sm-3 ">
 	            <form method="post" class="search-form">
 	                <div class="form-group has-feedback">
 	            		<label for="search" class="sr-only">Search</label>

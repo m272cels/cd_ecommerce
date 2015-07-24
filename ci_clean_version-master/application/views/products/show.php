@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 <meta charset="utf-8">
+	<meta charset="utf-8">
 	<title>Login and Registration</title>
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

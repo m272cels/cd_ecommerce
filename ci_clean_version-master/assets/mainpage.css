@@ -11,10 +11,11 @@
     }
     .list{
         height: 170px;
+        width: 160px;
         position: relative;
         padding: 5px 5px 5px 5px;
-        border: 1px solid black;
-        margin: 5px 0 5px 5px;
+        /*border: 1px solid black;*/
+        margin: 10px 5px 10px 0px;
     }
     .image{
         width:100%;
@@ -47,8 +48,13 @@
         border: 1px solid black;
         margin-bottom: 30px;
     }
-    h3{
+    #products_header{
         border-bottom: 2px solid lightgrey;
         padding-bottom: 2px;
         margin-bottom: 20px;
+    }
+
+    .item img {
+        height: 300px;
+        width: 100%;
     }

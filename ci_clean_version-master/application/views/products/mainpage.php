@@ -2,6 +2,7 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
+	<link rel="stylesheet" type="text/css" href="../assets/style.css">
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -63,6 +64,16 @@
 
 		})
 
+		$(function() {
+				$( 'input').focusin(function() {
+					$('.has-feedback').addClass("showClass");
+				});
+				$('input').focusout(function() {
+					$('.has-feedback').removeClass("showClass");
+				});
+
+			});
+
 
 		$.get('/main/user_nav', function(res){
 	        $('#nav').html(res);
@@ -80,27 +91,8 @@
 	<div class="container">
 		<div id="nav" class="row">
 		</div>
-		<div class='col-sm-3 col-sm-offset-1'>
-		<h5 id='categories'>Categories</h5>
-<?php
-	foreach($categories as $category)
-	{
-		$count=0;
-		foreach($products as $product)
-		{
-
-			if($product['category']==$category['category'])
-			{
-				$count++;
-			}
-		}
-	echo "<button type='submit' id='{$category['id']}' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
-	}
-?>
-			<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-			<a href="">Show More</a>
-		</div>
-	<div class='col-sm-6 col-sm-offset-1 carousel_div'>
+		
+	<div class='col-sm-8 col-sm-offset-2 carousel_div'>
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <!-- Indicators -->
 			<ol class="carousel-indicators">
@@ -109,22 +101,22 @@
 		    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
 		  </ol>
 
-		  <!-- Wrapper for slides -->
+		  <!-- Wrapper for slides height='300' width='605' -->
 		  <div class="carousel-inner" role="listbox">
 		    <div class="item active">
-		      <img height='300' width='605' src="../assets/<?=$carosel[0]['source']?>" alt="...">
+		      <img src="../assets/<?=$carosel[0]['source']?>" alt="...">
 		      <div class="carousel-caption">
 		        Twin lamps fsho
 		      </div>
 		    </div>
 		    <div class="item">
-		      <img height='300' width='605'  src="../assets/<?=$carosel[1]['source']?>" alt="...">
+		      <img   src="../assets/<?=$carosel[1]['source']?>" alt="...">
 		      <div class="carousel-caption">
 		        Leaves and flowers all up in this swag
 		      </div>
 		    </div>
 		    <div class="item">
-		      <img height='300' width='605' src="../assets/<?=$carosel[2]['source']?>" alt="...">
+		      <img src="../assets/<?=$carosel[2]['source']?>" alt="...">
 		      <div class="carousel-caption">
 		        One awesome lamp
 		      </div>
@@ -142,14 +134,55 @@
 		  </a>
 		</div>
 	</div>
-	<div class='col-sm-10 col-sm-offset-1'>
-		<h3>Product listing</h3>
-		<p class='col-sm-1 col-sm-offset-9'>Sort:</p>
-		<select id='select' name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
-		<div id='listings'>
-	</div>
+	<div class="row">
+		<div class='col-sm-3'>
+			<h4 id='categories'>Categories</h4>
+	<?php
+		foreach($categories as $category)
+		{
+			$count=0;
+			foreach($products as $product)
+			{
 
+				if($product['category']==$category['category'])
+				{
+					$count++;
+				}
+			}
+		echo "<button type='submit' id='{$category['id']}' class='list-group-item category'><span class='badge'>$count</span>{$category['category']}</button>";
+		}
+	?>
+				<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+				<a href="">Show More</a>
+			</div>
+		<div class='col-sm-9'>
+			<h4 id="products_header">Product listing</h4>
+			<div class="row">
+				<div class="col-sm-3 ">
+		            <form method="post" class="search-form">
+		                <div class="form-group has-feedback">
+		            		<label for="search" class="sr-only">Search</label>
+		            		<input type="text" class="form-control" name="search" id="search" placeholder="Search">
+		              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+		            	</div>
+		            </form>
+		        </div>
+				<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4>
+				<div class="col-sm-2">
+					<form>
+						<select id='select' class="form-control col-sm-1" name='option'><option value='price'>Price</option><option value='popular'>Popularity</option></a></select>
+					</form>
+				</div>
+			</div>
+			
+			
+			
+			<div id='listings'>
+			</div>
+
+		</div>
 	</div>
+	
 	</div>
 
 
