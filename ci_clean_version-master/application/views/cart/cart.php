@@ -49,6 +49,7 @@
             });
             $('#checkbox').change(function() {
                 if (this.checked) {
+                    $('#billing_info').toggle();
                     $("#first_name_bill").val($("#first_name").val());
                     $("#last_name_bill").val($("#last_name").val());
                     $("#address_bill").val($("#address").val());
@@ -57,6 +58,7 @@
                     $("#state_bill").val($("#state").val());
                     $("#zip_bill").val($("#zip").val());
                 } else {
+                    $('#billing_info').toggle();
                     $("#first_name_bill").val('');
                     $("#last_name_bill").val('');
                     $("#address_bill").val('');
@@ -66,6 +68,42 @@
                     $("#zip_bill").val('');
                 }
             });
+
+            $('#first_name').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#first_name_bill").val($("#first_name").val());
+                }
+            })
+            $('#last_name').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#last_name_bill").val($("#last_name").val());
+                }
+            })
+            $('#address').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#address_bill").val($("#address").val());
+                }
+            })
+            $('#address2').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#address2_bill").val($("#address2").val());
+                }
+            })
+            $('#city').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#city_bill").val($("#city").val());
+                }
+            })
+            $('#state').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#state_bill").val($("#state").val());
+                }
+            })
+            $('#zip').change(function(){
+                if ($('#checkbox')[0].checked){
+                    $("#zip_bill").val($("#zip").val());
+                }
+            })
 
             // $('#pay').submit(function(event) {
             //     var $form = $('#card-info');
@@ -165,10 +203,11 @@
                     <h2>Billing Information</h2>
                     <div class="form-group">
                         <div class="checkbox">
-                            <label><input id="checkbox" type="checkbox" value="">Same as Shipping</label>
+                            <label><input id="checkbox" type="checkbox" checked value="">Same as Shipping</label>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div id="billing_info" style="display:none">
+                        <div class="form-group">
                         <label class="control-label col-sm-3">First Name:</label>
                         <div class="col-sm-9">
                             <input id="first_name_bill" type="text" class="form-control" name="first_name_bill">
@@ -209,6 +248,8 @@
                             <input id="zip_bill" type="text" class="form-control" name="zip_bill">
                         </div>
                     </div>
+                    </div>
+                    
                     <div class="col-sm-2 col-sm-offset-10">
                         <button form="pay" type="submit" class="btn btn-default">Go to Payment</button>
                     </div>
