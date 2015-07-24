@@ -30,7 +30,7 @@ class Users extends CI_Controller {
         $encrypted_password=md5($password. '' .$user['salt']);
         if($encrypted_password==$user['password'])
         {
-          $this->session->set_userdata('user' , array('id'=>$user['id'],'email'=>$user['email'], 'alias' => $user['alias']));
+          $this->session->set_userdata('user' , array('admin'=> $user['admin'], 'id'=>$user['id'],'email'=>$user['email'], 'alias' => $user['alias']));
           if($user['admin'] == '1')
           {
             redirect('/dashboard');

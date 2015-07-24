@@ -13,7 +13,7 @@ class Orders extends CI_Controller {
   public function index()
   {
     // for admins to view all orders
-    if($user['admin'] == '1')
+    if($this->session->userdata('user')['admin'] == '1')
     {
       $this->load->view('orders/dashboard');
     }
@@ -43,7 +43,7 @@ class Orders extends CI_Controller {
 
   public function dashboard_orders()
   {
-    if($user['admin'] == '1')
+    if($this->session->userdata('user')['admin'] == '1')
     {
       $this->load->view('orders/dashboard_orders');
     }
