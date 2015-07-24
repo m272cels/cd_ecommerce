@@ -221,7 +221,7 @@
 			
 			<div id='listings'>
 			</div>
-
+				<p></p>
 		</div>
 	</div>
 	

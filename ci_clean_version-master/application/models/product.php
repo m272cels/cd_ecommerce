@@ -21,7 +21,7 @@ class Product extends CI_Model {
             LEFT JOIN order_items as o on p.id = o.product_id
             GROUP BY p.id
             ORDER BY sold DESC
-            LIMIT 0,5")->result_array();
+            LIMIT 0,8")->result_array();
     }
 
     public function getproducts_bypopularity_category($category) {
@@ -31,7 +31,8 @@ class Product extends CI_Model {
             LEFT JOIN order_items as o on p.id = o.product_id
             WHERE p.category_id = ?
             GROUP BY p.id
-            ORDER BY sold DESC", array($category))->result_array();
+            ORDER BY sold DESC
+            LIMIT 0,8", array($category))->result_array();
     }
     public function getproducts_byprice_category($category) {
         return $this->db->query("SELECT p.id, ph.source, ph.alt, p.name, p.price, SUM(o.quantity) as sold
@@ -40,7 +41,8 @@ class Product extends CI_Model {
             LEFT JOIN order_items as o on p.id = o.product_id
             WHERE p.category_id = ?
             GROUP BY p.id
-            ORDER BY price DESC", array($category))->result_array();
+            ORDER BY price DESC
+            LIMIT 0,8", array($category))->result_array();
     }    
     // tested
     public function getproduct_byid($id) {
@@ -118,13 +120,13 @@ class Product extends CI_Model {
         return $this->db->query("SELECT i.source, i.alt, i.product_id
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
-            ", array())->result_array();
+            LIMIT 0,8", array())->result_array();
     }
     public function get_all_main_images_with_price() {
         return $this->db->query("SELECT i.source, i.alt, i.product_id, p.price
             FROM products as p
             LEFT JOIN photos as i on p.main_photo_id = i.id
-            order by price desc", array())->result_array();
+            order by price desc LIMIT 0,8", array())->result_array();
     }
     // tested
     public function getother_images($id) {
@@ -149,15 +151,15 @@ class Product extends CI_Model {
     }
     public function search_products($search)
     {   
-        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ?", array("%" .$search."%","%" .$search."%"))->result_array();
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
     }
     public function search_products_sort_popularity($search)
     {   
-        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id LEFT JOIN order_items as o on p.id = o.product_id where p.name like ? or p.description like ? order by quantity desc", array("%" .$search."%","%" .$search."%"))->result_array();
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id LEFT JOIN order_items as o on p.id = o.product_id where p.name like ? or p.description like ? order by quantity desc LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
     }    
     public function search_products_sort_price($search)
     {   
-        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? order by price desc", array("%" .$search."%","%" .$search."%"))->result_array();
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? order by price desc LIMIT 0,8", array("%" .$search."%","%" .$search."%"))->result_array();
     }   
     //=======-------========---------REVIEWS--------==========--------=========
     public function addreview($review) {
