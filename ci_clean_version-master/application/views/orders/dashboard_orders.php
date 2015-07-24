@@ -9,8 +9,12 @@
 	<script src="/assets/bootstrap.min.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
-			$.get('/orders/orderspartial/1', function(res){
+			$.get('/orders/orderspartial/1/0', function(res){
 				$('#orders').html(res);
+			})
+
+			$.get('/orders/getpages',function(res){
+				$('#pagenumbers').html(res);
 			})
 
 			$.get('/main/admin_nav', function(res){
@@ -27,9 +31,19 @@
 
 			});
 
+			$(document).on('click', '.page', function(){
+				var status = $('#status_drop').val();
+				var page = $(this).attr('value');
+				$('#pagenum').val(page);
+				$.get('/orders/orderspartial/'+status+'/'+page, function(res){
+					$('#orders').html(res);
+				})
+				return false;
+			})
+
 			$(document).on('change','#status_drop', function(){
 				var status = $('#status_drop').val();
-				$.post('/orders/orderspartial/'+status, $(this).serialize(),function(res){
+				$.post('/orders/orderspartial/'+status+'/0', $(this).serialize(),function(res){
 					$('#orders').html(res);
 				})
 
@@ -44,7 +58,7 @@
 				})
 				}
 				else{
-					$.post('/orders/orderspartial/'+status, $(this).serialize(),function(res){
+					$.post('/orders/orderspartial/'+status+'/0', $(this).serialize(),function(res){
 					$('#orders').html(res);
 				})
 				}
@@ -54,12 +68,13 @@
 			$(document).on('change', '.status_change', function(){
 				var status = $(this).val();
 				var id = $(this).parent().first().serializeArray()[0].value;
+				var pagenum = $('#pagenum').val();
 				var info = {'status' : status, 'id' : id};
 				// $.post('/orders/updatestatus', info, function(res){
 				// 	$('#orders').html(res);
 				// })
 
-				$.get('/orders/updatestatus/'+status+'/'+id, function(res){
+				$.get('/orders/updatestatus/'+status+'/'+id+'/'+pagenum, function(res){
 					$('#orders').html(res);
 				})
 			})
@@ -84,6 +99,7 @@
 
 		    <div class="col-sm-2 col-sm-offset-7">
 		    	<form method="post" >
+		    		<input type="hidden" id="pagenum" value="0">
 					<select id="status_drop" name="status" class="form-control" >
 						<option value="1">Show All</option>
 						<option value="2">Order in Process</option>
@@ -96,6 +112,14 @@
 		</div>
 		<div class="row">
 			<div id="orders" class="col-sm-10 col-sm-offset-1">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3" id="pagenumbers">
+				<!-- <ul id="pages">
+					<li><a class="page" value="0" href="">1</a> | </li>
+					<li><a class="page" value="5" href="">2</a></li>
+				</ul> -->
 			</div>
 		</div>
 	</div>

@@ -6,6 +6,7 @@ class Users extends CI_Controller {
 	{
 		parent::__construct();
     $this->load->model('Session');
+    $this->load->model('Order');
 		//$this->output->enable_profiler();
 	}
   public function login()
@@ -34,7 +35,8 @@ class Users extends CI_Controller {
           {
             redirect('/dashboard');
           }
-
+          $cartcount = $this->Order->getcartCount($user['id'])['count'];
+          $this->session->set_userdata('cart', $cartcount);
          redirect('/products');
         }
         else

@@ -34,16 +34,16 @@ class Order extends CI_Model {
 
 
 	public function get_orders($status) {
-		if($status == '1') {
+		if($status['status'] == '1') {
 			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
 						FROM orders as o
 						LEFT JOIN mailing_info mo on o.billing_id = mo.id
-						ORDER BY o.id DESC
+						ORDER BY o.id DESC LIMIT ".$status['page'].",5
 						")->result_array();
 		}
 		else {
 			$statustxt = '';
-			switch($status){
+			switch($status['status']){
 				case '2':
 					$statustxt = "Order in Process";
 					break;
@@ -61,7 +61,7 @@ class Order extends CI_Model {
 						FROM orders as o
 						LEFT JOIN mailing_info mo on o.billing_id = mo.id
 						WHERE o.status = ?
-						ORDER BY o.id DESC
+						ORDER BY o.id DESC LIMIT ".$status['page'].",5
 						", array($statustxt))->result_array();
 		}
 	}
@@ -91,7 +91,7 @@ class Order extends CI_Model {
 					$statustxt = "Cancelled";
 					break;
 			}
-			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
+			return $this->db->query("SELECT o.id, COUNT(c.id) as count, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
 						FROM orders as o
 						LEFT JOIN mailing_info mo on o.billing_id = mo.id
                         WHERE o.status = ? AND (mo.first_name LIKE '%".$search['search']."%' OR o.id LIKE '%".$search['search']."%')
@@ -165,6 +165,14 @@ class Order extends CI_Model {
 		$this->db->query("INSERT INTO mailing_info (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at)
 			VALUES (?,?,?,?,?,?,?,NOW(), NOW())", array($info['fn'], $info['ln'], $info['add'], $info['add2'], $info['city'], $info['state'], $info['zip']));
         return $this->db->insert_id();
+	}
+
+	public function getcartCount($id) {
+		return $this->db->query("SELECT count(c.product_id) as count FROM cart_items as c WHERE c.user_id = ?", array($id))->row_array();
+	}
+
+	public function getordercount(){
+		return $this->db->query("SELECT count(o.id) as count FROM orders as o")->row_array();
 	}
 
 
