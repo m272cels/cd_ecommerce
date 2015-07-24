@@ -14,6 +14,10 @@ class Product extends CI_Model {
         return $this->db->query("SELECT * FROM products left join categories on products.category_id = categories.id")->result_array();
     }
 
+    public function getproductcount(){
+        return $this->db->query("SELECT count(p.id) as count FROM products as p")->row_array();
+    }
+
     public function getproducts_bypopularity() {
         return $this->db->query("SELECT p.id, ph.source, ph.alt, p.name, p.price, SUM(o.quantity) as sold
             FROM products as p

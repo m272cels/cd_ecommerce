@@ -11,6 +11,10 @@ class Products extends CI_Controller {
 
   }
 
+   public function getpages(){
+    $count = $this->Product->getproductcount()['count'];
+    $this->load->view('partials/pages', array('count' => $count));
+    }
   public function index()
   {
     // main page with search and stuff
@@ -38,8 +42,9 @@ class Products extends CI_Controller {
     // $this->load->view('products/show', $info);
   }
 
-  public function show_partial_products() {
-    $products = $this->Order->sold_products();
+  public function show_partial_products($page) {
+    //var_dump($page);
+    $products = $this->Order->sold_products($page);
     $this->load->view("partials/admin_products", array("product_info" => $products));
   }
   public function mainpage_products_json_price()
@@ -100,7 +105,7 @@ class Products extends CI_Controller {
   public function delete_product($p_id)
   {
     $this->Product->remove_product($p_id);
-    $products = $this->Order->sold_products();
+    $products = $this->Order->sold_products('1');
     $this->load->view("partials/admin_products", array("product_info" => $products));
   }
 

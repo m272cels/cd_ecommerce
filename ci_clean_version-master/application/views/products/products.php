@@ -9,9 +9,13 @@
     <link rel="stylesheet" type="text/css" href="../assets/partials.css">
     <script type="text/javascript">
     $(document).ready(function() {
-        $.get("/products/show_partial_products", function(res) {
+        $.get("/products/show_partial_products/0", function(res) {
             $("#table").html(res);
         });
+
+        $.get('/products/getpages',function(res){
+        $('#pagenumbers').html(res);
+      })
 
         $.get('/main/admin_nav', function(res){
         $('#nav').html(res);
@@ -26,6 +30,15 @@
         });
 
       });
+
+        $(document).on('click', '.page', function(){
+        var page = $(this).attr('value');
+        $('#pagenum').val(page);
+        $.get('/products/show_partial_products/'+page, function(res){
+          $('#table').html(res);
+        })
+        return false;
+      })
 
         $(document).on('click', '#delete', function(){
           var id = $(this).attr('value');
@@ -130,7 +143,13 @@
        data-toggle="modal" data-target="#Modal">Add Product</button>
     </div>
        <div class="row">
-        <div id="table" class="col-sm-10 col-sm-offset-1"></div>
+        <div id="table" class="col-sm-10 col-sm-offset-1">
+        </div>
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3" id="pagenumbers">
+            </div>
+          </div>
+         </div>
       <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -166,7 +185,7 @@
           </div>
         </div>
     </div>
-    </div>
+   
 
   </div>
 </body>
