@@ -35,13 +35,20 @@ class Orders extends CI_Controller {
 
   public function dashboard_orders()
   {
+
     $this->load->view('orders/dashboard_orders');
   }
 
-  public function orderspartial($status) {
-    $orders = $this->Order->get_orders($status);
+  public function orderspartial($status,$pg) {
+
+    $orders = $this->Order->get_orders(array('status'=> $status, 'page'=> $pg));
     //var_dump($orders);
     $this->load->view('partials/admin_orders', array('orders' => $orders));
+  }
+
+  public function getpages(){
+    $count = $this->Order->getordercount()['count'];
+    $this->load->view('partials/pages', array('count' => $count));
   }
 
   public function searchorders($status,$search) {
@@ -76,7 +83,7 @@ class Orders extends CI_Controller {
 
   }
 
-  public function updatestatus($status_id, $id)
+  public function updatestatus($status_id, $id, $page)
   {
     //var_dump($this->input->post());
     //$status_id = $this->input->post('status');
@@ -98,7 +105,7 @@ class Orders extends CI_Controller {
     }
     $info = array('status' => $status, 'order_id' => $id);
     $this->Order->update_order_status($info);
-    $orders = $this->Order->get_orders('1');
+    $orders = $this->Order->get_orders(array('status' => '1', 'page' => $page));
     $this->load->view('partials/admin_orders', array('orders' => $orders));
   }
 }

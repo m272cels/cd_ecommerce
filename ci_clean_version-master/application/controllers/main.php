@@ -36,6 +36,12 @@ class Main extends CI_Controller {
 		$cartcount = $this->session->userdata('cart');
 		$this->load->view('partials/usernavbar', array('cart' => $cartcount));
 	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('/');
+	}
 }
 
 //end of main controller

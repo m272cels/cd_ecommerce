@@ -157,4 +157,13 @@ border-radius: 4px 25px 25px 4px;
     margin-left: 30px;
 }
 
+#pages li {
+  display: inline-block;
+}
+
+#pagenumbers {
+  text-align: center;
+  padding-left: 0px;
+}
+
 
