@@ -26,6 +26,38 @@ class Carts extends CI_Controller {
   public function show_payment()
   {
     $cartCount = $this->session->userdata('cart');
+
+
+    $fname = $this->input->post("first_name");
+    $lname = $this->input->post("last_name");
+    $address = $this->input->post("address");
+    $address2 = $this->input->post("address2");
+    $city = $this->input->post("city");
+    $state = $this->input->post("state");
+    $zip = $this->input->post("zip");
+
+    $fname_b = $this->input->post("first_name_bill");
+    $lname_b = $this->input->post("last_name_bill");
+    $address_b = $this->input->post("address_bill");
+    $address2_b = $this->input->post("address2_bill");
+    $city_b = $this->input->post("city_bill");
+    $state_b = $this->input->post("state_bill");
+    $zip_b = $this->input->post("zip_bill");
+
+    $validate_bill_info = array("first_name" => $fname, "last_name" => $lname, "address" => $address, "address2" => $address2,
+        "city" => $city, "state" => $state, "zip" => $zip, "first_name_bill" => $fname_b, "last_name_bill" => $lname_b,
+        "address_bill" => $address_b, "address2_bill" => $address2_b,
+        "city_bill" => $city_b, "state_bill" => $state_b, "zip_bill" => $zip_b);
+    $validation = $this->Order->validate_billing($validate_bill_info);
+
+    if ($validation == 1) {
+      $mail_info = $this->insertAddresses();
+      $this->session->set_userdata('mail_info', $mail_info);
+      $total = $this->input->post('total');
+      $this->load->view('cart/pay_credit', array('cart' => $cartCount, 'total' => $total));
+    } else {
+      redirect('/carts');
+    }
     // $results=$this->Session->validate_log($this->input->post());
     // if($results==0)
     // {
@@ -33,10 +65,7 @@ class Carts extends CI_Controller {
     // }
     // else
     // {
-      $mail_info = $this->insertAddresses();
-      $this->session->set_userdata('mail_info', $mail_info);
-      $total = $this->input->post('total');
-      $this->load->view('cart/pay_credit', array('cart' => $cartCount, 'total' => $total));
+
     // }
   }
 

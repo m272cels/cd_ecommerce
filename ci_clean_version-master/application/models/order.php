@@ -176,7 +176,31 @@ class Order extends CI_Model {
 		return $this->db->query("SELECT count(o.id) as count FROM orders as o")->row_array();
 	}
 
+	public function validate_billing($post) {
+		$this->load->library("form_validation");
+		$this->form_validation->set_rules("first_name", "first name", "required");
+		$this->form_validation->set_rules("last_name", "last name", "required");
+        $this->form_validation->set_rules("address", "address", "required");
+        $this->form_validation->set_rules("city", "city", "required");
+        $this->form_validation->set_rules("state", "state", "required");
+        $this->form_validation->set_rules("zip", "zipcode", "required");
 
+        $this->form_validation->set_rules("first_name_bill", "first name for billing", "required");
+		$this->form_validation->set_rules("last_name_bill", "last name for billing", "required");
+        $this->form_validation->set_rules("address_bill", "address for billing", "required");
+        $this->form_validation->set_rules("city_bill", "city for billing", "required");
+        $this->form_validation->set_rules("state_bill", "state for billing", "required");
+        $this->form_validation->set_rules("zip_bill", "zipcode for billing", "required");
+        if($this->form_validation->run() === FALSE)
+        {
+            $this->session->set_flashdata('errors' , validation_errors());
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+	}
     // public function validate_addresses($post)
     // {
     //     $this->load->library("form_validation");

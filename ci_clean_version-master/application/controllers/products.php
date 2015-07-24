@@ -143,6 +143,7 @@ class Products extends CI_Controller {
 
   public function update_product($p_id)
   {
+
     $existing_category = $this->input->post("existing_category");
     $new_category = $this->input->post("new_category");
     if (!empty($new_category)) {
@@ -157,6 +158,8 @@ class Products extends CI_Controller {
     $description = $this->input->post("description");
     $price = $this->input->post("price");
     $category = $category_id;
+
+
     $inventory_count = $this->input->post("stock");
     $product_info = array("product_id" => $product_id, "product_name" => $name, "description" => $description,
        "category" => $category, "price" => $price, "stock" => $inventory_count);

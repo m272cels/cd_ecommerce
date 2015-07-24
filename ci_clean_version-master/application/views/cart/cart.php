@@ -138,6 +138,14 @@
         // };
 
     </script>
+    <style type="text/css">
+        #validations {
+            border: 1px solid silver;
+            width: 400px;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
     <div id="nav"></div>
@@ -154,7 +162,7 @@
             </div>
         </div>
         <div id="pay-form" class="row">
-            <div class="col-sm-6 col-sm-offset-1">
+            <div class="col-sm-6 ">
                 <h2>Shipping Information</h2>
                 <form id="pay" class="form-horizontal" role="form" action="/payment" method="post">
                     <input id="hidden-total" type="hidden" name="total" value="0">
@@ -248,14 +256,25 @@
                             <input id="zip_bill" type="text" class="form-control" name="zip_bill">
                         </div>
                     </div>
-                    </div>
-                    
-                    <div class="col-sm-2 col-sm-offset-10">
-                        <button form="pay" type="submit" class="btn btn-default">Go to Payment</button>
-                    </div>
+
+
+
                 </form>
+
             </div>
+            <div class="col-sm-3 col-sm-offset-1" id="validations">
+                    <?php
+                            if ($this->session->flashdata("errors")) {
+                                echo $this->session->flashdata("errors");
+                            }
+                    ?>
+                    <div>
+
         </div>
+
     </div>
+                <div class="col-sm-2 col-sm-offset-10">
+                <button form="pay" type="submit" class="btn btn-default">Go to Payment</button>
+            </div>
 </body>
 </html>

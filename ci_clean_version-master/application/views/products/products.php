@@ -61,7 +61,7 @@
             $("#table").html(res);
         });
         }
-        
+
         })
         $(document).on("click", ".delete-product", function() {
             var product_id = $(this).attr("value");
@@ -105,8 +105,12 @@
           var p_name = $("#input_name").val();
           var p_description = $("#input_description").val();
           var p_stock = $("#input_inventoryCount").val();
+          var p_existing_category = $("#input_existing_category").val();
+          var p_new_category = $("#input_new_category").val();
+
           var info = {"product_id": p_id, "name": p_name, "price": p_price,
-             "description": p_description, "stock": p_stock};
+             "description": p_description, "stock": p_stock, "existing_category": p_existing_category,
+              "new_category": p_new_category };
              console.log(info);
           if ( $("#modal").attr("action") == "/add_new_product") {
               $.post("/Products/add_product", info, function(res) {
@@ -164,7 +168,7 @@
                   <p>Price: <input id="input_price" type="text" name="price"></p>
                   <p>Description: <textarea id="input_description" name="description" rows="3" cols="30"></textarea></p>
                   <p>Categories:
-                    <select name="existing_category">
+                    <select id="input_existing_category" name="existing_category">
 <?php
                        foreach ($categories as $category) { ?>
                            <option><?=$category['category']?></option>
@@ -173,7 +177,7 @@
 ?>
                     </select>
                   </p>
-                  <p>or add a new category: <input type="text" name="new_category"></p>
+                  <p>or add a new category: <input id="input_new_category" type="text" name="new_category"></p>
                   <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>Images: <input type="file" name="fileToUpload" id="fileToUpload"></p>
               </form>
