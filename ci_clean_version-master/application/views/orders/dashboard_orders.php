@@ -116,10 +116,6 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-6 col-sm-offset-3" id="pagenumbers">
-				<!-- <ul id="pages">
-					<li><a class="page" value="0" href="">1</a> | </li>
-					<li><a class="page" value="5" href="">2</a></li>
-				</ul> -->
 			</div>
 		</div>
 	</div>
