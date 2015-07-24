@@ -137,19 +137,29 @@ class Product extends CI_Model {
 
     //=======-------========---------REVIEWS--------==========--------=========
     public function addreview($review) {
-        return $this->db->query("INSERT INTO reviews (user_id, product_id, review, rating, created_at, updated_at, helpful
-            VALUES (?,?,?,?,NOW(),NOW(),?)");
+        return $this->db->query("INSERT INTO reviews (review, rating, helpful, created_at, updated_at, user_id, products_id)
+            VALUES (?,?,?,NOW(),NOW(),?,?)", array($review['review'],$review['rating'], $review['helpful'], $review['user_id'], $review['product_id']));
+
     }
 
     public function getreviews_bydate($pid) {
-        return $this->db->query("SELECT * FROM reviews WHERE product_id = ? ORDER BY created_at", array($pid))->result_array();
+        return $this->db->query("SELECT u.alias, u.id, DATE_FORMAT(r.created_at, '%M %e, %Y') as dt, r.rating, r.review FROM reviews as r
+                    LEFT JOIN users as u on r.user_id = u.id WHERE r.products_id = ? ORDER BY r.created_at DESC", array($pid))->result_array();
     }
 
     public function getreviews_byhelp($pid) {
-        return $this->db->query("SELECT * FROM reviews WHERE product_id = ? ORDER BY
+        return $this->db->query("SELECT * FROM reviews WHERE products_id = ? ORDER BY
             helpful DESC", array($pid))->result_array();
+    }
 
+    public function getreview_byid($ids) 
+    {
+        return $this->db->query("SELECT * FROM reviews WHERE products_id = ? AND user_id = ?", array($ids['p_id'], $ids['u_id'] ))->row_array();
+    }
 
+    public function getcount_review($pid)
+    {
+        return $this->db->query("SELECT COUNT(r.id) as count FROM reviews as r WHERE r.products_id = ?", array($pid))->row_array();
     }
 
 
