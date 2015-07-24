@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/assets/jquery-1.11.3.min.js"></script>
+	<script src="/assets/bootstrap.min.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
 			$.get('/orders/orderspartial/1', function(res){
@@ -73,7 +73,7 @@
 	            	</div>
 	            </form>
 	        </div>
-	    
+
 		    <div class="col-sm-2 col-sm-offset-7">
 		    	<form method="post" >
 					<select id="status_drop" name="status" class="form-control" >

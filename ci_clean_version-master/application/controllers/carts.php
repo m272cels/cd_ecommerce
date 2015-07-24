@@ -21,6 +21,23 @@ class Carts extends CI_Controller {
     $this->load->view('partials/cart_items_table', array("cart_items" => $cart));
   }
 
+  public function show_payment()
+  {
+    $cartCount = $this->session->userdata('cart');
+    // $results=$this->Session->validate_log($this->input->post());
+    // if($results==0)
+    // {
+    //   redirect('/');
+    // }
+    // else
+    // {
+      $mail_info = $this->insertAddresses();
+      $this->session->set_userdata('mail_info', $mail_info);
+      $total = $this->input->post('total');
+      $this->load->view('cart/pay_credit', array('cart' => $cartCount, 'total' => $total));
+    // }
+  }
+
   public function add($id)
   {
     //var_dump($this->session->userdata('user'));
@@ -30,7 +47,7 @@ class Carts extends CI_Controller {
     $currentcart = $this->session->userdata('cart');
     $this->session->set_userdata('cart', $currentcart + 1);
     //$this->show($id);
-    redirect('/showproduct/'.$id);
+    redirect('/carts');
     // var_dump($this->input->post("quantity"));
     // die();
   }
@@ -41,7 +58,7 @@ class Carts extends CI_Controller {
     $currentCart = $this->session->userdata('cart');
     $this->session->set_userdata('cart', $currentCart - 1);
     $this->Order->delete_from_cart($product_delete);
-    $cart = $this->Order->show_cart('1');
+    $cart = $this->Order->show_cart($this->session->userdata('user')['id']);
     $this->load->view('partials/cart_items_table', array("cart_items" => $cart));
   }
 
@@ -49,15 +66,50 @@ class Carts extends CI_Controller {
   {
     // updates one item
     $post = $this->input->post();
-    $post['user_id'] = '1';//$this->session->userdata('user_id');
+    $post['user_id'] = $this->session->userdata('user')['id'];
     $this->Order->update_cart($post);
-    $cart = $this->Order->show_cart('1');
+    $cart = $this->Order->show_cart($this->session->userdata('user')['id']);
     $this->load->view('partials/cart_items_table', array("cart_items" => $cart));
   }
 
-  public function clear()
+  public function insertAddresses() {
+    $shipping_info = array('fn' => $this->input->post('first_name'), 'ln' => $this->input->post('last_name'), 'add' => $this->input->post('address'),
+      'add2' => $this->input->post('address2'), 'city' => $this->input->post('city'), 'state' => $this->input->post('state'),
+      'zip' => $this->input->post('zip'));
+    $billing_info = array('fn' => $this->input->post('first_name_bill'), 'ln' => $this->input->post('last_name_bill'), 'add' => $this->input->post('address_bill'),
+      'add2' => $this->input->post('address2_bill'), 'city' =>$this->input->post('city_bill'), 'state' => $this->input->post('state_bill'),
+      'zip' => $this->input->post('zip_bill'));
+    $ship_id = $this->Order->add_address($shipping_info);
+    $bill_id = $this->Order->add_address($billing_info);
+    return array('shipping_id' => $ship_id, 'billing_id' => $bill_id);
+  }
+
+  public function charge_card()
   {
-    // removes all items from a cart
+    // IF USING COMPOSER, UNCOMMENT THE FOLLOWING LINE:
+    // require_once('vendor/autoload.php');
+    // OTHERWISE, REQUIRE THE NATIVE STRIPE PHP LIBRARY:
+    require_once('/stripe-php-2.3.0/init.php');
+    // Set your secret key: remember to change this to your live secret key in production
+    // See your keys here https://dashboard.stripe.com/account/apikeys
+    \Stripe\Stripe::setApiKey("sk_test_Vm2vZVZEMkocuikftKPgOuEk");
+
+    // Get the credit card details submitted by the form
+    $token = $this->input->post('stripeToken');
+
+    // Create the charge on Stripe's servers - this will charge the user's card
+    try {
+      $charge = \Stripe\Charge::create(array(
+        "amount" => $this->input->post('total')*100, // amount in cents, again
+        "currency" => "usd",
+        "source" => $token,
+        "description" => "testing charges")
+      );
+      redirect('/addorder/'.$this->input->post('total'));
+    } catch(\Stripe\Error\Card $e) {
+      // The card has been declined
+      redirect('/carts/pay_credit');
+    }
   }
 }
 

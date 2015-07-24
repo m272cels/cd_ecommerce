@@ -40,11 +40,11 @@ class Session extends CI_Model {
         $this->db->query($query, $values);
         $this->session->set_flashdata('success' , "Success! Please log in!");
     }
-    public function validate_log()
+    public function validate_log($post)
     {
         $this->load->library("form_validation");
-        $this->form_validation->set_rules("email", "Email", "trim|required");
-        $this->form_validation->set_rules("password", "Password", "trim|required");
+        $this->form_validation->set_rules("email_login", "Email", "trim|required");
+        $this->form_validation->set_rules("password_login", "Password", "trim|required");
         if($this->form_validation->run() === FALSE)
         {
             $this->session->set_flashdata('errors' , validation_errors());

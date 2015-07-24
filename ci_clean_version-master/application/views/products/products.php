@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<title>Admin products dashboard</title>
 	<link rel="stylesheet" type="text/css" href="/assets/superhero.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="/assets/jquery-1.11.3.min.js"></script>
+  <script src="/assets/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../assets/partials.css">
     <script type="text/javascript">
     $(document).ready(function() {
@@ -93,10 +93,10 @@
               <h4 class="modal-title" id="myModalLabel">Edit Product </h4>
             </div>
             <div class="modal-body">
-              <form id="edit" action="edit_product/(:any)" method="post">
+              <form id="edit" action="edit_product/(:any)" method="post" enctype="multipart/form-data">
                   <input id="p_id" type="hidden" name="product_id">
                   <p>Name: <input id="input_name" type="text" name="name"></p>
-                  <p>Description: <input id="input_description" type="text" name="description"></p>
+                  <p>Description: <textarea id="input_description" name="description" rows="3" cols="30"></textarea></p>
                   <p>Categories:
                     <select name="existing_category">
 <?php
@@ -109,7 +109,7 @@
                   </p>
                   <p>or add a new category: <input type="text" name="new_category"></p>
                   <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
-                  <p>Images: <button>Upload</button></p>
+                  <p>Images: <input type="file" name="fileToUpload" id="fileToUpload"></p>
                   <input type="submit" value="Update">
               </form>
             </div>
