@@ -150,7 +150,14 @@ class Product extends CI_Model {
     {   
         return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ?", array("%" .$search."%","%" .$search."%"))->result_array();
     }
-
+    public function search_products_sort_popularity($search)
+    {   
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id LEFT JOIN order_items as o on p.id = o.product_id where p.name like ? or p.description like ? order by quantity desc", array("%" .$search."%","%" .$search."%"))->result_array();
+    }    
+    public function search_products_sort_price($search)
+    {   
+        return $this->db->query("SELECT * FROM products as p left join photos on p.main_photo_id = photos.id where p.name like ? or p.description like ? order by price desc", array("%" .$search."%","%" .$search."%"))->result_array();
+    }   
     //=======-------========---------REVIEWS--------==========--------=========
     public function addreview($review) {
         return $this->db->query("INSERT INTO reviews (review, rating, helpful, created_at, updated_at, user_id, products_id)

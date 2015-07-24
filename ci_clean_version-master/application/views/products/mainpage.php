@@ -11,7 +11,6 @@
 		$('.carousel').carousel();
 		///Original get by price
 		$.get("/products/mainpage_products_json_price", function(products) {
-            console.log(products);
             html='';
             for(var i=0;i<products.length;i++)
             {
@@ -19,11 +18,10 @@
             }
             $('#listings').html(html);
         }, "json");
-        ///If select option is changed, get depending on choice
+        ///If select option is changed, get depending on choice of category
         $(document).on("change",'#select', function() {
         	if($('#select').val()=='popular'){
 	        	$.get("/products/mainpage_products_json_popularity/"+$('#sort_category').val(), function(popular) {
-	        		console.log(popular);
 	            html='';
 	            for(var j=0;j<popular.length;j++)
 	            {
@@ -35,7 +33,6 @@
         	else
         	{
 	        		$.get("/products/mainpage_products_json_price_default/"+$('#sort_category').val(), function(price) {
-	            console.log(price);
 	            html='';
 	            for(var k=0;k<price.length;k++)
 	            {
@@ -45,10 +42,34 @@
 	        	}, "json");
         	}
 				})
+		///if #name_select is chosen, query depending on value of search
+        $(document).on("change",'#select_name', function() {
+        	if($('#select_name').val()=='popular'){
+        		// console.log($('#sort_category').val());
+	        	$.get("/products/search_json_sort_pop/"+$('#sort_category').val(), function(popular) {
+	            html='';
+	            for(var j=0;j<popular.length;j++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+popular[j]['id']+"'><img class='image' src='../assets/"+popular[j]['source']+"' alt=''></a><p class='overlay'><span>Price: "+popular[j]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+	        }
+        	else
+        	{
+	        		$.get("/products/search_json_sort_price/"+$('#sort_category').val(), function(price) {
+	            html='';
+	            for(var k=0;k<price.length;k++)
+	            {
+	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+price[k]['product_id']+"'><img class='image' src='../assets/"+price[k]['source']+"' alt=''></a><p class='overlay'><span>Price: "+price[k]['price']+"</span></p></div>";
+	            }
+	            $('#listings').html(html);
+	        	}, "json");
+        	}
+				})		
 		///Select get by category
 		$('button').click(function(){
 			$.get('/products/category_json/'+$(this).attr('id'), function(category){
-				console.log(category);
 				html='';
 				var tag = "<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4><div class='col-sm-2'><form><input type='hidden' name='sort_category' value='"+category[0]['category_id']+"' id='sort_category'><select id='select' class='form-control col-sm-1'><option value='price'>Price</option><option value='popular'>Popularity</option></select></form></div>";
 	            for(var l=0;l<category.length;l++)
@@ -63,13 +84,19 @@
 		///Search bar Ajax
 		$('#search').keyup(function(){
 			$.post('/products/search_json', $(this).serialize(), function(search){
-					console.log(search);
-					html='';
+				html='';
+				var tag = "<h4 class='col-sm-1 col-sm-offset-6'>Sort:</h4><div class='col-sm-2'><form><input type='hidden' name='sort_category' value='"+$('#search').val()+"' id='sort_category'><select id='select_name' class='form-control col-sm-1'><option value='price'>Price</option><option value='popular'>Popularity</option></select></form></div>";
+
 	            for(var l=0;l<search.length;l++)
 	            {
 	            	html+="<div class='col-sm-2 list'><a href='/showproduct/"+search[l]['product_id']+"'><img class='image' src='../assets/"+search[l]['source']+"' alt=''></a><p class='overlay'><span>Price: "+search[l]['price']+"</span></p></div>";
 	            }
+	            if(html=='')
+	            {
+	            	html+="<h3>No results</h3>"
+	            }
 	            $('#listings').html(html);
+	            $('#the_form').html(tag);
 				}, "json")
 			})
 		$(function() {

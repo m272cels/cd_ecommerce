@@ -133,8 +133,16 @@ public function mainpage_products_json_popularity($category)
   public function search_json()
   {
     $products= $this->Product->search_products($this->input->post('search'));
-    // var_dump($products);
-    // die();
+    echo json_encode($products);
+  }
+  public function search_json_sort_pop($search)
+  {
+    $products= $this->Product->search_products_sort_popularity($search);
+    echo json_encode($products);
+  }
+  public function search_json_sort_price($search)
+  {
+    $products=$this->Product->search_products_sort_price($search);
     echo json_encode($products);
   }
 
