@@ -1,9 +1,9 @@
 
 		<script>
-	$(document).ready(function(){
-		$('.dropdown-toggle').dropdown();
+	// $(document).ready(function(){
+	// 	$('.dropdown-toggle').dropdown();
 
-	})
+	// })
 	</script>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -21,7 +21,7 @@
       </form> -->
       <ul class="nav navbar-nav navbar-right">
         <li><a  href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (<span id="cart-counter"><?=$cart?></span>)</a></li>
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/logout">Logout</a></li>
@@ -30,7 +30,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

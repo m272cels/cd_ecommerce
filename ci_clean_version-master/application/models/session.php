@@ -34,9 +34,9 @@ class Session extends CI_Model {
 
         $salt = bin2hex(openssl_random_pseudo_bytes(22));
         $encrypted_password = md5($this->input->post('password') . '' . $salt);
-        $query = "INSERT INTO users (email, password, salt, created_at)
-        VALUES (?,?,?, NOW())";
-        $values=array('email'=>$this->input->post('email'),'password'=>$encrypted_password,'salt'=>$salt);
+        $query = "INSERT INTO users (alias, email, password, salt, created_at)
+        VALUES (?,?,?,?, NOW())";
+        $values=array($this->input->post('alias'),$this->input->post('email'),$encrypted_password, $salt);
         $this->db->query($query, $values);
         $this->session->set_flashdata('success' , "Success! Please log in!");
     }

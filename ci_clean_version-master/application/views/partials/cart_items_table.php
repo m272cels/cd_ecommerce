@@ -34,7 +34,7 @@
                                 </span>
                                 <form class="disappear" method="post">
                                     <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
-                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>">
+                                    <input type="number" name="quantity" min="1" max="10" value="<?= $item['quantity'] ?>">
                                 </form> |
                                 <a class="delete" value="<?=$item['id']?>">Delete</a>
                             </td>
