@@ -45,8 +45,8 @@
 		///if #name_select is chosen, query depending on value of search
         $(document).on("change",'#select_name', function() {
         	if($('#select_name').val()=='popular'){
-        		// console.log($('#sort_category').val());
 	        	$.get("/products/search_json_sort_pop/"+$('#sort_category').val(), function(popular) {
+	        		console.log(popular);
 	            html='';
 	            for(var j=0;j<popular.length;j++)
 	            {
@@ -58,6 +58,7 @@
         	else
         	{
 	        		$.get("/products/search_json_sort_price/"+$('#sort_category').val(), function(price) {
+	        			console.log(price);
 	            html='';
 	            for(var k=0;k<price.length;k++)
 	            {
@@ -221,7 +222,7 @@
 			
 			<div id='listings'>
 			</div>
-				<p></p>
+
 		</div>
 	</div>
 	
