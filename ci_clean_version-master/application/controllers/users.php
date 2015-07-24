@@ -10,6 +10,7 @@ class Users extends CI_Controller {
 	}
   public function login()
   {
+    $this->session->sess_destroy();
     $results=$this->Session->validate_log($this->input->post());
     if($results==0)
     {
@@ -35,7 +36,7 @@ class Users extends CI_Controller {
             redirect('/dashboard');
           }
 
-         redirect('/products'); 
+         redirect('/products');
         }
         else
         {
