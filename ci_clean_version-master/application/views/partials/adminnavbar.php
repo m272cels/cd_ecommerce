@@ -18,7 +18,7 @@
         <li><a  href="/admin"><span>Products</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span>log off</span></a></li>
+        <li><a href="/logout"><span>log off</span></a></li>
       </ul>
     </div>
   </div>

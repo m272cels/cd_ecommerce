@@ -72,7 +72,16 @@ img.product-img {
 .search-form .form-group.showClass{
 
 width: 100%;
-
 border-radius: 4px 25px 25px 4px;
-
+}
+#input_name {
+  width: 400px;
+}
+#input_description {
+  width: 400px;
+  vertical-align: top;
+  resize: none;
+}
+#input_inventoryCount {
+  width: 60px;
 }
