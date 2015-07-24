@@ -45,7 +45,7 @@
 	<div id="description" class="col-lg-7 col-lg-offset-1">
 		<p><?=$product['description']?></p>
 <?php
-		if ($product['count_in_stock'] == 0) { ?>
+		if ($product['count_in_stock'] < 1) { ?>
 			<p>Product Unavailable</p>
 <?php
 		} else {

@@ -2,7 +2,7 @@
 
 class Order extends CI_Model {
 	public function sold_products() {
-		return $this->db->query("SELECT p.description, p.id, ph.source, ph.alt, p.name, p.count_in_stock, SUM(o.quantity) as sold
+		return $this->db->query("SELECT p.description, p.price, p.id, ph.source, ph.alt, p.name, p.count_in_stock, SUM(o.quantity) as sold
 			FROM products as p
 			LEFT JOIN photos as ph on p.main_photo_id = ph.id
 			LEFT JOIN order_items as o on p.id = o.product_id
@@ -68,7 +68,7 @@ class Order extends CI_Model {
 
 	public function search_orders($search) {
 		if($search['status'] == '1') {
-	
+
 			return $this->db->query("SELECT o.id, mo.first_name, DATE_FORMAT(o.created_at, '%c/%e/%Y') as date, CONCAT(mo.address, ' ', mo.address2, ' ', mo.city, ', ', mo.state, ' ', mo.zipcode) as address, o.total, o.status
 						FROM orders as o
 						LEFT JOIN mailing_info mo on o.billing_id = mo.id

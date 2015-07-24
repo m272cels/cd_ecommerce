@@ -52,15 +52,24 @@
         });
         $(document).on("click", ".edit", function() {
             var p_id = $(this).attr("value");
-            console.log(p_id);
+            $("#editModalLabel").html("Edit Product")
             $("#p_id").val(p_id);
-            $("#edit").attr("action", "edit_product/"+p_id);
+            $("#modal").attr("action", "edit_product/"+p_id);
             var name = $(this).parent().siblings('.product_name').text();
             $("#input_name").val(name);
+            var price = $(this).parent().siblings('.product_price').val();
+            $("#input_price").val(price);
+
             var description = $(this).parent().siblings('.product_description').val();
             $("#input_description").val(description);
             var stock_count = $(this).parent().siblings('.product_count').text();
             $("#input_inventoryCount").val(stock_count);
+            $("#input_submit").attr("value", "Update");
+        })
+        $(document).on("click", "#addModal", function() {
+            $("#editModalLabel").html("Add New Product");
+            $("#modal").attr("action", "/add_new_product");
+            $("#input_submit").attr("value", "Add");
         })
 
     })
@@ -81,21 +90,23 @@
                 </div>
               </form>
       </div>
-       <button type="button" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-7" data-toggle="modal" data-target="#addModal">Add Product</button>
+       <button type="button" id="addModal" class="btn btn-primary btn-sm col-sm-2 col-sm-offset-7"
+       data-toggle="modal" data-target="#Modal">Add Product</button>
     </div>
        <div class="row">
         <div id="table" class="col-sm-10 col-sm-offset-1"></div>
-      <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Edit Product </h4>
+              <h4 class="modal-title" id="editModalLabel"> </h4>
             </div>
             <div class="modal-body">
-              <form id="edit" action="edit_product/(:any)" method="post" enctype="multipart/form-data">
+              <form id="modal" action="" method="post" enctype="multipart/form-data">
                   <input id="p_id" type="hidden" name="product_id">
                   <p>Name: <input id="input_name" type="text" name="name"></p>
+                  <p>Price: <input id="input_price" type="text" name="price"></p>
                   <p>Description: <textarea id="input_description" name="description" rows="3" cols="30"></textarea></p>
                   <p>Categories:
                     <select name="existing_category">
@@ -110,7 +121,7 @@
                   <p>or add a new category: <input type="text" name="new_category"></p>
                   <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>Images: <input type="file" name="fileToUpload" id="fileToUpload"></p>
-                  <input type="submit" value="Update">
+                  <input id="input_submit" type="submit" value="">
               </form>
             </div>
             <div class="modal-footer">
