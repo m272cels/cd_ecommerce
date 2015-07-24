@@ -73,7 +73,7 @@
 	            	</div>
 	            </form>
 	        </div>
-	    
+
 		    <div class="col-sm-2 col-sm-offset-7">
 		    	<form method="post" >
 					<select id="status_drop" name="status" class="form-control" >
