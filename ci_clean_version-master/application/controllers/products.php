@@ -96,7 +96,8 @@ public function mainpage_products_json_popularity()
   public function delete_product($p_id)
   {
     $this->Product->remove_product($p_id);
-    $this->show_admin_products();
+    $products = $this->Order->sold_products();
+    $this->load->view("partials/admin_products", array("product_info" => $products));
   }
 
   public function update_product($p_id)

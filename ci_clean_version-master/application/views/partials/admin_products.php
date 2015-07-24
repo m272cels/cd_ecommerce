@@ -20,7 +20,8 @@
             <td class="product"><?=$product['sold']?></td>
             <td class="product">
                     <a class="edit" value="<?=$product['id']?>" href="#" data-toggle="modal" data-target="#Modal">Edit</a>
-                    <a href="/delete_product/<?=$product['id']?>">Delete</a>
+                    <a id="delete" value="<?=$product['id']?>" href="#>">Delete</a>
+                    <!-- <a id="delete" value="<?=$product['id']?>" href="/delete_product/<?=$product['id']?>">Delete</a> -->
             </td></tr>
 <?php
         }

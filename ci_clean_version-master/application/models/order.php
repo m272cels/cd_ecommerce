@@ -10,7 +10,7 @@ class Order extends CI_Model {
 	}
 
 	public function search_sold_products($search){
-		return $this->db->query("SELECT p.description, p.id, ph.source, ph.alt, p.name, p.count_in_stock, SUM(o.quantity) as sold
+		return $this->db->query("SELECT p.description, p.price, p.id, ph.source, ph.alt, p.name, p.count_in_stock, SUM(o.quantity) as sold
 			FROM products as p
 			LEFT JOIN photos as ph on p.main_photo_id = ph.id
 			LEFT JOIN order_items as o on p.id = o.product_id

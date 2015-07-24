@@ -16,9 +16,11 @@ class Session extends CI_Model {
     public function validate_reg($post)
     {
         //var_dump($this->input->post());
-        $this->load->library("form_validation");
+        //$this->load->library("form_validation");
+        $this->form_validation->set_rules("alias", "Alias", "trim|required");
         $this->form_validation->set_rules("email", "Email", "trim|required|is_unique[users.email]");
         $this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]|matches[confirm_password]");
+        $this->form_validation->set_rules("confirm_password", "Confirm Password", "trim|required");
         if($this->form_validation->run() === FALSE)
         {
             $this->session->set_flashdata('errors' , validation_errors());

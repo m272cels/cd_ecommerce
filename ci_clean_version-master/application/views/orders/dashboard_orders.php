@@ -35,12 +35,20 @@
 
 			})
 
-			$(document).on('change', '#search', function(){
+			$(document).on('keyup', '#search', function(){
 				var status = $('#status_drop').val();
 				var search = $('#search').val();
-				$.get('/orders/searchorders/'+status+'/'+search, function(res){
+				if(search.length != 0){
+					$.get('/orders/searchorders/'+status+'/'+search, function(res){
 					$('#orders').html(res);
 				})
+				}
+				else{
+					$.post('/orders/orderspartial/'+status, $(this).serialize(),function(res){
+					$('#orders').html(res);
+				})
+				}
+				
 			})
 
 			$(document).on('change', '.status_change', function(){
