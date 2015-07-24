@@ -18,6 +18,7 @@
 	        })
 
 	        $.get('/products/show_reviews/'+id, function(res){
+	        	console.log("getting reviews");
 	        	$('#cust_reviews').html(res);
 	        })
 

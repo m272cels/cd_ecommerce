@@ -142,10 +142,21 @@ public function mainpage_products_json_popularity()
     $this->show_partial_products();
 
   }
+  public function getCount($prod_id) {
+    $count = $this->Product->getcount_review($prod_id);
+  }
 
-  public function add_review($p_id)
+  public function addreview()
   {
-
+    $user_id = $this->session->userdata('user')['id'];
+    $info = array('user_id' => $user_id, 'product_id' => $this->input->post('prod_id'), 'review' => $this->input->post('review'),
+      'rating' => $this->input->post('rating'), 'helpful' => 0);
+    $this->Product->addreview($info);
+    $product = $this->Product->getproduct_byid($this->input->post('prod_id'));
+    $reviews = $this->Product->getreviews_bydate($this->input->post('prod_id'));
+    $reviewcount = $this->Product->getcount_review($this->input->post('prod_id'));
+    $hasreview = $this->Product->getreview_byid(array('p_id' => $this->input->post('prod_id'), 'u_id'=> $this->session->userdata('user')['id']));
+    $this->load->view('partials/reviews', array('reviews' => $reviews,'hasreview' => $hasreview, 'count' => $reviewcount, 'product' => $product));
   }
 
   public function delete_review($p_id)
@@ -158,9 +169,13 @@ public function mainpage_products_json_popularity()
 
   }
 
-  public function show_reviews($p_id)
+  public function show_reviews($id)
   {
-
+    $product = $this->Product->getproduct_byid($id);
+    $reviews = $this->Product->getreviews_bydate($id);
+    $reviewcount = $this->Product->getcount_review($id);
+    $hasreview = $this->Product->getreview_byid(array('p_id' => $id, 'u_id'=> $this->session->userdata('user')['id']));
+    $this->load->view('partials/reviews', array('reviews' => $reviews,'hasreview' => $hasreview, 'count' => $reviewcount, 'product' => $product));
   }
 }
 
