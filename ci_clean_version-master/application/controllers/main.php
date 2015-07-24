@@ -10,10 +10,14 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->session->sess_destroy();
+		//$this->session->sess_destroy();
 		if(!$this->session->userdata('cart'))
 		{
 			$this->session->set_userdata('cart', 0);
+		}
+		if(!$this->session->userdata('failreg'))
+		{
+			$this->session->set_userdata('failreg', 0);
 		}
 
 		//redirect('/products');
@@ -31,6 +35,12 @@ class Main extends CI_Controller {
 	public function user_nav(){
 		$cartcount = $this->session->userdata('cart');
 		$this->load->view('partials/usernavbar', array('cart' => $cartcount));
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('/');
 	}
 }
 

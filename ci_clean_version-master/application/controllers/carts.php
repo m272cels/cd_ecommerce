@@ -11,6 +11,8 @@ class Carts extends CI_Controller {
 
   public function index()
   {
+    // echo FCPATH;
+    // die()
     $cartCount = $this->session->userdata('cart');
     $this->load->view('cart/cart', array('cart' => $cartCount));
   }
@@ -87,9 +89,11 @@ class Carts extends CI_Controller {
   public function charge_card()
   {
     // IF USING COMPOSER, UNCOMMENT THE FOLLOWING LINE:
-    // require_once('vendor/autoload.php');
+    //require_once('./vendor/autoload.php');
     // OTHERWISE, REQUIRE THE NATIVE STRIPE PHP LIBRARY:
-    require_once('/stripe-php-2.3.0/init.php');
+
+    require_once("./stripe-php-2.3.0/init.php");
+
     // Set your secret key: remember to change this to your live secret key in production
     // See your keys here https://dashboard.stripe.com/account/apikeys
     \Stripe\Stripe::setApiKey("sk_test_Vm2vZVZEMkocuikftKPgOuEk");

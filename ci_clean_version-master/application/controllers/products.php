@@ -47,9 +47,14 @@ class Products extends CI_Controller {
     $products=$this->Product->get_all_main_images_with_price();
     echo json_encode($products);
   }
-public function mainpage_products_json_popularity()
+  public function mainpage_products_json_price_default($category)
   {
-    $products=$this->Product->getproducts_bypopularity();
+    $products=$this->Product->getproducts_byprice_category($category);
+    echo json_encode($products);
+  }
+  public function mainpage_products_json_popularity($category)
+  {
+    $products=$this->Product->getproducts_bypopularity_category($category);
     echo json_encode($products);
   }
   public function category_json($category)
@@ -61,7 +66,6 @@ public function mainpage_products_json_popularity()
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
     $this->load->view("products/products", array("cart" => $cart, "categories" => $categories));
-
   }
 
   public function search_products($search)
@@ -128,7 +132,8 @@ public function mainpage_products_json_popularity()
   public function delete_product($p_id)
   {
     $this->Product->remove_product($p_id);
-    $this->show_admin_products();
+    $products = $this->Order->sold_products();
+    $this->load->view("partials/admin_products", array("product_info" => $products));
   }
 
   public function update_product($p_id)
@@ -168,14 +173,23 @@ public function mainpage_products_json_popularity()
   {
     $products=$this->Product->search_products_sort_price($search);
     echo json_encode($products);
-
-    $this->show_partial_products();
-
+    // $this->show_partial_products();
+  }
+  public function getCount($prod_id) {
+    $count = $this->Product->getcount_review($prod_id);
   }
 
-  public function add_review($p_id)
+  public function addreview()
   {
-
+    $user_id = $this->session->userdata('user')['id'];
+    $info = array('user_id' => $user_id, 'product_id' => $this->input->post('prod_id'), 'review' => $this->input->post('review'),
+      'rating' => $this->input->post('rating'), 'helpful' => 0);
+    $this->Product->addreview($info);
+    $product = $this->Product->getproduct_byid($this->input->post('prod_id'));
+    $reviews = $this->Product->getreviews_bydate($this->input->post('prod_id'));
+    $reviewcount = $this->Product->getcount_review($this->input->post('prod_id'));
+    $hasreview = $this->Product->getreview_byid(array('p_id' => $this->input->post('prod_id'), 'u_id'=> $this->session->userdata('user')['id']));
+    $this->load->view('partials/reviews', array('reviews' => $reviews,'hasreview' => $hasreview, 'count' => $reviewcount, 'product' => $product));
   }
 
   public function delete_review($p_id)
@@ -188,9 +202,13 @@ public function mainpage_products_json_popularity()
 
   }
 
-  public function show_reviews($p_id)
+  public function show_reviews($id)
   {
-
+    $product = $this->Product->getproduct_byid($id);
+    $reviews = $this->Product->getreviews_bydate($id);
+    $reviewcount = $this->Product->getcount_review($id);
+    $hasreview = $this->Product->getreview_byid(array('p_id' => $id, 'u_id'=> $this->session->userdata('user')['id']));
+    $this->load->view('partials/reviews', array('reviews' => $reviews,'hasreview' => $hasreview, 'count' => $reviewcount, 'product' => $product));
   }
 }
 

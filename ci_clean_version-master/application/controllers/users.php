@@ -6,7 +6,8 @@ class Users extends CI_Controller {
 	{
 		parent::__construct();
     $this->load->model('Session');
-		 $this->output->enable_profiler();
+    $this->load->model('Order');
+		//$this->output->enable_profiler();
 	}
   public function login()
   {
@@ -34,7 +35,8 @@ class Users extends CI_Controller {
           {
             redirect('/dashboard');
           }
-
+          $cartcount = $this->Order->getcartCount($user['id'])['count'];
+          $this->session->set_userdata('cart', $cartcount);
          redirect('/products');
         }
         else
@@ -44,6 +46,7 @@ class Users extends CI_Controller {
         }
       }
     }
+    $this->session->set_userdata('failreg', 0);
   }
 
   public function register()
@@ -51,10 +54,12 @@ class Users extends CI_Controller {
     $results=$this->Session->validate_reg($this->input->post());
     if($results===0)
     {
-      redirect('/register');
+      $this->session->set_userdata('failreg', 1);
+      redirect('/');
     }
     else
     {
+      $this->session->set_userdata('failreg', 0);
       $this->Session->register($this->input->post());
       redirect('/');
     }

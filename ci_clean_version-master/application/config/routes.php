@@ -3,7 +3,7 @@
 $route['default_controller'] = "main";
 $route['404_override'] = '';
 $route['login'] = "/main/login";
-$route['logout'] = "main";
+$route['logout'] = "main/logout";
 $route['register'] = "/main/register";
 $route['mainpage'] = "/main/mainpage";
 $route['products'] = "/products";
