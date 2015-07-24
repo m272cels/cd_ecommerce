@@ -15,10 +15,11 @@
             <td class="product"><?=$product['id']?></td>
             <td class="product_name" class="product"><?=$product['name']?></td>
             <input class="product_description" type="hidden" name="description" value="<?=$product['description']?>">
+            <input class="product_price" type="hidden" name="price" value="<?=$product['price']?>">
             <td class="product_count"><?=$product['count_in_stock']?></td>
             <td class="product"><?=$product['sold']?></td>
             <td class="product">
-                    <a class="edit" value="<?=$product['id']?>" href="#" data-toggle="modal" data-target="#editModal">Edit</a>
+                    <a class="edit" value="<?=$product['id']?>" href="#" data-toggle="modal" data-target="#Modal">Edit</a>
                     <a href="/delete_product/<?=$product['id']?>">Delete</a>
             </td></tr>
 <?php

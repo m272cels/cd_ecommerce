@@ -60,7 +60,6 @@ public function mainpage_products_json_popularity()
   public function show_admin_products() {
     $categories=$this->Product->get_categories();
     $cart = $this->session->userdata("cart");
-
     $this->load->view("products/products", array("cart" => $cart, "categories" => $categories));
 
   }
@@ -72,9 +71,26 @@ public function mainpage_products_json_popularity()
     $this->load->view('partials/admin_products', array('product_info' => $products));
   }
 
-  public function add($id)
+  public function add_product()
   {
-
+    $existing_category = $this->input->post("existing_category");
+    $new_category = $this->input->post("new_category");
+    if (!empty($new_category)) {
+      $category = $new_category;
+      $this->Product->add_category($category);
+    } else {
+      $category = $existing_category;
+    }
+    $category_id = $this->Product->get_category_id_by_title($category);
+    $name = $this->input->post("name");
+    $price = $this->input->post("price");
+    $description = $this->input->post("description");
+    $category = $category_id['id'];
+    $inventory_count = $this->input->post("stock");
+    $product_info = array("product_name" => $name, "description" => $description,
+       "category" => $category, "stock" => $inventory_count, "price" => $price);
+    $this->Product->add_product($product_info);
+    redirect('/admin');
   }
 
   public function delete_product($p_id)
@@ -97,10 +113,11 @@ public function mainpage_products_json_popularity()
     $product_id = $this->input->post("product_id");
     $name = $this->input->post("name");
     $description = $this->input->post("description");
+    $price = $this->input->post("price");
     $category = $category_id;
     $inventory_count = $this->input->post("stock");
     $product_info = array("product_id" => $product_id, "product_name" => $name, "description" => $description,
-       "category" => $category, "stock" => $inventory_count);
+       "category" => $category, "price" => $price, "stock" => $inventory_count);
     $this->Product->update_product($product_info);
     redirect('/admin');
   }

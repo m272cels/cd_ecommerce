@@ -63,17 +63,18 @@ class Product extends CI_Model {
         return $this->db->query("UPDATE categories set category = ?
             WHERE id = ?");
     }
+    //MUST ADD MAIN PHOTO ID
     public function add_product($product) {
-        $query = ("INSERT INTO products (name, description, price, count_in_stock, created_at, updated_at, main_photo_id, category_id)
-            VALUES (?,?,?,?,NOW(),NOW(),?,?)");
-        $values = array();
+        $query = ("INSERT INTO products (name, description, price, count_in_stock, created_at, updated_at, category_id)
+            VALUES (?,?,?,?,NOW(),NOW(),?)");
+        $values = array($product['product_name'], $product['description'], $product['price'], $product['stock'], $product['category']);
         return $this->db->query($query, $values);
     }
     //MUST ADD MAIN PHOTO ID
     public function update_product($product) {
         return $this->db->query("UPDATE products SET name = ?, description = ?,
-            count_in_stock = ?, category_id = ?, updated_at = NOW()
-            WHERE id = ?", array($product['product_name'], $product['description'], $product['stock'],
+            count_in_stock = ?, price = ?, category_id = ?, updated_at = NOW()
+            WHERE id = ?", array($product['product_name'], $product['description'], $product['stock'], $product['price'],
                 $product['category']['id'], $product['product_id']));
     }
 

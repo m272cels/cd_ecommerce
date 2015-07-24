@@ -19,6 +19,7 @@ $route['admin'] = "products/show_admin_products";
 $route['products/category_json/(:any)'] ='products/category_json/$1';
 $route['dashboard'] = "orders/dashboard_orders";
 $route['edit_product/(:any)'] = "products/update_product/$1";
+$route['add_new_product'] = "products/add_product";
 $route['delete_product/(:any)'] = "products/delete_product/$1";
 $route['chargecard'] = "carts/charge_card";
 $route['payment'] = "carts/show_payment";
