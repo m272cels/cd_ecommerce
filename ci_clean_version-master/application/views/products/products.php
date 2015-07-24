@@ -34,16 +34,6 @@
           $('#table').html(res);
           })
         })
-
-        $('#editModal').on('shown.bs.modal', function () {
-              $('#myInput').focus();
-        });
-        $('button[data-target="#editModal"]').on('click', function () {
-            var qty = $(this).siblings('.qty').text();
-            $('#editInput').val(qty);
-            var p_id = $(this).siblings('input[type="hidden"]').val();
-            $('#p_id').val(p_id);
-        });
         $(document).on("click", ".delete-product", function() {
             var product_id = $(this).attr("value");
             $.post("/products/delete/"+product_id, $(this).serialize(), function(res) {
@@ -52,24 +42,54 @@
         });
         $(document).on("click", ".edit", function() {
             var p_id = $(this).attr("value");
+            $("#modal").attr("action", "/edit_product");
             $("#editModalLabel").html("Edit Product")
             $("#p_id").val(p_id);
-            $("#modal").attr("action", "edit_product/"+p_id);
+
             var name = $(this).parent().siblings('.product_name').text();
             $("#input_name").val(name);
+
             var price = $(this).parent().siblings('.product_price').val();
             $("#input_price").val(price);
 
             var description = $(this).parent().siblings('.product_description').val();
             $("#input_description").val(description);
+
             var stock_count = $(this).parent().siblings('.product_count').text();
             $("#input_inventoryCount").val(stock_count);
+
             $("#input_submit").attr("value", "Update");
+
         })
         $(document).on("click", "#addModal", function() {
             $("#editModalLabel").html("Add New Product");
             $("#modal").attr("action", "/add_new_product");
             $("#input_submit").attr("value", "Add");
+            $("#input_name").val('');
+            $("#input_price").val('');
+            $("#input_description").val('');
+            $("#input_inventoryCount").val('');
+        })
+        $(document).on("submit", "#modal", function() {
+          var p_id = $("#p_id").val();
+          var p_price = $("#input_price").val();
+          var p_name = $("#input_name").val();
+          var p_description = $("#input_description").val();
+          var p_stock = $("#input_inventoryCount").val();
+          var info = {"product_id": p_id, "name": p_name, "price": p_price,
+             "description": p_description, "stock": p_stock};
+             console.log(info);
+          if ( $("#modal").attr("action") == "/add_new_product") {
+              $.post("/products/add_product/", info, function(res) {
+                  $("#table").html(res);
+              })
+              return false;
+          } else if ( $("#modal").attr("action") == "/edit_product"){
+              $.post("/products/update_product/"+p_id, info, function(res) {
+                $("#table").html(res);
+              })
+              return false;
+          }
         })
 
     })
@@ -121,12 +141,11 @@
                   <p>or add a new category: <input type="text" name="new_category"></p>
                   <p>Inventory Stock: <input id="input_inventoryCount" type="number" name="stock"></p>
                   <p>Images: <input type="file" name="fileToUpload" id="fileToUpload"></p>
-                  <input id="input_submit" type="submit" value="">
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button form="update" class="btn btn-primary">Save changes</button>
+              <button form="modal" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
