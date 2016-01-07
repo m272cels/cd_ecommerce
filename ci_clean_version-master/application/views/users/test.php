@@ -126,13 +126,15 @@
 									</div>
 
 								</form>
+<!-- THIS NEEDS TO BE FIXED -->
 <?php  		if($this->session->userdata('failreg') == 0)
 			{ ?>
 									<form id="register-form" action="/users/register" method="post" role="form" style="display: none;">
 <?php		} else { ?>
 									<form id="register-form" action="/users/login" method="post" role="form" style="display: block;">
 <?php } ?>
-								<!-- <form id="register-form" action="/users/register" method="post" role="form" style="display: block;"> -->
+<!-- THIS NEEDS TO BE FIXED -->
+								<form id="register-form" action="/users/register" method="post" role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="alias" id="alias" tabindex="1" class="form-control" placeholder="Alias" value="">
 									</div>
