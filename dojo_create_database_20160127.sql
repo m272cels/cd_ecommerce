@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `dojo_ecommerce` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `dojo_ecommerce`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: dojo_ecommerce
 -- ------------------------------------------------------
@@ -33,8 +33,8 @@ CREATE TABLE `cart_items` (
   PRIMARY KEY (`user_id`,`product_id`),
   KEY `fk_products_has_carts_products1_idx` (`product_id`),
   KEY `fk_cart_items_users1_idx` (`user_id`),
-  CONSTRAINT `fk_products_has_carts_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cart_items_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_cart_items_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_has_carts_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,6 +44,7 @@ CREATE TABLE `cart_items` (
 
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+INSERT INTO `cart_items` VALUES (10,5,5,'2016-01-22 13:42:55','2016-01-22 13:42:55'),(10,11,2,'2016-01-22 13:43:39','2016-01-22 13:43:39');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,7 @@ CREATE TABLE `categories` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,8 +150,8 @@ CREATE TABLE `order_items` (
   PRIMARY KEY (`product_id`,`order_id`),
   KEY `fk_products_has_orders_orders1_idx` (`order_id`),
   KEY `fk_products_has_orders_products1_idx` (`product_id`),
-  CONSTRAINT `fk_products_has_orders_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_products_has_orders_orders1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_products_has_orders_orders1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_has_orders_products1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -259,7 +260,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Cherry Blossom Tree Lamp2','blahblahblah',30.99,20,'2015-07-21 16:02:35','2015-07-23 20:16:35',1,1),(2,'Mini Touch Lamps (2 PACK)','blahblahblah',24.99,50,'2015-07-21 16:02:35','2015-07-21 16:02:35',4,1),(3,'Kirkland Coffee','The best coffee to help you code!',9.99,0,'2015-07-22 16:21:47','2015-07-22 16:21:47',7,11),(4,'Starbucks House Blend','Do not drink it. Literally poison',9.98,50,'2015-07-22 16:31:44','2015-07-22 16:31:44',10,11),(5,'Kirkland Chewy Granola Bar','You will get so sick of it, yet will keep eating it',1.98,50,'2015-07-22 16:37:59','2015-07-22 16:37:59',13,13),(6,'Razor Black Widow Mechanical Keyboard','With the awesome power of Blue Cherry MX switches, you will increase your coding rate by 12%!',79.99,0,'2015-07-22 16:48:07','2015-07-22 16:48:07',16,12),(7,'Apple Watch','Basically, if you are a tool, but it!',999.99,0,'2015-07-22 16:50:57','2015-07-22 16:50:57',19,2),(8,'Screw','it\'s a damn screw',0.09,0,'2015-07-22 16:55:40','2015-07-22 16:55:40',22,3),(9,'Blanket','Boring blanket',10.09,50,'2015-07-22 16:58:24','2015-07-22 16:58:24',26,4),(10,'JJ Cole All-Purpose Blanket','The Blanket is great for the whole family at any occasion. Lay it out at the park, the beach, and even sporting events. Its durable outer fabric is ideal for any surface, and the inner lining quickly wipes clean. The blanket measures 5 ft x 5 ft when opened and is made with water-resistant material that\'s perfect for any outing. The blanket is stylish and compact when folded and features a detachable strap and sturdy sewn-in insert to make folding easy.',29.95,-1,'2015-07-24 10:40:13','2015-07-24 10:40:13',29,4),(11,'Tache White Ivory Super Soft Blanket','Snuggle up by the fire or in bed with our amazingly warm cruelty free faux fur throw. Perfect for freezing nights to overnight guest and everything in between. This elegant cream throw will add a elegant look to any room',43.98,100,'2015-07-24 10:45:01','2015-07-24 10:45:01',33,4),(12,'Pinzon Brushed Cotton Waffle Blanket, King, Aqua','Made of 100% brushed cotton, the blanket offers exceptional softness and breathability for warmth without all the weight. Even more, the blanket\'s all-over waffle weave enhances visual interest and adds texture that\'s soothing to the touch. A 1-1/2-inch hem on all sides creates a neatly tailored look and promotes quality for years to come.',79.99,-1,'2015-07-24 10:50:20','2015-07-24 10:50:20',35,4),(13,'Camco Picnic Blanket (51\" x 59\", Red/White)','Camco\'s Picnic Blanket is great for outdoor outings such as picnics, tailgating, camping or as an emergency blanket in your RV. It measures 51 x 59 and is red and white. Its durable waterproof backing with foam cushioning adds comfort and insulation. The hoop-and-loop fastener keeps the blanket folded for storage. It folds compactly to 3 x 8.5 x 13.',11.20,100,'2015-07-24 10:56:14','2015-07-24 10:56:14',39,4),(14,'KIND Healthy Grains Granola Bars, Variety Pack, 1.2oz Bars, 15 Count','KIND Healthy Grains Bar Variety Pack includes Maple Pumpkin Seeds with Sea Salt, Double Dark Chocolate Chunk, and Peanut Butter Dark Chocolate assortments.\nKIND worked tirelessly to reach a perfect granola bar texture, delivering a unique combination of chewy and crunchy, so you never have to choose between the two.',9.99,100,'2015-07-24 11:00:14','2015-07-24 11:00:14',43,13),(15,'Kashi Chewy Granola Bars 6 Count','Our chewy granola bars are truly lovable. They bring our unique blend of Seven Whole Grains and Sesame together with whole, roasted nuts, succulent, sun-dried fruit, and a touch of wildflower honey. And with 4g of Fiber* and 6g of Protein, they are as nourishing as they are tasty. (*4g fat per serving)',2.98,100,'2015-07-24 11:05:27','2015-07-24 11:05:27',46,13),(16,'Nature Valley Sweet and Salty Nut Granola Bars, Cashew, 6 Count','Nature Valley Sweet & Salty Cashew Granola Bars offer a perfect balance of savory nuts and sweet granola. Each bar is bursting with nuts and dipped in a creamy cashew-butter coating.',2.50,100,'2015-07-24 11:11:57','2015-07-24 11:11:57',49,13),(17,'Casio Men\'s MQ24-1E Black Resin Watch','Quartz movement, Casual watch, Gold-tone hands and indexes, Black polyurethane bezel and case, Stainless steel crown, selector button and caseback, 30 meters/100 feet water resistant.\nThe basic black-and-gold design of the Casio Men\'s Analog Watch makes it a simple, versatile timepiece great for everyday wear. The watch is constructed with a resin case, a black stationary resin bezel, and a comfortable black rubber bracelet with an adjustable buckle clasp. A durable mineral window protects the black dial face, which cleanly features gold-tone hour indexes, gold-tone minute markers, and complementary watch hands.',11.97,0,'2015-07-24 11:17:16','2015-07-24 11:17:16',52,2),(18,'Air Jordans','These shoes are so damn fly.\nCome on and jam. And welcome to the slam.',299.97,23,'2015-07-24 15:31:42','2015-07-24 15:43:58',55,8),(19,'Asus Monitor','It\'s like, totally vibrant and stuff or something.',199.23,3,'2015-07-24 15:39:01','2015-07-24 15:42:01',58,10);
+INSERT INTO `products` VALUES (1,'Cherry Blossom Tree Lamp2','It\'s a lamp shaped like a blooming cherry tree. A truly elegant and delicate addition to any room.',30.99,20,'2015-07-21 16:02:35','2015-07-23 20:16:35',1,1),(2,'Mini Touch Lamps (2 PACK)','These lamps light up when you touch them. Pretty awesome.',24.99,50,'2015-07-21 16:02:35','2015-07-21 16:02:35',4,1),(3,'Kirkland Coffee','The best coffee to help you code!',9.99,0,'2015-07-22 16:21:47','2015-07-22 16:21:47',7,11),(4,'Starbucks House Blend','Do not drink it. Literally poison',9.98,50,'2015-07-22 16:31:44','2015-07-22 16:31:44',10,11),(5,'Kirkland Chewy Granola Bar','You will get so sick of it, yet will keep eating it',1.98,50,'2015-07-22 16:37:59','2015-07-22 16:37:59',13,13),(6,'Razor Black Widow Mechanical Keyboard','With the awesome power of Blue Cherry MX switches, you will increase your coding rate by 12%!',79.99,12,'2015-07-22 16:48:07','2015-07-22 16:48:07',16,12),(7,'Apple Watch','Basically, if you are a tool, but it!',999.99,15,'2015-07-22 16:50:57','2015-07-22 16:50:57',19,2),(8,'Screw','It\'s a screw. We actually don\'t have any more. Stop asking.',0.09,0,'2015-07-22 16:55:40','2015-07-22 16:55:40',22,3),(9,'Blanket','Boring blanket',10.09,50,'2015-07-22 16:58:24','2015-07-22 16:58:24',26,4),(10,'JJ Cole All-Purpose Blanket','The Blanket is great for the whole family at any occasion. Lay it out at the park, the beach, and even sporting events. Its durable outer fabric is ideal for any surface, and the inner lining quickly wipes clean. The blanket measures 5 ft x 5 ft when opened and is made with water-resistant material that\'s perfect for any outing. The blanket is stylish and compact when folded and features a detachable strap and sturdy sewn-in insert to make folding easy.',29.95,50,'2015-07-24 10:40:13','2015-07-24 10:40:13',29,4),(11,'Tache White Ivory Super Soft Blanket','Snuggle up by the fire or in bed with our amazingly warm cruelty free faux fur throw. Perfect for freezing nights to overnight guest and everything in between. This elegant cream throw will add a elegant look to any room',43.98,100,'2015-07-24 10:45:01','2015-07-24 10:45:01',33,4),(12,'Pinzon Brushed Cotton Waffle Blanket, King, Aqua','Made of 100% brushed cotton, the blanket offers exceptional softness and breathability for warmth without all the weight. Even more, the blanket\'s all-over waffle weave enhances visual interest and adds texture that\'s soothing to the touch. A 1-1/2-inch hem on all sides creates a neatly tailored look and promotes quality for years to come.',79.99,50,'2015-07-24 10:50:20','2015-07-24 10:50:20',35,4),(13,'Camco Picnic Blanket (51\" x 59\", Red/White)','Camco\'s Picnic Blanket is great for outdoor outings such as picnics, tailgating, camping or as an emergency blanket in your RV. It measures 51 x 59 and is red and white. Its durable waterproof backing with foam cushioning adds comfort and insulation. The hoop-and-loop fastener keeps the blanket folded for storage. It folds compactly to 3 x 8.5 x 13.',11.20,100,'2015-07-24 10:56:14','2015-07-24 10:56:14',39,4),(14,'KIND Healthy Grains Granola Bars, Variety Pack, 1.2oz Bars, 15 Count','KIND Healthy Grains Bar Variety Pack includes Maple Pumpkin Seeds with Sea Salt, Double Dark Chocolate Chunk, and Peanut Butter Dark Chocolate assortments.\nKIND worked tirelessly to reach a perfect granola bar texture, delivering a unique combination of chewy and crunchy, so you never have to choose between the two.',9.99,100,'2015-07-24 11:00:14','2015-07-24 11:00:14',43,13),(15,'Kashi Chewy Granola Bars 6 Count','Our chewy granola bars are truly lovable. They bring our unique blend of Seven Whole Grains and Sesame together with whole, roasted nuts, succulent, sun-dried fruit, and a touch of wildflower honey. And with 4g of Fiber* and 6g of Protein, they are as nourishing as they are tasty. (*4g fat per serving)',2.98,100,'2015-07-24 11:05:27','2015-07-24 11:05:27',46,13),(16,'Nature Valley Sweet and Salty Nut Granola Bars, Cashew, 6 Count','Nature Valley Sweet & Salty Cashew Granola Bars offer a perfect balance of savory nuts and sweet granola. Each bar is bursting with nuts and dipped in a creamy cashew-butter coating.',2.50,100,'2015-07-24 11:11:57','2015-07-24 11:11:57',49,13),(17,'Casio Men\'s MQ24-1E Black Resin Watch','Quartz movement, Casual watch, Gold-tone hands and indexes, Black polyurethane bezel and case, Stainless steel crown, selector button and caseback, 30 meters/100 feet water resistant.\nThe basic black-and-gold design of the Casio Men\'s Analog Watch makes it a simple, versatile timepiece great for everyday wear. The watch is constructed with a resin case, a black stationary resin bezel, and a comfortable black rubber bracelet with an adjustable buckle clasp. A durable mineral window protects the black dial face, which cleanly features gold-tone hour indexes, gold-tone minute markers, and complementary watch hands.',11.97,0,'2015-07-24 11:17:16','2015-07-24 11:17:16',52,2),(18,'Air Jordans','These shoes are so damn fly.\nCome on and jam. And welcome to the slam.',299.97,23,'2015-07-24 15:31:42','2015-07-24 15:43:58',55,8),(19,'Asus Monitor','It\'s like, totally vibrant and stuff or something.',199.23,3,'2015-07-24 15:39:01','2015-07-24 15:42:01',58,10);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,9 +309,9 @@ CREATE TABLE `reviews` (
   PRIMARY KEY (`id`,`user_id`,`products_id`),
   KEY `fk_reviews_users1_idx` (`user_id`),
   KEY `fk_reviews_products1_idx` (`products_id`),
-  CONSTRAINT `fk_reviews_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reviews_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_reviews_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reviews_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +320,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
-INSERT INTO `reviews` VALUES (10,'This coffee sucked balls',5,0,'2015-07-23 19:40:34','2015-07-23 19:40:34',3,3),(11,'New review',5,0,'2015-07-23 20:52:45','2015-07-23 20:52:45',3,4),(14,'This coffee is dope',5,0,'2015-07-23 21:24:07','2015-07-23 21:24:07',7,3),(17,'Kirkland brand sucks',0,0,'2015-07-23 22:27:24','2015-07-23 22:27:24',4,3),(18,'best keyboard ever',5,0,'2015-07-24 10:20:46','2015-07-24 10:20:46',7,6),(19,'This is the dope shit',4,0,'2015-07-24 15:51:48','2015-07-24 15:51:48',5,7);
+INSERT INTO `reviews` VALUES (10,'This coffee sucked balls',5,0,'2015-07-23 19:40:34','2015-07-23 19:40:34',3,3),(11,'New review',5,0,'2015-07-23 20:52:45','2015-07-23 20:52:45',3,4),(14,'This coffee is dope',5,0,'2015-07-23 21:24:07','2015-07-23 21:24:07',7,3),(17,'Kirkland brand sucks',0,0,'2015-07-23 22:27:24','2015-07-23 22:27:24',4,3),(18,'best keyboard ever',5,0,'2015-07-24 10:20:46','2015-07-24 10:20:46',7,6),(19,'This is the dope shit',4,0,'2015-07-24 15:51:48','2015-07-24 15:51:48',5,7),(20,'I prefer Philz but this is pretty good too',3,0,'2016-01-22 13:40:34','2016-01-22 13:40:34',10,3);
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,7 +391,7 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -399,7 +400,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,'mchoi@codingdojo.com','xxx','xxx',1,'2015-07-21 11:22:46','2015-07-21 11:22:46'),(2,NULL,'1@gmail.com','f4e559c874fd1278f4abbcfef1e8baf7','ac720b3495fb80e2cf2c667ef7bfad157e89532d2456',NULL,'2015-07-22 10:17:16',NULL),(3,'abrie','abrie@gmail.com','e4443cef26b8f0d00ac473306e60db50','ab5b8c04ac7e202b32ef1bff8a60f5d2c4a4a3a87936',NULL,'2015-07-22 19:13:16',NULL),(4,'ewats','ewats@gmail.com','04b2a50e87c662a24288fb578a2ffc0f','e43d5a70484aa0d292cde7ae46e5ff5f9819cfe12a57',NULL,'2015-07-22 19:51:17',NULL),(5,'jmtom','jmtom86@yahoo.com','06da2613ffb8d2693334c95f81a4f508','32abc463c871ddfedf820791817c10b3bd0b7f25400c',1,'2015-07-22 19:58:09',NULL),(6,NULL,'jesus@gmail.com','a7cf97e76ecdcca529ea73bada7012c2','a027cb9033b74c1a8db44b910f9c1f75bf12698a5fe9',NULL,'2015-07-23 20:08:44',NULL),(7,'youngmoney','yg@gmail.com','9a229355adcaba2d506a8a7771f0c8b8','e1056a84dafc9ac2a35c5b884f667ab2275abe088750',NULL,'2015-07-23 20:15:56',NULL),(8,'bigblack','bbw@gmail.com','148a0d3a234111d040c170f531658f1b','c2f38f660f3061635180b70e3bd6141707054771f05d',NULL,'2015-07-24 10:30:37',NULL),(9,'newuser','nw@gmail.com','477c291108f68ef393eabd674cf45351','216cc6f625870457a752984aa0e4dce4ee200e1f605d',NULL,'2015-07-24 10:32:44',NULL);
+INSERT INTO `users` VALUES (1,NULL,'mchoi@codingdojo.com','xxx','xxx',1,'2015-07-21 11:22:46','2015-07-21 11:22:46'),(2,NULL,'1@gmail.com','f4e559c874fd1278f4abbcfef1e8baf7','ac720b3495fb80e2cf2c667ef7bfad157e89532d2456',NULL,'2015-07-22 10:17:16',NULL),(3,'abrie','abrie@gmail.com','e4443cef26b8f0d00ac473306e60db50','ab5b8c04ac7e202b32ef1bff8a60f5d2c4a4a3a87936',NULL,'2015-07-22 19:13:16',NULL),(4,'ewats','ewats@gmail.com','04b2a50e87c662a24288fb578a2ffc0f','e43d5a70484aa0d292cde7ae46e5ff5f9819cfe12a57',NULL,'2015-07-22 19:51:17',NULL),(5,'jmtom','jmtom86@yahoo.com','06da2613ffb8d2693334c95f81a4f508','32abc463c871ddfedf820791817c10b3bd0b7f25400c',1,'2015-07-22 19:58:09',NULL),(6,NULL,'jesus@gmail.com','a7cf97e76ecdcca529ea73bada7012c2','a027cb9033b74c1a8db44b910f9c1f75bf12698a5fe9',NULL,'2015-07-23 20:08:44',NULL),(7,'youngmoney','yg@gmail.com','9a229355adcaba2d506a8a7771f0c8b8','e1056a84dafc9ac2a35c5b884f667ab2275abe088750',NULL,'2015-07-23 20:15:56',NULL),(8,'bigblack','bbw@gmail.com','148a0d3a234111d040c170f531658f1b','c2f38f660f3061635180b70e3bd6141707054771f05d',NULL,'2015-07-24 10:30:37',NULL),(9,'newuser','nw@gmail.com','477c291108f68ef393eabd674cf45351','216cc6f625870457a752984aa0e4dce4ee200e1f605d',NULL,'2015-07-24 10:32:44',NULL),(10,'kelvin','kelvin@gmail.com','93106b44041b36c20837a89da64aa0d6','0a27b6a307de7bc0ccee1c54fbb610f48b32d639f0dd',NULL,'2016-01-21 15:55:32',NULL),(11,'guest','guest@gmail.com','256a496b87c3e2b2f45714a6d4903467','545a664b30f4260ce3831f7dcfcb658d5f7edceb21b1',NULL,'2016-01-27 21:28:18',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -412,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-24 15:54:30
+-- Dump completed on 2016-01-27 22:04:50

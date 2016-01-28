@@ -1,2 +1,2 @@
 #!/bin/sh
-mysql -u root -p -vvv --force --comments < dojo_create_database.sql
+mysql -u root -p -vvv --force --comments < dojo_create_database_20160127.sql
