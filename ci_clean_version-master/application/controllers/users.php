@@ -64,5 +64,14 @@ class Users extends CI_Controller {
       redirect('/');
     }
   }
+
+  public function guest_login()
+  {
+    $user = $this->Session->get_guest_data();
+    $this->session->set_userdata('user' , array('admin'=> $user['admin'], 'id'=>$user['id'],'email'=>$user['email'], 'alias' => $user['alias']));
+    $cartcount = $this->Order->getcartCount($user['id'])['count'];
+    $this->session->set_userdata('cart', $cartcount);
+    redirect('/products');
+  }
 }
 

@@ -28,4 +28,5 @@ $route['delete_product/(:any)'] = "products/delete_product/$1";
 $route['chargecard'] = "carts/charge_card";
 $route['payment'] = "carts/show_payment";
 //$route['updateorder/(:any)/(:any)'] = "orders/updatestatus/$1/$2";
+$route['users/guest_login'] = "users/guest_login";
 //end of routes.php

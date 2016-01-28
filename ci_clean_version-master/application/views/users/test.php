@@ -48,6 +48,13 @@
 	</script>
 </head>
 <body>
+
+<?php
+// $this->session->sess_destroy();
+// var_dump($this->session->userdata);
+?>
+
+
 	<div class="container">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -73,6 +80,12 @@
     </div>
   </div>
 </div>
+	<div class="text-center">
+		<h1>Welcome to EnJ Co.!</h1>
+		<form action="/users/guest_login" method="post" role="form">
+			<h4>Just browsing? <button class="btn-link">Continue</button> as a guest.</h4>
+		</form>
+	</div>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
@@ -131,10 +144,10 @@
 			{ ?>
 									<form id="register-form" action="/users/register" method="post" role="form" style="display: none;">
 <?php		} else { ?>
-									<form id="register-form" action="/users/login" method="post" role="form" style="display: block;">
+									<form id="register-form" action="/users/register" method="post" role="form" style="display: block;">
 <?php } ?>
 <!-- THIS NEEDS TO BE FIXED -->
-								<form id="register-form" action="/users/register" method="post" role="form" style="display: block;">
+
 									<div class="form-group">
 										<input type="text" name="alias" id="alias" tabindex="1" class="form-control" placeholder="Alias" value="">
 									</div>
