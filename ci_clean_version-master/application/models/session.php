@@ -57,4 +57,9 @@ class Session extends CI_Model {
             return 1;
         }
     }
+
+    public function get_guest_data()
+    {
+        return $this->db->query("SELECT * FROM users WHERE id = 11")->row_array();
+    }
 }
